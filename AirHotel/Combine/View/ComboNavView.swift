@@ -32,20 +32,20 @@ struct ComboNavView: View {
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
                         Text(navInfo.location)
-                            .setTCFont(.medium, size: 16)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
+                            .font(AppTypography.D03)
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
                         Image("ic_search_16")
                     }
                     HStack(spacing: 4) {
                         Text(navInfo.date)
-                            .setTCFont(.regular, size: 10)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
+                            .font(AppTypography.T06)
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
                         Rectangle()
                             .fill(Color.borderNeutralBase_9B9B9B)
                             .frame(width: 0.5, height: 9)
                         Text(navInfo.roomAndPeople)
-                            .setTCFont(.regular, size: 10)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
+                            .font(AppTypography.T06)
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
                     }
                 }
             }

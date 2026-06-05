@@ -18,12 +18,12 @@ struct ComboTaxNoticeView: View {
                 Image("ic_notice_20")
                 Text(taxNotice)
                     .lineLimit(1)
-                    .setTCFont(.regular, size: 13)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .font(AppTypography.B04R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
                 HStack(spacing: 2) {
                     Text("詳情")
-                        .setTCFont(.regular, size: 12)
-                        .foregroundStyle(Color.textNeutralBodyMid_666666)
+                        .font(AppTypography.L03R)
+                        .foregroundStyle(AppColor.Text.neutralBodyMid)
                     Image("ic_right_14")
                 }
             }
@@ -31,15 +31,15 @@ struct ComboTaxNoticeView: View {
             .padding(.horizontal, 12)
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .background(Color.surfaceMarketOrangeExSubtle_FFF3E9)
+        .background(AppColor.Surface.marketOrangeExtraSubtle)
         .overlay(alignment: .bottom) {
             Rectangle()
-                .fill(Color.surfaceMarketOrangeSubtle_FFCEBA)
+                .fill(AppColor.Surface.marketOrangeSubtle)
                 .frame(height: 1)
         }
     }
 }
 
 #Preview {
-    ComboTaxNoticeView(taxNotice: "")
+    ComboTaxNoticeView(taxNotice: "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。")
 }

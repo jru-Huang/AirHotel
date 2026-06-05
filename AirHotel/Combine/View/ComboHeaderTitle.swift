@@ -16,21 +16,21 @@ struct ComboHeaderTitle: View {
     var body: some View {
         HStack {
             Text(title)
-                .setTCFont(.medium, size: 16)
-                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                .font(AppTypography.T02)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
             Spacer()
             Button {
                 clickAction()
             } label: {
                 Text(titleButton)
-                    .setTCFont(.regular, size: 14)
-                    .foregroundStyle(Color.textBrandPrimaryDark_84329B)
+                    .font(AppTypography.L02R)
+                    .foregroundStyle(AppColor.Text.brandPrimaryDark)
                     .padding(.vertical, 4)
                     .padding(.horizontal, 12)
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.surfaceBrandPrimaryBase_9A56D3, lineWidth: 1)
+                    .stroke(AppColor.Surface.brandPrimaryBase, lineWidth: 1)
             )
         }
     }

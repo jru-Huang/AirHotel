@@ -12,8 +12,8 @@ struct ComboSectionHeader: View {
         HStack(spacing: 12) {
             titleLine()
             Text("機加酒精選組合")
-                .setTCFont(.medium, size: 16)
-                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                .font(AppTypography.H02)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
             Spacer()
             shareAndFavoriteView
         }
@@ -27,8 +27,8 @@ struct ComboSectionHeader: View {
                 HStack(spacing: 2) {
                     Image("ic_share_20")
                     Text("分享")
-                        .setTCFont(.regular, size: 14)
-                        .foregroundStyle(Color.gray700_434343)
+                        .font(AppTypography.L02R)
+                        .foregroundStyle(Color.gray700_434343) // ??
                 }
             }
             .padding(.vertical, 6)
@@ -36,7 +36,7 @@ struct ComboSectionHeader: View {
             .padding(.trailing, 8)
             
             Rectangle()
-                .fill(Color.borderNeutralSubtle_D6D6D6)
+                .fill(AppColor.Border.neutralSubtle)
                 .frame(width: 1)
             
             Button {
@@ -45,8 +45,8 @@ struct ComboSectionHeader: View {
                 HStack(spacing: 2) {
                     Image("ic_heart_20")
                     Text("收藏")
-                        .setTCFont(.regular, size: 14)
-                        .foregroundStyle(Color.gray700_434343)
+                        .font(AppTypography.L02R)
+                        .foregroundStyle(Color.gray700_434343) // ??
                 }
             }
             .padding(.vertical, 6)
@@ -56,7 +56,7 @@ struct ComboSectionHeader: View {
         .background(Color.white, in: RoundedRectangle(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.borderNeutralSubtle_D6D6D6, lineWidth: 1)
+                .stroke(AppColor.Border.neutralSubtle, lineWidth: 1)
         )
     }
 }

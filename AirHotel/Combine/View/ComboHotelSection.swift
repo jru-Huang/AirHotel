@@ -42,8 +42,8 @@ struct ComboHotelSection: View {
     
     private var noticeView: some View {
         Text(info.hotelNotice)
-            .setTCFont(.regular, size: 14)
-            .foregroundStyle(Color.textMarketOrangeDark_FC4C02)
+            .font(AppTypography.B03)
+            .foregroundStyle(AppColor.Text.marketOrangeDark)
     }
     
     private var dateView: some View {
@@ -51,16 +51,16 @@ struct ComboHotelSection: View {
             HStack(spacing: 2) {
                 Image("ic_bed_14")
                 Text("入住退房日")
-                    .setTCFont(.medium, size: 13)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .font(AppTypography.T04M)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 6)
             .background(Color.surfaceBrandPrimaryExSubtle_F1F1F8, in: RoundedRectangle(cornerRadius: 4))
             
             Text(info.checkInOutDate)
-                .setTCFont(.medium, size: 13)
-                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                .font(AppTypography.T03M)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
     }
     
@@ -88,8 +88,8 @@ struct ComboHotelSection: View {
                     VStack(alignment: .leading, spacing: 6) {
                         if info.hotelSubtitle.isEmpty == false {
                             Text(info.hotelSubtitle)
-                                .setTCFont(.medium, size: 10)
-                                .foregroundStyle(Color.textNeutralBodyMid_666666)
+                                .font(AppTypography.B05)
+                                .foregroundStyle(AppColor.Text.neutralBodyMid)
                                 .lineLimit(1)
                         }
                         
@@ -97,9 +97,9 @@ struct ComboHotelSection: View {
                             Text(info.overall)
                                 .padding(.horizontal, 4)
                                 .padding(.bottom, 1)
-                                .setTCFont(.medium, size: 10)
-                                .foregroundStyle(Color.white)
-                                .background(Color.textBrandPrimaryBase_9A56D3, in: RoundedCorner(radius: 4, corners: [.topLeft, .bottomRight]))
+                                .font(AppTypography.N07M)
+                                .foregroundStyle(AppColor.Text.neutralWhite)
+                                .background(AppColor.Surface.brandPrimaryBase, in: RoundedCorner(radius: 4, corners: [.topLeft, .bottomRight]))
                             
                             HStack(spacing: 2) {
                                 
@@ -115,8 +115,8 @@ struct ComboHotelSection: View {
                                     }
                                 }
                                 Text(info.starHotel)
-                                    .setTCFont(.regular, size: 10)
-                                    .foregroundStyle(Color.borderNeutralBase_9B9B9B)
+                                    .font(AppTypography.B06R)
+                                    .foregroundStyle(AppColor.Text.neutralBodyLight)
                             }
                         }
                     }
@@ -133,16 +133,16 @@ struct ComboHotelSection: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 Text("標準雙床房，非吸菸房(View will be selected by the hotel )")
-                    .setTCFont(.medium, size: 13)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .font(AppTypography.B04M)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
                     .multilineTextAlignment(.leading)
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 2) {
                         Image(info.hasBreakfast == true ? "ic_breakfast_16_breakfast_gray" : "ic_breakfast_16_nobreakfast_gray")
                         Text(info.hasBreakfast == true ? "僅包含大人早餐" : "不包含早餐")
-                            .setTCFont(.regular, size: 12)
-                            .foregroundStyle(Color.textNeutralBodyMid_666666)
+                            .font(AppTypography.B05)
+                            .foregroundStyle(AppColor.Text.neutralBodyMid)
                     }
                     
                     HStack(spacing: 0) {
@@ -152,8 +152,8 @@ struct ComboHotelSection: View {
                             HStack(spacing: 2) {
                                 Image(info.bookingRuleKey.imageName)
                                 Text(info.bookingRule)
-                                    .setTCFont(.regular, size: 12)
-                                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                                    .font(AppTypography.B05)
+                                    .foregroundStyle(AppColor.Text.neutralBodyMid)
                                     .overlay(alignment: .bottom) {
                                         GeometryReader { geo in
                                             Path { path in
@@ -161,7 +161,7 @@ struct ComboHotelSection: View {
                                                 path.addLine(to: CGPoint(x: geo.size.width, y: 0))
                                             }
                                             .stroke(
-                                                Color.textNeutralBodyMid_666666,
+                                                AppColor.Text.neutralBodyMid,
                                                 style: StrokeStyle(
                                                     lineWidth: 1,
                                                     lineCap: .round,
@@ -178,8 +178,8 @@ struct ComboHotelSection: View {
                         
                         HStack(spacing: 0) {
                             Text("更換房型")
-                                .setTCFont(.regular, size: 14)
-                                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                                .font(AppTypography.L02R)
+                                .foregroundStyle(AppColor.Text.neutralBodyBase)
                             Image("ic_right_12")
                         }
                     }
@@ -197,9 +197,9 @@ struct ComboHotelSection: View {
                     Text(tag)
                         .padding(.vertical, 2)
                         .padding(.horizontal, 4)
-                        .setTCFont(.medium, size: 12)
-                        .foregroundStyle(Color.textMarketOrangeMid_FF8212)
-                        .background(Color.surfaceMarketOrangeExSubtle_FFF3E9, in: RoundedRectangle(cornerRadius: 2))
+                        .font(AppTypography.T05M)
+                        .foregroundStyle(AppColor.Text.marketOrangeMid)
+                        .background(AppColor.Surface.marketOrangeExtraSubtle, in: RoundedRectangle(cornerRadius: 2))
                 }
             }
         }
@@ -208,7 +208,7 @@ struct ComboHotelSection: View {
     private var dividerView: some View {
         Rectangle()
             .frame(height: 1)
-            .foregroundStyle(Color.borderNeutralExSubtle_E4E4E4)
+            .foregroundStyle(AppColor.Border.neutralExtraSubtle)
     }
 }
 
@@ -232,8 +232,8 @@ struct TextWithIconView: UIViewRepresentable {
         let attributedText = NSMutableAttributedString(
             string: text + " ",
             attributes: [
-                .font: UIFont(thickness: .medium, size: 14),
-                .foregroundColor: UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)// #333333
+                .font: AppTypography.UI.T03M,
+                .foregroundColor: AppColor.UI.Text.neutralBodyBase
             ]
         )
         

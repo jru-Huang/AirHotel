@@ -43,56 +43,28 @@ struct ComboAirSection: View {
         }
     }
     
-    private var tagAndLuggageView: some View {
-        VStack(spacing: 8) {
-            airTagView(tagList: info.airTagList)
-            
-            Rectangle()
-                .fill(Color.borderNeutralExSubtle_E4E4E4)
-                .frame(height: 1)
-            
-            HStack(spacing: 4) {
-                Image(info.luggageType.imageName)
-                
-                Text(info.luggageType.note)
-                    .setTCFont(.medium, size: 14)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
-                
-                Spacer()
-                
-                Button {
-                    print("點擊行李資訊及票規")
-                } label: {
-                    Text("行李資訊及票規")
-                        .setTCFont(.regular, size: 14)
-                        .foregroundStyle(Color.textBrandPrimaryDark_84329B)
-                }
-            }
-        }
-    }
-    
     private func flightInfo(segment: ComboFlightSegment) -> some View {
         VStack(spacing: 0) {
             
             // tag, date
             HStack(spacing: 8) {
                 Text(segment.tag)
-                    .setTCFont(.medium, size: 12)
-                    .foregroundStyle(Color.white)
+                    .font(AppTypography.T05M)
+                    .foregroundStyle(AppColor.Text.neutralWhite)
                     .padding(.vertical, 2)
                     .padding(.horizontal, 6)
-                    .background(Color.surfaceBrandPrimaryBase_9A56D3, in: RoundedCorner(radius: 4, corners: [.bottomLeft, .bottomRight, .topRight]))
+                    .background(AppColor.Surface.brandPrimaryBase, in: RoundedCorner(radius: 4, corners: [.bottomLeft, .bottomRight, .topRight]))
                 
                 Text(segment.date)
-                    .setTCFont(.regular, size: 14)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .font(AppTypography.T03M)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
                 Spacer()
                 
                 if segment.noticeText.isEmpty == false {
                     HStack(spacing: 1) {
                         Text(segment.noticeText)
-                            .setTCFont(.regular, size: 12)
-                            .foregroundStyle(Color.surfaceBrandSecondaryBase_00A3E0)
+                            .font(AppTypography.B05)
+                            .foregroundStyle(AppColor.Text.brandSecondaryBase)
                         Image("ic_notice_16")
                     }
                     .padding(.trailing, 8)
@@ -106,72 +78,72 @@ struct ComboAirSection: View {
                     .padding(5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.borderBrandPrimaryExSubtle_F8F8FA, lineWidth: 1)
+                            .stroke(AppColor.Border.brandPrimaryExtraSubtle, lineWidth: 1)
                     )
                 
                 HStack(spacing: 8) {
                     
                     VStack(spacing: 0) {
                         Text(segment.depTime)
-                            .setTCFont(.semibold, size: 18)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
+                            .font(AppTypography.N03B)
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
                         
                         HStack(spacing: 1) {
                             Text(segment.depLocation)
                                 .padding(.horizontal, 2)
-                                .setTCFont(.medium, size: 10)
-                                .foregroundStyle(segment.depLocDiffMark == true ? Color.textNeutralBodyBase_333333 : Color.textNeutralBodyMid_666666)
-                                .background(segment.depLocDiffMark == true ? Color.surfaceNeutralMid_D6D6D6 : Color.clear, in: RoundedRectangle(cornerRadius: 2))
+                                .setTCFont(.medium, size: 10) // ??
+                                .foregroundStyle(segment.depLocDiffMark == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
+                                .background(segment.depLocDiffMark == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
                             Text(segment.depTerminal)
-                                .setTCFont(.medium, size: 10)
-                                .foregroundStyle(Color.textNeutralBodyMid_666666)
+                                .setTCFont(.medium, size: 10) // ??
+                                .foregroundStyle(AppColor.Text.neutralBodyMid)
                         }
                     }
                     
                     VStack(alignment: .center, spacing: 0) {
                         HStack(spacing: 4) {
                             RoundedRectangle(cornerRadius: 0.5)
-                                .fill(Color.borderNeutralSubtle_D6D6D6)
+                                .fill(AppColor.Border.neutralSubtle)
                                 .frame(width: 37.5, height: 1)
                             
                             Text(segment.flightTime)
-                                .setTCFont(.regular, size: 10)
-                                .foregroundStyle(Color.textNeutralBodyMid_666666)
+                                .font(AppTypography.B06R)
+                                .foregroundStyle(AppColor.Text.neutralBodyMid)
                             
                             RoundedRectangle(cornerRadius: 0.5)
-                                .fill(Color.borderNeutralSubtle_D6D6D6)
+                                .fill(AppColor.Border.neutralSubtle)
                                 .frame(width: 37.5, height: 1)
                         }
                         
                         Text(segment.transitNote)
-                            .setTCFont(.regular, size: 10)
+                            .font(AppTypography.B06R)
                             .foregroundStyle(
                                 segment.transitNote == "直飛" ?
-                                Color.textNeutralBodyMid_666666 : Color.textBrandPrimaryBase_9A56D3
+                                AppColor.Text.neutralBodyMid : AppColor.Text.brandPrimaryBase
                             )
                     }
                     
                     ZStack(alignment: .topTrailing) {
                         VStack(spacing: 0) {
                             Text(segment.arrTime)
-                                .setTCFont(.semibold, size: 18)
-                                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                                .font(AppTypography.N03B)
+                                .foregroundStyle(AppColor.Text.neutralBodyBase)
                             
                             HStack(spacing: 1) {
                                 Text(segment.arrLocation)
                                     .padding(.horizontal, 2)
-                                    .setTCFont(.medium, size: 10)
-                                    .foregroundStyle(segment.arrLocDiffMark == true ? Color.textNeutralBodyBase_333333 : Color.textNeutralBodyMid_666666)
-                                    .background(segment.arrLocDiffMark == true ? Color.surfaceNeutralMid_D6D6D6 : Color.clear, in: RoundedRectangle(cornerRadius: 2))
+                                    .setTCFont(.medium, size: 10) // ??
+                                    .foregroundStyle(segment.arrLocDiffMark == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
+                                    .background(segment.arrLocDiffMark == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
                                 Text(segment.arrTerminal)
-                                    .setTCFont(.medium, size: 10)
-                                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                                    .setTCFont(.medium, size: 10) // ??
+                                    .foregroundStyle(AppColor.Text.neutralBodyMid)
                             }
                         }
                         if segment.dateVariation.isEmpty == false {
                             Text(segment.dateVariation)
-                                .setTCFont(.medium, size: 10)
-                                .foregroundStyle(Color.textBrandSecondaryBase_00A3E0)
+                                .font(AppTypography.N07M)
+                                .foregroundStyle(AppColor.Text.brandSecondaryBase)
                                 .offset(x: 8, y: -5)
                         }
                     }
@@ -185,6 +157,34 @@ struct ComboAirSection: View {
         }
     }
     
+    private var tagAndLuggageView: some View {
+        VStack(spacing: 8) {
+            airTagView(tagList: info.airTagList)
+            
+            Rectangle()
+                .fill(AppColor.Border.neutralExtraSubtle)
+                .frame(height: 1)
+            
+            HStack(spacing: 4) {
+                Image(info.luggageType.imageName)
+                
+                Text(info.luggageType.note)
+                    .font(AppTypography.T03M)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
+                
+                Spacer()
+                
+                Button {
+                    print("點擊行李資訊及票規")
+                } label: {
+                    Text("行李資訊及票規")
+                        .font(AppTypography.L02R)
+                        .foregroundStyle(AppColor.Text.brandPrimaryDark)
+                }
+            }
+        }
+    }
+    
     private func airTagView(tagList: [String]) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 4) {
@@ -192,9 +192,9 @@ struct ComboAirSection: View {
                     Text(tag)
                         .padding(.vertical, 2)
                         .padding(.horizontal, 4)
-                        .setTCFont(.medium, size: 12)
-                        .foregroundStyle(Color.textMarketOrangeMid_FF8212)
-                        .background(Color.surfaceMarketOrangeExSubtle_FFF3E9, in: RoundedRectangle(cornerRadius: 2))
+                        .font(AppTypography.T05M)
+                        .foregroundStyle(AppColor.Text.marketOrangeMid)
+                        .background(AppColor.Surface.marketOrangeExtraSubtle, in: RoundedRectangle(cornerRadius: 2))
                 }
             }
         }

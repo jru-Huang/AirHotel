@@ -21,8 +21,8 @@ struct ComboAmountDetailView: View {
     private var titleView: some View {
         ZStack {
             Text("售價明細")
-                .setTCFont(.medium, size: 16)
-                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                .font(AppTypography.D03)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
             HStack {
                 Button {
                     showAmountDetail = false
@@ -34,7 +34,7 @@ struct ComboAmountDetailView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
-        .background(Color.white, in: RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
+        .background(AppColor.Surface.neutralWhite, in: RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
     }
     
     private var contentView: some View {
@@ -45,40 +45,40 @@ struct ComboAmountDetailView: View {
                         title: "優惠代碼折扣",
                         content: "晚鳥清艙折抵800元",
                         discount: "-$2,000",
-                         titleColor: Color.textMarketOrangeBase_FF6F00,
-                        bgColor: Color.surfaceMarketOrangeExSubtle_FFF3E9,
-                         leadingBorderColor: Color.borderMarketOrangeSubtle_FFBA9E)
+                        titleColor: AppColor.Text.marketOrangeBase,
+                        bgColor: AppColor.Surface.marketOrangeExtraSubtle,
+                        leadingBorderColor: AppColor.Border.marketOrangeSubtle)
             discountRow(icon: "ic_cola_coin_14",
                         title: "可樂旅遊幣折抵",
                         content: "均分於所有旅客",
                         discount: "-$120",
-                         titleColor: Color.textBrandPrimaryBase_9A56D3,
-                         bgColor: Color.surfaceBrandPrimaryExSubtle_F1F1F8,
-                         leadingBorderColor: Color.borderBrandPrimarySubtle_D4C2FF)
+                        titleColor: AppColor.Text.brandPrimaryBase,
+                        bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
+                        leadingBorderColor: AppColor.Border.brandPrimarySubtle)
         }
         .padding(.horizontal, 20)
         .padding(.top, 16)
         .padding(.bottom, 24)
-        .background(Color.white)
+        .background(AppColor.Surface.neutralWhite)
     }
     
     private func priceRow(appellation: String, price: String, count: String, total: String) -> some View {
         HStack(spacing: 0) {
             HStack(spacing: 4) {
                 Text(appellation)
-                    .setTCFont(.regular, size: 14)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .font(AppTypography.T03R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
                 Text(price)
-                    .setTCFont(.regular, size: 14)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .font(AppTypography.N05R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
                 Text(count)
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                    .font(AppTypography.N06R)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
             Spacer()
             Text(total)
-                .setTCFont(.regular, size: 14)
-                .foregroundStyle(Color.textNeutralBodyBase_333333)
+                .font(AppTypography.N05R)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
     }
     
@@ -88,23 +88,23 @@ struct ComboAmountDetailView: View {
                 HStack(spacing: 4) {
                     Image(icon)
                     Text(title)
-                        .setTCFont(.medium, size: 13)
+                        .font(AppTypography.T04M)
                         .foregroundStyle(titleColor)
                 }
                 
                 Text(content)
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                    .font(AppTypography.B05)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
             Spacer()
             VStack(alignment: .trailing, spacing: 2) {
                 Text("總額折扣")
-                    .setTCFont(.regular, size: 10)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                    .font(AppTypography.B06R)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
                 Text(discount)
-                    .setTCFont(.medium, size: 14)
-                    .foregroundStyle(Color.textMarketOrangeDark_FC4C02)
+                    .font(AppTypography.N05M)
+                    .foregroundStyle(AppColor.Text.marketOrangeDark)
             }
         }
         .padding(12)

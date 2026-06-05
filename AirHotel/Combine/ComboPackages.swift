@@ -19,7 +19,7 @@ struct ComboPackages: View {
     
     var body: some View {
         ZStack {
-            Color.backgroundPagePurple_F8F8F8
+            AppColor.Background.pagePurple
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -78,7 +78,7 @@ struct ComboPackages: View {
     }
     
     private var searchBgView: some View {
-        Color.surfaceOpacityGrayMid_333333_50
+        AppColor.Surface.opacityGrayMid
             .ignoresSafeArea()
             .onTapGesture {
                 isShowedSearchView = false
@@ -86,7 +86,7 @@ struct ComboPackages: View {
     }
     
     private var amountDetailBgView: some View {
-        Color.surfaceOpacityGrayMid_333333_50
+        AppColor.Surface.opacityGrayMid
             .ignoresSafeArea()
             .onTapGesture {
                 showAmountDetail = false

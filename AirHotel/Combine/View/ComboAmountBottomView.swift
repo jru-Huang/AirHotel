@@ -14,16 +14,16 @@ struct ComboAmountBottomView: View {
         HStack(alignment: .bottom, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text("機＋酒含稅總計")
-                    .setTCFont(.regular, size: 10)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                    .font(AppTypography.T06)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
                 HStack(spacing: 4) {
                     Text("$")
-                        .setTCFont(.regular, size: 12)
-                        .foregroundStyle(Color.textMarketOrangeDark_FC4C02)
+                        .font(AppTypography.B05)
+                        .foregroundStyle(AppColor.Text.marketOrangeDark)
                     Text("83,880")
-                        .setTCFont(.semibold, size: 18)
-                        .foregroundStyle(Color.textMarketOrangeDark_FC4C02)
+                        .font(AppTypography.N03M)
+                        .foregroundStyle(AppColor.Text.marketOrangeDark)
                 }
             }
             .padding(.leading, 14)
@@ -36,8 +36,8 @@ struct ComboAmountBottomView: View {
             } label: {
                 HStack(spacing: 4) {
                     Text("售價明細")
-                        .setTCFont(.regular, size: 12)
-                        .foregroundStyle(Color.textBrandPrimaryDark_84329B)
+                        .font(AppTypography.L03R)
+                        .foregroundStyle(AppColor.Text.brandPrimaryDark)
                     Image(showAmountDetail == true ? "ic_down_16": "ic_up_16")
                 }
                 .padding(.bottom, 8)
@@ -49,11 +49,11 @@ struct ComboAmountBottomView: View {
             } label: {
                 
                 ZStack {
-                    Color.textBrandPrimaryBase_9A56D3
+                    AppColor.Surface.brandPrimaryBase
                     
                     Text("訂購")
-                        .setTCFont(.medium, size: 14)
-                        .foregroundStyle(.white)
+                        .font(AppTypography.L02M)
+                        .foregroundStyle(AppColor.Text.neutralWhite)
                 }
                 .frame(width: 108, height: 47)
             }

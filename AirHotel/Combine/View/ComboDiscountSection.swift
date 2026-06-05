@@ -14,10 +14,11 @@ struct ComboDiscountSection: View {
     
     @State var isLogin: Bool = true
     @State var colaCoinMark: Bool = true
-    @State var currentColaCoins: String = "13,727"
-    @State var colaCoinRemarkText: String = "每 10 枚可折抵訂單金額 $3"
+    @State var currentColaCoins: String = "13,727" //"歡迎多加消費以累積可樂旅遊幣！"
+    @State var colaCoinRemarkText: String = "每 10 枚可折抵訂單金額 $2"
     @State var colaCoinDiscountText: String = "-$3,636"
     @State var colaCoinDisableDes: String = "您所使用的優惠代碼折扣，可樂旅遊幣無法同時使用折抵，請擇一使用"
+    @State var inputCoinText: String = "使用5,000枚，均分於所有旅客" //"請輸入欲使用的數量"
     
     var body: some View {
         VStack(spacing: 12) {
@@ -27,7 +28,7 @@ struct ComboDiscountSection: View {
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
-        .background(Color.white, in: RoundedRectangle(cornerRadius: 8))
+        .background(AppColor.Surface.neutralWhite, in: RoundedRectangle(cornerRadius: 8))
     }
     
     private var discountView: some View {
@@ -42,8 +43,8 @@ struct ComboDiscountSection: View {
                     HStack(alignment: .top, spacing: 6) {
                         Image("ic_ticket_20")
                         Text("優惠代碼")
-                            .setTCFont(.medium, size: 14)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
+                            .font(AppTypography.T03M)
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
                     }
                     
                     Spacer(minLength: 12)
@@ -61,8 +62,8 @@ struct ComboDiscountSection: View {
                             }
                             
                             Text(info.discount.isEmpty == true ? "選擇或自行輸入" : info.discount)
-                                .setTCFont(.regular, size: 12)
-                                .foregroundStyle(info.discount.isEmpty == true ? Color.textNeutralBodyLight_9B9B9B : Color.textMarketOrangeDark_FC4C02)
+                                .font(AppTypography.T05R)
+                                .foregroundStyle(info.discount.isEmpty == true ? AppColor.Text.neutralBodyLight : AppColor.Text.marketOrangeDark)
                                 .lineLimit(1)
                         }
                         
@@ -75,8 +76,8 @@ struct ComboDiscountSection: View {
             
             if info.discountError.isEmpty == false {
                 Text(info.discountError)
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textStateError_D6001C)
+                    .font(AppTypography.B05)
+                    .foregroundStyle(AppColor.Text.stateError)
                     .padding(.leading, 26) //icon 20 + spacing 6
                     .multilineTextAlignment(.leading)
             }
@@ -91,36 +92,40 @@ struct ComboDiscountSection: View {
                 HStack(spacing: 6) {
                     Image(isLogin == true ? "ic_cola_coin_20_focus" : "ic_cola_coin_20_default")
                     Text("可樂旅遊幣")
-                        .setTCFont(.medium, size: 14)
-                        .foregroundStyle(isLogin == true ? Color.textNeutralBodyBase_333333 : Color.textStateDisabled_C3C3C3)
+                        .font(AppTypography.T03M)
+                        .foregroundStyle(isLogin == true ? AppColor.Text.neutralBodyBase : AppColor.Text.stateDisabled)
                 }
                 
                 Spacer()
                 
-                HStack(alignment: .center, spacing: 2) {
-                    Text("餘額")
-                        .setTCFont(.regular, size: 10)
-                        .foregroundStyle(Color.textNeutralBodyBase_333333)
-                    HStack(alignment: .center, spacing: 0) {
-                        Text("600")
-                            .setTCFont(.regular, size: 14)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
-                        
-                        Text("枚")
-                            .setTCFont(.regular, size: 10)
-                            .foregroundStyle(Color.textNeutralBodyBase_333333)
+                if currentColaCoins.isEmpty == false {
+                    HStack(alignment: .center, spacing: 2) {
+                        Text("餘額")
+                            .font(AppTypography.B06R)
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
+                        HStack(alignment: .center, spacing: 0) {
+                            Text(currentColaCoins)
+                                .font(AppTypography.N05R)
+                                .foregroundStyle(AppColor.Text.neutralBodyBase)
+                            
+                            Text("枚")
+                                .font(AppTypography.B06R)
+                                .foregroundStyle(AppColor.Text.neutralBodyBase)
+                        }
                     }
                 }
                 
-                Text(isLogin == true ? (currentColaCoins.isEmpty == true) ? "歡迎多加消費以累積可樂旅遊幣！" : currentColaCoins : "選擇或自行輸入")
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                Text(isLogin == false ? "選擇或自行輸入" : currentColaCoins)
+                    .font(AppTypography.T05R)
+                    .foregroundStyle(currentColaCoins == "選擇或自行輸入" ? AppColor.Text.neutralBodyLight : AppColor.Text.neutralBodyMid)
                 if isLogin == false {
                     Image("ic_right_12")
                 }
             }
             //ColaCoin.currentColaCoins == "歡迎多加消費以累積可樂旅遊幣!" 隱藏coinView
-            coinView
+            if !(currentColaCoins == "歡迎多加消費以累積可樂旅遊幣!") {
+                coinView
+            }
         }
         
     }
@@ -135,10 +140,14 @@ struct ComboDiscountSection: View {
             }
             
             //ColaCoin.currentColaCoins == "" 隱藏remarkView
-            remarkView
+            if !(currentColaCoins == "") {
+                remarkView
+            }
             
             //Price_Detail_List.colaCoinMark == true隱藏
-            disableView
+            if colaCoinMark {
+                disableView
+            }
         }
         .padding(.leading, 26)
     }
@@ -148,14 +157,15 @@ struct ComboDiscountSection: View {
             print("點擊輸入可樂幣")
         } label: {
             HStack(spacing: 10) {
-                Text("請輸入欲使用的數量")
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralCaption_C3C3C3)
+                Text(inputCoinText)
+                    .font(AppTypography.B05)
+                    .foregroundStyle(inputCoinText == "請輸入欲使用的數量" ? AppColor.Text.neutralCaption : AppColor.Text.neutralBodyBase)
                     .multilineTextAlignment(.leading)
                 
                 Spacer()
                 Button {
                     print("點擊刪除可樂幣")
+                    inputCoinText = "請輸入欲使用的數量"
                 } label: {
                     Image("ic_delete_16")
                 }
@@ -163,40 +173,40 @@ struct ComboDiscountSection: View {
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
-            .background(Color.surfaceNeutralExSubtle_F8F8F8, in: RoundedRectangle(cornerRadius: 4))
+            .background(AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 4))
             
         }
     }
     
     private var remarkView: some View {
         HStack {
-            Text("折抵訂單金額須 10 枚以上")
-                .setTCFont(.regular, size: 12)
-                .foregroundStyle(Color.textNeutralBodyLight_9B9B9B)
+            Text(colaCoinRemarkText)
+                .font(AppTypography.B05)
+                .foregroundStyle(AppColor.Text.neutralBodyLight)
                 .multilineTextAlignment(.leading)
             
             Spacer()
             //清空可樂幣
             HStack(spacing: 2) {
                 Text("可折抵")
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                    .font(AppTypography.B05)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
                 Text("$1000")
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textMarketOrangeDark_FC4C02)
+                    .font(AppTypography.N06R)
+                    .foregroundStyle(AppColor.Text.marketOrangeDark)
                 
                 Text("元")
-                    .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralBodyMid_666666)
+                    .font(AppTypography.B05)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
         }
     }
     
     private var disableView: some View {
-        Text("您所使用的優惠代碼折扣，可樂旅遊幣無法同時使用折抵，請擇一使用")
-            .setTCFont(.regular, size: 12)
-            .foregroundStyle(Color.textStateError_D6001C)
+        Text(colaCoinDisableDes)
+            .font(AppTypography.B05)
+            .foregroundStyle(AppColor.Text.stateError)
             .multilineTextAlignment(.leading)
     }
     
