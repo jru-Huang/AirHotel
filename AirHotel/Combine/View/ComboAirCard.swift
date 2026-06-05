@@ -1,5 +1,5 @@
 //
-//  ComboAirSection.swift
+//  ComboAirCard.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/28.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ComboAirSection: View {
+struct ComboAirCard: View {
     let info: ComboAirInfoCard
     
     var body: some View {
         VStack(spacing: 12) {
-            ComboHeaderTitle(title: "已選航班",
+            ComboCardTitle(title: "已選航班",
                              titleButton: "更換航班",
                              clickAction: {
                 print("點擊已選航班")
@@ -201,7 +201,7 @@ struct ComboAirSection: View {
     }
 }
 #Preview {
-    ComboAirSection(info: ComboAirInfoCard(flights: [
+    ComboAirCard(info: ComboAirInfoCard(flights: [
         ComboFlightSegment(
             tag: "去程",
             date: "2026年01月24日 週六",

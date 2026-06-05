@@ -13,68 +13,115 @@ struct ComboPackages: View {
     @State private var isShowedSearchView: Bool = false
     @State private var showAmountDetail: Bool = false
     
+    let navBarHeight: CGFloat = 44
+    
     init() {
         _viewModel = StateObject(wrappedValue: ComboPackagesViewModel())
     }
     
     var body: some View {
-        ZStack {
-            AppColor.Background.pagePurple
-                .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                
-                ComboTaxNoticeView(taxNotice: viewModel.taxNotice)
-                ScrollView {
-                    VStack(spacing: 0) {
-                        ComboSystemNoticeView(systemNoticeList: viewModel.systemNoticeList)
-                        packagesContentView
-                    }
-                } 
-            }
-            
-            if isShowedSearchView == true {
-                searchBgView
-            }
-            
-            if showAmountDetail == true {
-                amountDetailBgView
-            }
-        }
-        .safeAreaInset(edge: .top, spacing: 0, content: {
-            VStack(spacing: 0) {
-                
-                ComboNavView(isShowedSearchView: $isShowedSearchView, navInfo: viewModel.navInfo, showSearchView: { [self] isShowedSearchView in
-                    self.isShowedSearchView = isShowedSearchView
-                })
-                
-                if isShowedSearchView == true {
-                    SearchView()
-                }
-            }
-        })
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            VStack(spacing: 0) {
-                if showAmountDetail == true {
-                    ComboAmountDetailView(showAmountDetail: $showAmountDetail)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-                
-                ComboAmountBottomView(showAmountDetail: $showAmountDetail)
-            }
-            .animation(.easeInOut(duration: 0.3), value: showAmountDetail)
+        GeometryReader { proxy in
+            contentView(proxy: proxy)
         }
     }
     
+    private func contentView(proxy: GeometryProxy) -> some View {
+        ZStack {
+            backgroundView
+            mainContentView(bottomInset: proxy.safeAreaInsets.bottom)
+            
+            if !isShowedSearchView {
+                navContainerView
+            }
+            
+            amountDetailOverlayView
+            amountBottomContainerView
+                .zIndex(1)
+            
+            if isShowedSearchView {
+                searchOverlayView
+                    .zIndex(2)
+            }
+        }
+    }
+
+    private var backgroundView: some View {
+        AppColor.Background.pagePurple
+            .ignoresSafeArea()
+    }
+
+    private func mainContentView(bottomInset: CGFloat) -> some View {
+        VStack(spacing: 0) {
+            ComboTaxNoticeView(taxNotice: viewModel.taxNotice)
+            
+            ScrollView {
+                VStack(spacing: 0) {
+                    ComboSystemNoticeView(systemNoticeList: viewModel.systemNoticeList)
+                    packagesContentView
+                }
+                .padding(.bottom, bottomInset + 12)
+            }
+        }
+        .padding(.top, navBarHeight)
+    }
+
     private var packagesContentView: some View {
         VStack(spacing: 12) {
-            ComboSectionHeader()
-            ComboAirSection(info: viewModel.airInfoCard)
-            ComboHotelSection(info: viewModel.hotelInfoCard)
-            ComboDiscountSection(info: $viewModel.discountInfoCard)
+            ComboHeader()
+            ComboAirCard(info: viewModel.airInfoCard)
+            ComboHotelCard(info: viewModel.hotelInfoCard)
+            ComboDiscountCard(info: $viewModel.discountInfoCard)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+    }
+
+    private var navContainerView: some View {
+        VStack(spacing: 0) {
+            comboNavView
+            Spacer()
+        }
+    }
+
+    private var comboNavView: some View {
+        ComboNavView(
+            isShowedSearchView: $isShowedSearchView,
+            navInfo: viewModel.navInfo,
+            showSearchView: { self.isShowedSearchView = $0 }
+        )
+    }
+
+    @ViewBuilder
+    private var amountDetailOverlayView: some View {
+        if showAmountDetail {
+            amountDetailBgView
+        }
+    }
+    
+    private var amountBottomContainerView: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            if showAmountDetail {
+                ComboAmountDetailView(showAmountDetail: $showAmountDetail)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+            
+            ComboAmountBottomView(showAmountDetail: $showAmountDetail)
+        }
+        .animation(.easeInOut(duration: 0.3), value: showAmountDetail)
+    }
+
+    private var searchOverlayView: some View {
+        ZStack(alignment: .top) {
+            searchBgView
+
+            VStack(spacing: 0) {
+                comboNavView
+                SearchView()
+                Spacer()
+            }
+        }
     }
     
     private var searchBgView: some View {

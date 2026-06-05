@@ -53,6 +53,3 @@ struct RoundedCorner: Shape {
     }
 }
 
-extension Color {
-    static let gray700_434343: Color = Color(red: 0.26, green: 0.26, blue: 0.26)
-}

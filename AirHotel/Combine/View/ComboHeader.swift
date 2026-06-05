@@ -1,5 +1,5 @@
 //
-//  ComboSectionHeader.swift
+//  ComboHeader.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboSectionHeader: View {
+struct ComboHeader: View {
     var body: some View {
         HStack(spacing: 12) {
             titleLine()
@@ -28,7 +28,7 @@ struct ComboSectionHeader: View {
                     Image("ic_share_20")
                     Text("分享")
                         .font(AppTypography.L02R)
-                        .foregroundStyle(Color.gray700_434343) // ??
+                        .foregroundStyle(AppColor.Text.neutralBodyBase)
                 }
             }
             .padding(.vertical, 6)
@@ -46,7 +46,7 @@ struct ComboSectionHeader: View {
                     Image("ic_heart_20")
                     Text("收藏")
                         .font(AppTypography.L02R)
-                        .foregroundStyle(Color.gray700_434343) // ??
+                        .foregroundStyle(AppColor.Text.neutralBodyBase)
                 }
             }
             .padding(.vertical, 6)
@@ -62,5 +62,5 @@ struct ComboSectionHeader: View {
 }
 
 #Preview {
-    ComboSectionHeader()
+    ComboHeader()
 }

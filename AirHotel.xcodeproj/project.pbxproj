@@ -15,18 +15,18 @@
 		7B2D22E32FC7DC0800D0531F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22DC2FC7DC0800D0531F /* SearchView.swift */; };
 		7B2D22E42FC7DC0800D0531F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B2D22D72FC7DC0800D0531F /* Assets.xcassets */; };
 		7B2D22E72FC7DCB500D0531F /* BookingConfirmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22E62FC7DCB500D0531F /* BookingConfirmView.swift */; };
-		7B2D22EA2FC81D4B00D0531F /* ComboAirSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22E92FC81D4B00D0531F /* ComboAirSection.swift */; };
-		7B2D22EC2FC820B900D0531F /* ComboHeaderTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22EB2FC820B900D0531F /* ComboHeaderTitle.swift */; };
-		7B3343662FCD5E4E00B82A6A /* ComboDiscountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3343652FCD5E4E00B82A6A /* ComboDiscountSection.swift */; };
+		7B2D22EA2FC81D4B00D0531F /* ComboAirCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22E92FC81D4B00D0531F /* ComboAirCard.swift */; };
+		7B2D22EC2FC820B900D0531F /* ComboCardTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22EB2FC820B900D0531F /* ComboCardTitle.swift */; };
+		7B3343662FCD5E4E00B82A6A /* ComboDiscountCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3343652FCD5E4E00B82A6A /* ComboDiscountCard.swift */; };
 		7B39BE2C2FC94706003ABF42 /* ComboAirInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2B2FC94706003ABF42 /* ComboAirInfoCard.swift */; };
 		7B39BE2F2FC9665D003ABF42 /* ComboNoticeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* ComboNoticeInfo.swift */; };
-		7B39BE312FC96A69003ABF42 /* ComboSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE302FC96A69003ABF42 /* ComboSectionHeader.swift */; };
+		7B39BE312FC96A69003ABF42 /* ComboHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE302FC96A69003ABF42 /* ComboHeader.swift */; };
 		7B39BE332FC96B3C003ABF42 /* ComboNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE322FC96B3C003ABF42 /* ComboNavView.swift */; };
 		7B39BE352FC96B96003ABF42 /* ComboTaxNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE342FC96B96003ABF42 /* ComboTaxNoticeView.swift */; };
 		7B39BE372FC96BC8003ABF42 /* ComboSystemNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE362FC96BC8003ABF42 /* ComboSystemNoticeView.swift */; };
 		7B39BE392FC96CC3003ABF42 /* ComboPackagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE382FC96CC3003ABF42 /* ComboPackagesViewModel.swift */; };
 		7B39BE3B2FC971CF003ABF42 /* ComboNavInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3A2FC971CF003ABF42 /* ComboNavInfo.swift */; };
-		7B39BE3D2FC97A61003ABF42 /* ComboHotelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3C2FC97A61003ABF42 /* ComboHotelSection.swift */; };
+		7B39BE3D2FC97A61003ABF42 /* ComboHotelCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3C2FC97A61003ABF42 /* ComboHotelCard.swift */; };
 		7B6411BD2FCFFFDE00EC660B /* ComboAmountBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BC2FCFFFDE00EC660B /* ComboAmountBottomView.swift */; };
 		7B6411BF2FD001AF00EC660B /* ComboAmountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BE2FD001AF00EC660B /* ComboAmountDetailView.swift */; };
 		7B6411C12FD0221B00EC660B /* ComboHotelInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411C02FD0221B00EC660B /* ComboHotelInfoCard.swift */; };
@@ -48,18 +48,18 @@
 		7B2D22DB2FC7DC0800D0531F /* NavHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavHostingController.swift; sourceTree = "<group>"; };
 		7B2D22DC2FC7DC0800D0531F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		7B2D22E62FC7DCB500D0531F /* BookingConfirmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmView.swift; sourceTree = "<group>"; };
-		7B2D22E92FC81D4B00D0531F /* ComboAirSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboAirSection.swift; sourceTree = "<group>"; };
-		7B2D22EB2FC820B900D0531F /* ComboHeaderTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboHeaderTitle.swift; sourceTree = "<group>"; };
-		7B3343652FCD5E4E00B82A6A /* ComboDiscountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboDiscountSection.swift; sourceTree = "<group>"; };
+		7B2D22E92FC81D4B00D0531F /* ComboAirCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboAirCard.swift; sourceTree = "<group>"; };
+		7B2D22EB2FC820B900D0531F /* ComboCardTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboCardTitle.swift; sourceTree = "<group>"; };
+		7B3343652FCD5E4E00B82A6A /* ComboDiscountCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboDiscountCard.swift; sourceTree = "<group>"; };
 		7B39BE2B2FC94706003ABF42 /* ComboAirInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboAirInfoCard.swift; sourceTree = "<group>"; };
 		7B39BE2E2FC9665D003ABF42 /* ComboNoticeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboNoticeInfo.swift; sourceTree = "<group>"; };
-		7B39BE302FC96A69003ABF42 /* ComboSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboSectionHeader.swift; sourceTree = "<group>"; };
+		7B39BE302FC96A69003ABF42 /* ComboHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboHeader.swift; sourceTree = "<group>"; };
 		7B39BE322FC96B3C003ABF42 /* ComboNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboNavView.swift; sourceTree = "<group>"; };
 		7B39BE342FC96B96003ABF42 /* ComboTaxNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboTaxNoticeView.swift; sourceTree = "<group>"; };
 		7B39BE362FC96BC8003ABF42 /* ComboSystemNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboSystemNoticeView.swift; sourceTree = "<group>"; };
 		7B39BE382FC96CC3003ABF42 /* ComboPackagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboPackagesViewModel.swift; sourceTree = "<group>"; };
 		7B39BE3A2FC971CF003ABF42 /* ComboNavInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboNavInfo.swift; sourceTree = "<group>"; };
-		7B39BE3C2FC97A61003ABF42 /* ComboHotelSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboHotelSection.swift; sourceTree = "<group>"; };
+		7B39BE3C2FC97A61003ABF42 /* ComboHotelCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboHotelCard.swift; sourceTree = "<group>"; };
 		7B6411BC2FCFFFDE00EC660B /* ComboAmountBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboAmountBottomView.swift; sourceTree = "<group>"; };
 		7B6411BE2FD001AF00EC660B /* ComboAmountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboAmountDetailView.swift; sourceTree = "<group>"; };
 		7B6411C02FD0221B00EC660B /* ComboHotelInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComboHotelInfoCard.swift; sourceTree = "<group>"; };
@@ -118,11 +118,11 @@
 				7B39BE322FC96B3C003ABF42 /* ComboNavView.swift */,
 				7B39BE342FC96B96003ABF42 /* ComboTaxNoticeView.swift */,
 				7B39BE362FC96BC8003ABF42 /* ComboSystemNoticeView.swift */,
-				7B39BE302FC96A69003ABF42 /* ComboSectionHeader.swift */,
-				7B2D22EB2FC820B900D0531F /* ComboHeaderTitle.swift */,
-				7B2D22E92FC81D4B00D0531F /* ComboAirSection.swift */,
-				7B39BE3C2FC97A61003ABF42 /* ComboHotelSection.swift */,
-				7B3343652FCD5E4E00B82A6A /* ComboDiscountSection.swift */,
+				7B39BE302FC96A69003ABF42 /* ComboHeader.swift */,
+				7B2D22EB2FC820B900D0531F /* ComboCardTitle.swift */,
+				7B2D22E92FC81D4B00D0531F /* ComboAirCard.swift */,
+				7B39BE3C2FC97A61003ABF42 /* ComboHotelCard.swift */,
+				7B3343652FCD5E4E00B82A6A /* ComboDiscountCard.swift */,
 				7B6411BC2FCFFFDE00EC660B /* ComboAmountBottomView.swift */,
 				7B6411BE2FD001AF00EC660B /* ComboAmountDetailView.swift */,
 			);
@@ -256,22 +256,22 @@
 				7BB68CE52FCE737E009412D8 /* DiscountDemo.swift in Sources */,
 				7B2D22E02FC7DC0800D0531F /* Constant.swift in Sources */,
 				7B2D22E12FC7DC0800D0531F /* ContentView.swift in Sources */,
-				7B2D22EA2FC81D4B00D0531F /* ComboAirSection.swift in Sources */,
+				7B2D22EA2FC81D4B00D0531F /* ComboAirCard.swift in Sources */,
 				7B39BE352FC96B96003ABF42 /* ComboTaxNoticeView.swift in Sources */,
 				7BE414C42FD2784600BF0EB6 /* AppSpacing.swift in Sources */,
 				7BE414C52FD2784600BF0EB6 /* UIColor+Hex.swift in Sources */,
 				7BE414C62FD2784600BF0EB6 /* AppColor.swift in Sources */,
 				7BE414C72FD2784600BF0EB6 /* DesignToken.swift in Sources */,
 				7BE414C82FD2784600BF0EB6 /* AppTypography.swift in Sources */,
-				7B39BE3D2FC97A61003ABF42 /* ComboHotelSection.swift in Sources */,
+				7B39BE3D2FC97A61003ABF42 /* ComboHotelCard.swift in Sources */,
 				7B39BE3B2FC971CF003ABF42 /* ComboNavInfo.swift in Sources */,
-				7B2D22EC2FC820B900D0531F /* ComboHeaderTitle.swift in Sources */,
-				7B3343662FCD5E4E00B82A6A /* ComboDiscountSection.swift in Sources */,
+				7B2D22EC2FC820B900D0531F /* ComboCardTitle.swift in Sources */,
+				7B3343662FCD5E4E00B82A6A /* ComboDiscountCard.swift in Sources */,
 				7B6411C32FD0270A00EC660B /* ComboDiscountInfoCard.swift in Sources */,
 				7B2D22E22FC7DC0800D0531F /* NavHostingController.swift in Sources */,
 				7B2D22E32FC7DC0800D0531F /* SearchView.swift in Sources */,
 				7B2D22E72FC7DCB500D0531F /* BookingConfirmView.swift in Sources */,
-				7B39BE312FC96A69003ABF42 /* ComboSectionHeader.swift in Sources */,
+				7B39BE312FC96A69003ABF42 /* ComboHeader.swift in Sources */,
 				7B39BE372FC96BC8003ABF42 /* ComboSystemNoticeView.swift in Sources */,
 				7B39BE332FC96B3C003ABF42 /* ComboNavView.swift in Sources */,
 				7B6411C12FD0221B00EC660B /* ComboHotelInfoCard.swift in Sources */,

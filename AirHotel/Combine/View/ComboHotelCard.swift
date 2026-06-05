@@ -1,5 +1,5 @@
 //
-//  ComboHotelSection.swift
+//  ComboHotelCard.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -8,12 +8,12 @@
 import UIKit
 import SwiftUI
 
-struct ComboHotelSection: View {
+struct ComboHotelCard: View {
     let info: ComboHotelInfoCard
     
     var body: some View {
         VStack(spacing: 12) {
-            ComboHeaderTitle(title: "已選住宿", titleButton: "更換住宿", clickAction: {
+            ComboCardTitle(title: "已選住宿", titleButton: "更換住宿", clickAction: {
                 print("點擊更換住宿")
             })
             
@@ -245,7 +245,7 @@ struct TextWithIconView: UIViewRepresentable {
 }
 
 #Preview {
-    ComboHotelSection(info: ComboHotelInfoCard(
+    ComboHotelCard(info: ComboHotelInfoCard(
         hotelNotice: "您的去程航班為 01/24 12:05 抵達，請留意入住日、回程航班為 01/28 03:05 出發請留意退房日。",
         checkInOutDate: "01月24日-01月28日 (4晚)",
         hotelName: "JR九州最大五星超高級日本大都五星超高級日本大都五星超高級會酒池袋總店會酒池袋總店啊",
