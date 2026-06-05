@@ -281,7 +281,7 @@ struct ComboPackagesDemo: View {
     
     var body: some View {
         ZStack {
-            Color.backgroundPagePurple_F8F8F8
+            AppColor.Background.pagePurple
                 .ignoresSafeArea()
             
             VStack {

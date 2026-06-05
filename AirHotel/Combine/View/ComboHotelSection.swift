@@ -56,7 +56,7 @@ struct ComboHotelSection: View {
             }
             .padding(.vertical, 4)
             .padding(.horizontal, 6)
-            .background(Color.surfaceBrandPrimaryExSubtle_F1F1F8, in: RoundedRectangle(cornerRadius: 4))
+            .background(AppColor.Surface.brandPrimaryExtraSubtle, in: RoundedRectangle(cornerRadius: 4))
             
             Text(info.checkInOutDate)
                 .font(AppTypography.T03M)
@@ -186,7 +186,7 @@ struct ComboHotelSection: View {
                 }
             }
             .padding(8)
-            .background(Color.surfaceNeutralExSubtle_F8F8F8, in: RoundedRectangle(cornerRadius: 4))
+            .background(AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 4))
         }
     }
     

@@ -17,7 +17,7 @@ struct SearchView: View {
 //            .padding(.horizontal, 16)
         }
         .ignoresSafeArea()
-        .background(Color.backgroundPagePurple_F8F8F8)
+        .background(AppColor.Background.pagePurple)
     }
     
     private var searchCardView: some View {
@@ -77,8 +77,8 @@ struct SearchView: View {
             Button("5日") { }
             .padding(.vertical, 2)
             .padding(.horizontal, 12)
-            .foregroundStyle(Color.textNeutralBodyLight_9B9B9B)
-            .background(Color.surfaceNeutralSubtle_F2F2F2)
+            .foregroundStyle(AppColor.Text.neutralBodyLight)
+            .background(AppColor.Surface.neutralSubtle)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             Spacer()
             
@@ -102,14 +102,14 @@ struct SearchView: View {
                     Image(isChangeCheckInDate ? "checkbox" : "uncheckbox")
                     Text("調整入住日期")
                         .setTCFont(.regular, size: 14)
-                        .foregroundStyle(Color.textNeutralBodyMid_666666)
+                        .foregroundStyle(AppColor.Text.neutralBodyMid)
                 }
             }
         }
         .padding(.vertical, 6)
         .padding(.horizontal, 8)
         .frame(maxWidth: .infinity)
-        .background(Color.surfaceNeutralExSubtle_F8F8F8)
+        .background(AppColor.Surface.neutralExtraSubtle)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
     
@@ -145,7 +145,7 @@ struct SearchView: View {
                     Image(isDirectFlightOnly ? "checkCircle" : "uncheckCircle")
                     Text("限直飛")
                         .setTCFont(.regular, size: 14)
-                        .foregroundStyle(Color.textNeutralSubtitle_B2B2B2)
+                        .foregroundStyle(AppColor.Text.neutralSubtle)
                 }
             }
         }
@@ -161,13 +161,13 @@ struct SearchView: View {
         }
         .padding(.vertical, 10)
         .frame(maxWidth: .infinity)
-        .background(Color.surfaceBrandSecondaryBase_00A3E0)
+        .background(AppColor.Surface.brandSecondaryBase)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
     
     private var divider: some View {
         Divider()
-            .overlay(Color.borderNeutralExSubtle_E4E4E4)
+            .overlay(AppColor.Border.neutralExtraSubtle)
     }
 }
 
@@ -202,15 +202,15 @@ struct searchInfoButton: View {
             VStack(alignment: alignment) {
                 Text(title)
                     .setTCFont(.regular, size: 12)
-                    .foregroundStyle(Color.textNeutralSubtitle_B2B2B2)
+                    .foregroundStyle(AppColor.Text.neutralSubtle)
                 Text(mainValue)
                     .setTCFont(mainValueFont.fontThickness, size: mainValueFont.size)
-                    .foregroundStyle(Color.textNeutralBodyBase_333333)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
                 
                 if let minorValue {
                     Text(minorValue)
                         .setTCFont(.regular, size: 12)
-                        .foregroundStyle(Color.textNeutralBodyBase_333333)
+                        .foregroundStyle(AppColor.Text.neutralBodyBase)
                 }
             }
             .background(Color.orange)

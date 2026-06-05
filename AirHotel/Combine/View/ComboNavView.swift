@@ -41,7 +41,7 @@ struct ComboNavView: View {
                             .font(AppTypography.T06)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
                         Rectangle()
-                            .fill(Color.borderNeutralBase_9B9B9B)
+                            .fill(AppColor.Border.neutralBase)
                             .frame(width: 0.5, height: 9)
                         Text(navInfo.roomAndPeople)
                             .font(AppTypography.T06)

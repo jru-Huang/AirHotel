@@ -213,7 +213,7 @@ struct ComboDiscountSection: View {
     private var dividerView: some View {
         Rectangle()
             .frame(height: 1)
-            .foregroundStyle(Color.borderNeutralExSubtle_E4E4E4)
+            .foregroundStyle(AppColor.Border.neutralExtraSubtle)
     }
 }
 
