@@ -91,11 +91,11 @@ struct ComboAirCard: View {
                         HStack(spacing: 1) {
                             Text(segment.depLocation)
                                 .padding(.horizontal, 2)
-                                .setTCFont(.medium, size: 10) // ??
+                                .font(AppTypography.B06M)
                                 .foregroundStyle(segment.depLocDiffMark == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
                                 .background(segment.depLocDiffMark == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
                             Text(segment.depTerminal)
-                                .setTCFont(.medium, size: 10) // ??
+                                .font(AppTypography.B06M)
                                 .foregroundStyle(AppColor.Text.neutralBodyMid)
                         }
                     }
@@ -132,11 +132,11 @@ struct ComboAirCard: View {
                             HStack(spacing: 1) {
                                 Text(segment.arrLocation)
                                     .padding(.horizontal, 2)
-                                    .setTCFont(.medium, size: 10) // ??
+                                    .font(AppTypography.B06M)
                                     .foregroundStyle(segment.arrLocDiffMark == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
                                     .background(segment.arrLocDiffMark == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
                                 Text(segment.arrTerminal)
-                                    .setTCFont(.medium, size: 10) // ??
+                                    .font(AppTypography.B06M)
                                     .foregroundStyle(AppColor.Text.neutralBodyMid)
                             }
                         }

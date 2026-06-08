@@ -10,6 +10,7 @@ import SwiftUI
 struct ComboChangeSearchNavView: View {
     
     let navBarHeight: CGFloat
+    var onTouchBack: (() -> Void)
     var onTouchCancel: (() -> Void)
     
     var body: some View {
@@ -19,7 +20,7 @@ struct ComboChangeSearchNavView: View {
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
             HStack {
                 Button {
-                    onTouchCancel()
+                    onTouchBack()
                 } label: {
                     Image("arrow_back_purple")
                 }
@@ -28,7 +29,7 @@ struct ComboChangeSearchNavView: View {
                 
                 Spacer()
                 Button {
-                    print("點擊取消")
+                    onTouchCancel()
                 } label: {
                     Text("取消")
                         .padding(.leading, 5)
@@ -46,5 +47,5 @@ struct ComboChangeSearchNavView: View {
 }
 
 #Preview {
-    ComboChangeSearchNavView(navBarHeight: 44, onTouchCancel: { print("點擊取消")})
+    ComboChangeSearchNavView(navBarHeight: 44, onTouchBack: {print("點擊返回P0")}, onTouchCancel: { print("點擊取消")})
 }

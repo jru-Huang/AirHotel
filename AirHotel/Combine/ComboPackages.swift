@@ -115,8 +115,10 @@ struct ComboPackages: View {
             VStack(spacing: 0) {
                 ComboChangeSearchNavView(
                     navBarHeight: navBarHeight,
+                    onTouchBack: {
+                        print("點擊返回P0機加酒首頁")
+                    },
                     onTouchCancel: {
-                        print("點擊返回")
                         showSearchView = false
                     })
                 SearchView()
