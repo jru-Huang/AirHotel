@@ -10,7 +10,7 @@ import SwiftUI
 struct ComboPackages: View {
     @StateObject private var viewModel: ComboPackagesViewModel
     
-    @State private var isShowedSearchView: Bool = false
+    @State private var showSearchView: Bool = false
     @State private var showAmountDetail: Bool = false
     
     let navBarHeight: CGFloat = 44
@@ -30,26 +30,25 @@ struct ComboPackages: View {
             backgroundView
             mainContentView(bottomInset: proxy.safeAreaInsets.bottom)
             
-            if !isShowedSearchView {
+            if !showSearchView {
                 navContainerView
             }
             
-            amountDetailOverlayView
-            amountBottomContainerView
+            amountContainerView
                 .zIndex(1)
             
-            if isShowedSearchView {
-                searchOverlayView
+            if showSearchView {
+                changeSearchView
                     .zIndex(2)
             }
         }
     }
-
+    
     private var backgroundView: some View {
         AppColor.Background.pagePurple
             .ignoresSafeArea()
     }
-
+    
     private func mainContentView(bottomInset: CGFloat) -> some View {
         VStack(spacing: 0) {
             ComboTaxNoticeView(taxNotice: viewModel.taxNotice)
@@ -64,7 +63,7 @@ struct ComboPackages: View {
         }
         .padding(.top, navBarHeight)
     }
-
+    
     private var packagesContentView: some View {
         VStack(spacing: 12) {
             ComboHeader()
@@ -75,35 +74,32 @@ struct ComboPackages: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
     }
-
+    
     private var navContainerView: some View {
         VStack(spacing: 0) {
-            comboNavView
+            ComboNavView(
+                isShowedSearchView: $showSearchView,
+                navBarHeight: navBarHeight,
+                navInfo: viewModel.navInfo,
+                showSearchView: { self.showSearchView = $0 }
+            )
             Spacer()
         }
     }
-
-    private var comboNavView: some View {
-        ComboNavView(
-            isShowedSearchView: $isShowedSearchView,
-            navInfo: viewModel.navInfo,
-            showSearchView: { self.isShowedSearchView = $0 }
-        )
-    }
-
+    
     @ViewBuilder
-    private var amountDetailOverlayView: some View {
+    private var amountContainerView: some View {
         if showAmountDetail {
             amountDetailBgView
         }
-    }
-    
-    private var amountBottomContainerView: some View {
+        
         VStack(spacing: 0) {
             Spacer()
             
             if showAmountDetail {
-                ComboAmountDetailView(showAmountDetail: $showAmountDetail)
+                ComboAmountDetailView(
+                    showAmountDetail: $showAmountDetail,
+                    info: viewModel.amountInfo)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
@@ -111,13 +107,18 @@ struct ComboPackages: View {
         }
         .animation(.easeInOut(duration: 0.3), value: showAmountDetail)
     }
-
-    private var searchOverlayView: some View {
+    
+    private var changeSearchView: some View {
         ZStack(alignment: .top) {
             searchBgView
-
+            
             VStack(spacing: 0) {
-                comboNavView
+                ComboChangeSearchNavView(
+                    navBarHeight: navBarHeight,
+                    onTouchCancel: {
+                        print("點擊返回")
+                        showSearchView = false
+                    })
                 SearchView()
                 Spacer()
             }
@@ -128,7 +129,7 @@ struct ComboPackages: View {
         AppColor.Surface.opacityGrayMid
             .ignoresSafeArea()
             .onTapGesture {
-                isShowedSearchView = false
+                showSearchView = false
             }
     }
     

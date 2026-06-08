@@ -13,8 +13,8 @@ struct ComboAirCard: View {
     var body: some View {
         VStack(spacing: 12) {
             ComboCardTitle(title: "已選航班",
-                             titleButton: "更換航班",
-                             clickAction: {
+                           titleButton: "更換航班",
+                           clickAction: {
                 print("點擊已選航班")
             })
             flightDetailView

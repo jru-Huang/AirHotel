@@ -220,6 +220,6 @@ struct ComboDiscountCard: View {
 #Preview {
     ComboDiscountCard(info:
             .constant(
-                            ComboDiscountInfoCard(discount: "優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小", discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"))
+                ComboDiscountInfoCard(discount: "優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小", discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"))
     )
 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct ComboNavView: View {
     @Binding var isShowedSearchView: Bool
     
+    let navBarHeight: CGFloat
     let navInfo: ComboNavInfo
     
     var showSearchView: ((Bool) -> Void)
@@ -21,7 +22,8 @@ struct ComboNavView: View {
                 
             } label: {
                 Image("arrow_back_purple")
-                    .frame(maxWidth: 44 ,maxHeight: 44)
+                    .padding(.trailing, 5)
+                    .padding(.vertical, 5)
             }
             
             Button {
@@ -55,20 +57,17 @@ struct ComboNavView: View {
                 print("點擊收藏")
             } label: {
                 Image("ic_love_20")
-                    .frame(maxWidth: 44 ,maxHeight: 44)
+                    .padding(.leading, 5)
+                    .padding(.vertical, 5)
             }
             
         }
-        .background(Color.white)
-        .overlay(alignment: .bottom, content: {
-            Rectangle()
-                .fill(Color.black.opacity(0.1))
-                .frame(height: 1)
-        })
-
+        .padding(.horizontal, 16)
+        .frame(height: navBarHeight)
+        .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: 1)
     }
 }
 
 #Preview {
-    ComboNavView(isShowedSearchView: .constant(false), navInfo: ComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩"), showSearchView: {_ in print("showSearchView")})
+    ComboNavView(isShowedSearchView: .constant(false), navBarHeight: 44, navInfo: ComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩"), showSearchView: {_ in print("showSearchView")})
 }

@@ -11,6 +11,8 @@ struct ComboAmountDetailView: View {
     
     @Binding var showAmountDetail: Bool
     
+    let info: ComboAmountInfo
+    
     var body: some View {
         VStack(spacing: 0) {
             titleView
@@ -39,22 +41,8 @@ struct ComboAmountDetailView: View {
     
     private var contentView: some View {
         VStack(spacing: 8) {
-            priceRow(appellation: "大人", price: "$17,200", count: "x4", total: "$68,800")
-            priceRow(appellation: "小孩", price: "$17,200", count: "x1", total: "$17,200")
-            discountRow(icon: "ic_discount_14",
-                        title: "優惠代碼折扣",
-                        content: "晚鳥清艙折抵800元",
-                        discount: "-$2,000",
-                        titleColor: AppColor.Text.marketOrangeBase,
-                        bgColor: AppColor.Surface.marketOrangeExtraSubtle,
-                        leadingBorderColor: AppColor.Border.marketOrangeSubtle)
-            discountRow(icon: "ic_cola_coin_14",
-                        title: "可樂旅遊幣折抵",
-                        content: "均分於所有旅客",
-                        discount: "-$120",
-                        titleColor: AppColor.Text.brandPrimaryBase,
-                        bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
-                        leadingBorderColor: AppColor.Border.brandPrimarySubtle)
+            setDetailInfo()
+            setDiscountInfo()
         }
         .padding(.horizontal, 20)
         .padding(.top, 16)
@@ -62,21 +50,45 @@ struct ComboAmountDetailView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func priceRow(appellation: String, price: String, count: String, total: String) -> some View {
+    private func setDetailInfo() -> some View {
+        ForEach(info.detailInfo) {
+            detailInfo in
+            priceRow(appellation: detailInfo.appellation,
+                     pricePrePerson: detailInfo.pricePrePerson,
+                     numberOfPeople: detailInfo.numberOfPeople,
+                     totalPrice: detailInfo.totalPrice)
+        }
+    }
+    
+    private func setDiscountInfo() -> some View {
+        ForEach(info.discountInfo) { discountInfo in
+            let isDiscount = discountInfo.isDiscount == true
+            discountRow(icon: isDiscount ? "ic_discount_14" : "ic_discount_14",
+                        title: discountInfo.title,
+                        content: discountInfo.content,
+                        discount: discountInfo.discount,
+                        titleColor: isDiscount ? AppColor.Text.marketOrangeBase : AppColor.Text.brandPrimaryBase,
+                        bgColor: isDiscount ? AppColor.Surface.marketOrangeExtraSubtle : AppColor.Surface.brandPrimaryExtraSubtle,
+                        leadingBorderColor: isDiscount ? AppColor.Border.marketOrangeSubtle : AppColor.Border.brandPrimarySubtle)
+            
+        }
+    }
+    
+    private func priceRow(appellation: String, pricePrePerson: String, numberOfPeople: String, totalPrice: String) -> some View {
         HStack(spacing: 0) {
             HStack(spacing: 4) {
                 Text(appellation)
                     .font(AppTypography.T03R)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
-                Text(price)
+                Text(pricePrePerson)
                     .font(AppTypography.N05R)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
-                Text(count)
+                Text(numberOfPeople)
                     .font(AppTypography.N06R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
             Spacer()
-            Text(total)
+            Text(totalPrice)
                 .font(AppTypography.N05R)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
@@ -113,10 +125,29 @@ struct ComboAmountDetailView: View {
             Rectangle()
                 .fill(leadingBorderColor)
                 .frame(width: 2)
-            }
+        }
     }
 }
 
 #Preview {
-    ComboAmountDetailView(showAmountDetail: .constant(false))
+    ComboAmountDetailView(showAmountDetail: .constant(false), info: ComboAmountInfo(
+        detailInfo: [
+            ComboAmountDetailInfo(appellation: "大人",
+                                  pricePrePerson: "$17,200",
+                                  numberOfPeople: "x4",
+                                  totalPrice: "$68,800"),
+            ComboAmountDetailInfo(appellation: "小孩",
+                                  pricePrePerson: "$17,200",
+                                  numberOfPeople: "x1",
+                                  totalPrice: "$17,200")
+        ], discountInfo: [
+            ComboAmountDiscountInfo(isDiscount: true,
+                                    title: "優惠代碼折扣",
+                                    content: "晚鳥清艙折抵800元",
+                                    discount: "-$2,000"),
+            ComboAmountDiscountInfo(isDiscount: false,
+                                    title: "可樂旅遊幣折抵",
+                                    content: "均分於所有旅客",
+                                    discount: "-$120")
+        ]))
 }

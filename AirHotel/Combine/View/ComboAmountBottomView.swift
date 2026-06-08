@@ -59,12 +59,7 @@ struct ComboAmountBottomView: View {
             }
         }
         .background(Color.white)
-        .overlay(alignment: .top, content: {
-            Rectangle()
-                .fill(Color.black.opacity(0.1))
-                .frame(height: 1)
-        })
-
+        .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: -1)
     }
 }
 

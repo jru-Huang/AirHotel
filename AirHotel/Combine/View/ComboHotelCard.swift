@@ -128,7 +128,7 @@ struct ComboHotelCard: View {
     private var hotelInfoView: some View {
         
         Button {
-          print("點擊更換房型-> 飯店詳細頁（ 釘選房型 ）")
+            print("點擊更換房型-> 飯店詳細頁（ 釘選房型 ）")
         } label: {
             
             VStack(alignment: .leading, spacing: 6) {

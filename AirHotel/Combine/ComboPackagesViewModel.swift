@@ -57,14 +57,14 @@ final class ComboPackagesViewModel: ObservableObject {
     
     // 機票更新資訊公告、臨時資訊公告
     @Published var systemNoticeList: [ComboNoticeInfo] = [
-    ComboNoticeInfo(imageName: "ic_time_20",
-                    content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款",
-                    bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
-                    strokeColor: AppColor.Border.brandPrimarySubtle),
-    ComboNoticeInfo(imageName: "ic_bell_20",
-                    content: "春節期間（2/8–2/14），官網與系統皆正常運作，客服服務時間為 09:00–18:00，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。",
-                    bgColor: AppColor.Surface.brandSecondaryExtraSubtle,
-                    strokeColor: AppColor.Border.brandSecondarySubtle)
+        ComboNoticeInfo(imageName: "ic_time_20",
+                        content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款",
+                        bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
+                        strokeColor: AppColor.Border.brandPrimarySubtle),
+        ComboNoticeInfo(imageName: "ic_bell_20",
+                        content: "春節期間（2/8–2/14），官網與系統皆正常運作，客服服務時間為 09:00–18:00，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。",
+                        bgColor: AppColor.Surface.brandSecondaryExtraSubtle,
+                        strokeColor: AppColor.Border.brandSecondarySubtle)
     ]
     
     //機票
@@ -129,4 +129,26 @@ final class ComboPackagesViewModel: ObservableObject {
         discount: "優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小",
         discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"
     )
+    
+    //售價明細
+    @Published var amountInfo: ComboAmountInfo = ComboAmountInfo(
+        detailInfo: [
+        ComboAmountDetailInfo(appellation: "大人",
+                              pricePrePerson: "$17,200",
+                              numberOfPeople: "x4",
+                              totalPrice: "$68,800"),
+        ComboAmountDetailInfo(appellation: "小孩",
+                              pricePrePerson: "$17,200",
+                              numberOfPeople: "x1",
+                              totalPrice: "$17,200")
+    ],discountInfo: [
+        ComboAmountDiscountInfo(isDiscount: true,
+                                title: "優惠代碼折扣",
+                                content: "晚鳥清艙折抵800元",
+                                discount: "-$2,000"),
+        ComboAmountDiscountInfo(isDiscount: false,
+                                title: "可樂旅遊幣折抵",
+                                content: "均分於所有旅客",
+                                discount: "-$120")
+    ])
 }
