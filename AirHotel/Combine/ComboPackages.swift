@@ -12,6 +12,7 @@ struct ComboPackages: View {
     
     @State private var showSearchView: Bool = false
     @State private var showAmountDetail: Bool = false
+    @State private var presentNotice: PresentedNotice?
     
     let navBarHeight: CGFloat = 44
     
@@ -41,7 +42,16 @@ struct ComboPackages: View {
                 changeSearchView
                     .zIndex(2)
             }
+            
+            if let presentNotice {
+                PackagesNoticeInfoView(info: presentNotice.noticeInfo,
+                                       onDismiss: { self.presentNotice = nil }
+                )
+                .zIndex(3)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .animation(.easeInOut(duration: 0.25), value: presentNotice?.id)
     }
     
     private var backgroundView: some View {
@@ -51,11 +61,18 @@ struct ComboPackages: View {
     
     private func mainContentView(bottomInset: CGFloat) -> some View {
         VStack(spacing: 0) {
-            ComboTaxNoticeView(taxNotice: viewModel.taxNotice)
+            ComboTaxNoticeView(taxNotice: viewModel.taxNotice, onTouchNotice: {
+                presentNotice = PresentedNotice(noticeInfo: viewModel.taxNoticeInfo)
+            })
             
             ScrollView {
                 VStack(spacing: 0) {
-                    ComboSystemNoticeView(systemNoticeList: viewModel.systemNoticeList)
+                    ComboSystemNoticeView(systemNotice: viewModel.systemNotice1, onTouchNotice: {
+                        presentNotice = PresentedNotice(noticeInfo: viewModel.systemNoticeInfo1)
+                    })
+                    ComboSystemNoticeView(systemNotice: viewModel.systemNotice2, onTouchNotice: {
+                        presentNotice = PresentedNotice(noticeInfo: viewModel.systemNoticeInfo2)
+                    })
                     packagesContentView
                 }
                 .padding(.bottom, bottomInset + 12)
@@ -68,7 +85,9 @@ struct ComboPackages: View {
         VStack(spacing: 12) {
             ComboHeader()
             ComboAirCard(info: viewModel.airInfoCard)
-            ComboHotelCard(info: viewModel.hotelInfoCard)
+            ComboHotelCard(info: viewModel.hotelInfoCard, onTouchNotice: {
+                presentNotice = PresentedNotice(noticeInfo: viewModel.hotelCancelNotice)
+            })
             ComboDiscountCard(info: $viewModel.discountInfoCard)
         }
         .padding(.horizontal, 16)
@@ -100,7 +119,7 @@ struct ComboPackages: View {
                 ComboAmountDetailView(
                     showAmountDetail: $showAmountDetail,
                     info: viewModel.amountInfo)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
             ComboAmountBottomView(showAmountDetail: $showAmountDetail)

@@ -18,6 +18,7 @@ struct ComboChangeSearchNavView: View {
             Text("更改條件")
                 .font(AppTypography.D03)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
+            
             HStack {
                 Button {
                     onTouchBack()

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ComboHotelCard: View {
     let info: ComboHotelInfoCard
+    var onTouchNotice: (() -> Void)
     
     var body: some View {
         VStack(spacing: 12) {
@@ -66,7 +67,7 @@ struct ComboHotelCard: View {
     
     private var hotelTitleView: some View {
         Button {
-            print("點擊飯店Title-> 飯店資訊頁說明")
+            print("點擊飯店Title-> 飯店詳細頁")
         } label: {
             
             HStack {
@@ -148,6 +149,7 @@ struct ComboHotelCard: View {
                     HStack(spacing: 0) {
                         Button {
                             print("點擊Booking規則-> 房型取消限制說明")
+                            onTouchNotice()
                         } label: {
                             HStack(spacing: 2) {
                                 Image(info.bookingRuleKey.imageName)
@@ -256,5 +258,5 @@ struct TextWithIconView: UIViewRepresentable {
         hasBreakfast: false,
         bookingRuleKey: .Refundable,
         bookingRule: "可免費取消",
-        hotelTagList: ["慶祝台灣隊金牌","旅展促銷","限時早鳥優惠","週三狂歡日","慶祝台灣隊金牌2"]))
+        hotelTagList: ["慶祝台灣隊金牌","旅展促銷","限時早鳥優惠","週三狂歡日","慶祝台灣隊金牌2"]), onTouchNotice: {print("房型取消")})
 }

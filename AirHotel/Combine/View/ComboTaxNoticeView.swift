@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ComboTaxNoticeView: View {
     let taxNotice: String
+    var onTouchNotice: (() -> Void)
     
     var body: some View {
         Button {
-            print("點擊稅收公告")
+            onTouchNotice()
         } label: {
             HStack(spacing: 6) {
                 Image("ic_notice_20")
@@ -41,5 +42,5 @@ struct ComboTaxNoticeView: View {
 }
 
 #Preview {
-    ComboTaxNoticeView(taxNotice: "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。")
+    ComboTaxNoticeView(taxNotice: "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。", onTouchNotice: { print("點擊公告")})
 }
