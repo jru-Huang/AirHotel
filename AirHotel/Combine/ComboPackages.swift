@@ -24,24 +24,22 @@ struct ComboPackages: View {
         GeometryReader { proxy in
             contentView(proxy: proxy)
         }
-    }
+    } 
+}
+
+extension ComboPackages {
     
     private func contentView(proxy: GeometryProxy) -> some View {
         ZStack {
             backgroundView
             mainContentView(bottomInset: proxy.safeAreaInsets.bottom)
-            
-            if !showSearchView {
-                navContainerView
-            }
+            navContainerView
             
             amountContainerView
                 .zIndex(1)
             
-            if showSearchView {
-                changeSearchView
-                    .zIndex(2)
-            }
+            searchContainerView
+                .zIndex(2)
             
             noticeContainerView(maxHeight: proxy.size.height * 0.8)
                 .zIndex(3)
@@ -121,39 +119,33 @@ struct ComboPackages: View {
         .animation(.easeInOut(duration: 0.3), value: showAmountDetail)
     }
     
-    private var changeSearchView: some View {
+    private var searchContainerView: some View {
         ZStack(alignment: .top) {
-            searchBgView
+            if showSearchView {
+                searchBgView
+            }
             
-            VStack(spacing: 0) {
-                ComboChangeSearchNavView(
-                    navBarHeight: navBarHeight,
-                    onTouchBack: {
-                        print("點擊返回P0機加酒首頁")
-                    },
-                    onTouchCancel: {
-                        showSearchView = false
-                    })
-                SearchView()
-                Spacer()
+            if showSearchView {
+                changeSearchView
+                    .transition(.opacity)
             }
         }
+        .animation(.easeInOut(duration: 0.3), value: showSearchView)
     }
     
-    private var searchBgView: some View {
-        AppColor.Surface.opacityGrayMid
-            .ignoresSafeArea()
-            .onTapGesture {
-                showSearchView = false
-            }
-    }
-    
-    private var amountDetailBgView: some View {
-        AppColor.Surface.opacityGrayMid
-            .ignoresSafeArea()
-            .onTapGesture {
-                showAmountDetail = false
-            }
+    private var changeSearchView: some View {
+        VStack(spacing: 0) {
+            ComboChangeSearchNavView(
+                navBarHeight: navBarHeight,
+                onTouchBack: {
+                    print("點擊返回P0機加酒首頁")
+                },
+                onTouchCancel: {
+                    showSearchView = false
+                })
+            SearchView()
+            Spacer()
+        }
     }
     
     private func noticeContainerView(maxHeight: CGFloat) -> some View {
@@ -172,6 +164,22 @@ struct ComboPackages: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: presentNotice?.id)
+    }
+    
+    private var searchBgView: some View {
+        AppColor.Surface.opacityGrayMid
+            .ignoresSafeArea()
+            .onTapGesture {
+                showSearchView = false
+            }
+    }
+    
+    private var amountDetailBgView: some View {
+        AppColor.Surface.opacityGrayMid
+            .ignoresSafeArea()
+            .onTapGesture {
+                showAmountDetail = false
+            }
     }
     
     private var noticeBgView: some View {

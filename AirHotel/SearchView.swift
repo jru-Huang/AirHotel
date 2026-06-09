@@ -213,7 +213,6 @@ struct searchInfoButton: View {
                         .foregroundStyle(AppColor.Text.neutralBodyBase)
                 }
             }
-            .background(Color.orange)
         }
         .buttonStyle(.plain)
     }

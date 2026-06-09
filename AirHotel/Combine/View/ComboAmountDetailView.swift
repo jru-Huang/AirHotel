@@ -63,7 +63,7 @@ struct ComboAmountDetailView: View {
     private func setDiscountInfo() -> some View {
         ForEach(info.discountInfo) { discountInfo in
             let isDiscount = discountInfo.isDiscount == true
-            discountRow(icon: isDiscount ? "ic_discount_14" : "ic_discount_14",
+            discountRow(icon: isDiscount ? "ic_discount_14" : "ic_cola_coin_14",
                         title: discountInfo.title,
                         content: discountInfo.content,
                         discount: discountInfo.discount,
