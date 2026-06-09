@@ -9,31 +9,19 @@ import SwiftUI
 
 struct PackagesNoticeInfoView: View {
     let info: NoticeDetailInfo
+    let maxHeight: CGFloat
     var onDismiss: (() -> Void)
     
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .bottom) {
-                backgroundView
-
-                noticeView(maxHeight: proxy.size.height * 0.8)
-            }
-        }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+        VStack(spacing: 0) {
+            noticeView
             closeButtonView
-                .background(AppColor.Surface.brandSecondaryBase)
         }
+        .background(AppColor.Surface.brandSecondaryBase)
+        .ignoresSafeArea(edges: .bottom)
     }
-
-    private var backgroundView: some View {
-        AppColor.Surface.opacityGrayMid
-            .ignoresSafeArea()
-            .onTapGesture {
-                onDismiss()
-            }
-    }
-
-    private func noticeView(maxHeight: CGFloat) -> some View {
+    
+    private var noticeView: some View {
         VStack(spacing: 0) {
             headerView
             contentView(noticeInfoList: info.noticeInfoList, maxHeight: maxHeight)
@@ -41,7 +29,6 @@ struct PackagesNoticeInfoView: View {
         .frame(maxWidth: .infinity)
         .background(AppColor.Surface.neutralWhite)
         .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
-        .ignoresSafeArea(edges: .bottom)
     }
     
     private var headerView: some View {
@@ -62,6 +49,7 @@ struct PackagesNoticeInfoView: View {
                 .font(AppTypography.D03)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
+        .background(AppColor.Surface.neutralWhite)
     }
     
     private func contentView(noticeInfoList: [NoticeDetail], maxHeight: CGFloat) -> some View {
@@ -105,7 +93,7 @@ struct PackagesNoticeInfoView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 40)
         }
-        
+        .background(AppColor.Surface.brandSecondaryBase)
     }
 }
 
@@ -121,5 +109,7 @@ struct PackagesNoticeInfoView: View {
                                                                       content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。")
                                                       
                                                      ]
-                                                 ), onDismiss: {print("點擊關閉")})
+                                                 ),
+                           maxHeight: 560,
+                           onDismiss: {print("點擊關閉")})
 }

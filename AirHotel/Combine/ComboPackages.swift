@@ -43,15 +43,9 @@ struct ComboPackages: View {
                     .zIndex(2)
             }
             
-            if let presentNotice {
-                PackagesNoticeInfoView(info: presentNotice.noticeInfo,
-                                       onDismiss: { self.presentNotice = nil }
-                )
+            noticeContainerView(maxHeight: proxy.size.height * 0.8)
                 .zIndex(3)
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-            }
         }
-        .animation(.easeInOut(duration: 0.25), value: presentNotice?.id)
     }
     
     private var backgroundView: some View {
@@ -159,6 +153,32 @@ struct ComboPackages: View {
             .ignoresSafeArea()
             .onTapGesture {
                 showAmountDetail = false
+            }
+    }
+    
+    private func noticeContainerView(maxHeight: CGFloat) -> some View {
+        ZStack(alignment: .bottom) {
+            if presentNotice != nil {
+                noticeBgView
+            }
+            
+            if let presentNotice {
+                PackagesNoticeInfoView(
+                    info: presentNotice.noticeInfo,
+                    maxHeight: maxHeight,
+                    onDismiss: { self.presentNotice = nil }
+                )
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+        }
+        .animation(.easeInOut(duration: 0.3), value: presentNotice?.id)
+    }
+    
+    private var noticeBgView: some View {
+        AppColor.Surface.opacityGrayMid
+            .ignoresSafeArea()
+            .onTapGesture {
+                presentNotice = nil
             }
     }
 }
