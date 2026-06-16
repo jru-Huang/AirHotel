@@ -74,7 +74,7 @@ struct ComboAirCard: View {
             
             // flight info
             HStack(spacing: 6) {
-                Image(segment.imageName)
+                Image(segment.imageName) //多家＆共享都統一使用雙飛機的圖標 ; 航班無logo、或者沒有串到資料時顯示航空公司代碼
                     .padding(5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)

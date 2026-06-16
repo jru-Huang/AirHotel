@@ -8,34 +8,68 @@
 import SwiftUI
 
 struct PackagesNoticeInfoView: View {
+    
+    private let hideDuration: Double = 0.2
+    
     let info: NoticeDetailInfo
-    let maxHeight: CGFloat
     var onDismiss: (() -> Void)
     
+    @State private var showContent: Bool = false
+    
     var body: some View {
-        VStack(spacing: 0) {
-            noticeView
-            closeButtonView
+        GeometryReader { proxy in
+            let maxHeight = proxy.size.height * 0.8
+            
+            ZStack {
+                backgroundView
+                content(maxHeight: maxHeight)
+            }
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.25)) {
+                    showContent = true
+                }
+            }
         }
-        .background(AppColor.Surface.brandSecondaryBase)
-        .ignoresSafeArea(edges: .bottom)
     }
     
-    private var noticeView: some View {
+    private var backgroundView: some View {
+        AppColor.Surface.opacityGrayMid
+            .ignoresSafeArea()
+            .onTapGesture {
+                dismiss()
+            }
+            .opacity(showContent ? 1 : 0)
+    }
+    
+    private func content(maxHeight: CGFloat) -> some View {
+        ZStack(alignment: .bottom) {
+            Color.clear
+            
+            VStack(spacing: 0) {
+                noticeView(maxHeight: maxHeight)
+                closeButtonView
+            }
+            .frame(maxHeight: maxHeight, alignment: .bottom)
+        }
+        .offset(y: showContent ? 0 : 40)
+        .opacity(showContent ? 1 : 0)
+    }
+    
+    private func noticeView(maxHeight: CGFloat) -> some View {
         VStack(spacing: 0) {
-            headerView
-            contentView(noticeInfoList: info.noticeInfoList, maxHeight: maxHeight)
+            noticeHeaderView
+            noticeContentView(noticeInfoList: info.noticeInfoList, maxHeight: maxHeight)
         }
         .frame(maxWidth: .infinity)
         .background(AppColor.Surface.neutralWhite)
         .clipShape(RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
     }
     
-    private var headerView: some View {
+    private var noticeHeaderView: some View {
         ZStack {
             HStack {
                 Button {
-                    onDismiss()
+                    dismiss()
                 } label: {
                     Image("ic_close_20")
                 }
@@ -52,40 +86,42 @@ struct PackagesNoticeInfoView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func contentView(noticeInfoList: [NoticeDetail], maxHeight: CGFloat) -> some View {
+    private func noticeContentView(noticeInfoList: [NoticeDetail], maxHeight: CGFloat) -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                ForEach(noticeInfoList) { notice in
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 4) {
-                            if notice.title.isEmpty == false {
-                                titleLine()
-                                Text(notice.title)
-                                    .font(AppTypography.T03M)
-                                    .foregroundStyle(AppColor.Text.neutralBodyBase)
-                            }
-                        }
-                        
-                        Text(notice.content)
-                            .font(AppTypography.B03)
-                            .foregroundStyle(AppColor.Text.neutralBodyBase)
-                    }
-                    
-                }
-                
-            }
-            .padding(.top, 16)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 40)
+            noticeContentBody(noticeInfoList: noticeInfoList)
         }
         .frame(maxHeight: maxHeight)
         .fixedSize(horizontal: false, vertical: true)
         .background(AppColor.Surface.neutralWhite)
     }
     
+    private func noticeContentBody(noticeInfoList: [NoticeDetail]) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            ForEach(noticeInfoList) { notice in
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 4) {
+                        if notice.title.isEmpty == false {
+                            titleLine()
+                            Text(notice.title)
+                                .font(AppTypography.T03M)
+                                .foregroundStyle(AppColor.Text.neutralBodyBase)
+                        }
+                    }
+                    
+                    Text(notice.content)
+                        .font(AppTypography.B03)
+                        .foregroundStyle(AppColor.Text.neutralBodyBase)
+                }
+            }
+        }
+        .padding(.top, 16)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 40)
+    }
+    
     private var closeButtonView: some View {
         Button {
-            onDismiss()
+            dismiss()
         } label: {
             Text("關閉")
                 .font(AppTypography.L02M)
@@ -94,6 +130,16 @@ struct PackagesNoticeInfoView: View {
                 .frame(height: 40)
         }
         .background(AppColor.Surface.brandSecondaryBase)
+    }
+    
+    private func dismiss() {
+        withAnimation(.easeIn(duration: hideDuration)) {
+            showContent = false
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + hideDuration) {
+            onDismiss()
+        }
     }
 }
 
@@ -110,6 +156,6 @@ struct PackagesNoticeInfoView: View {
                                                       
                                                      ]
                                                  ),
-                           maxHeight: 560,
+//                           maxHeight: 560,
                            onDismiss: {print("點擊關閉")})
 }

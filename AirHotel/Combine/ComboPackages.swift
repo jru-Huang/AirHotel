@@ -24,7 +24,8 @@ struct ComboPackages: View {
         GeometryReader { proxy in
             contentView(proxy: proxy)
         }
-    } 
+        .navigationBarBackButtonHidden()
+    }
 }
 
 extension ComboPackages {
@@ -41,8 +42,13 @@ extension ComboPackages {
             searchContainerView
                 .zIndex(2)
             
-            noticeContainerView(maxHeight: proxy.size.height * 0.8)
+            if let presentNotice {
+                PackagesNoticeInfoView(
+                    info: presentNotice.noticeInfo,
+                    onDismiss: { self.presentNotice = nil }
+                )
                 .zIndex(3)
+            }
         }
     }
     
@@ -148,24 +154,6 @@ extension ComboPackages {
         }
     }
     
-    private func noticeContainerView(maxHeight: CGFloat) -> some View {
-        ZStack(alignment: .bottom) {
-            if presentNotice != nil {
-                noticeBgView
-            }
-            
-            if let presentNotice {
-                PackagesNoticeInfoView(
-                    info: presentNotice.noticeInfo,
-                    maxHeight: maxHeight,
-                    onDismiss: { self.presentNotice = nil }
-                )
-                .transition(.move(edge: .bottom).combined(with: .opacity))
-            }
-        }
-        .animation(.easeInOut(duration: 0.3), value: presentNotice?.id)
-    }
-    
     private var searchBgView: some View {
         AppColor.Surface.opacityGrayMid
             .ignoresSafeArea()
@@ -179,14 +167,6 @@ extension ComboPackages {
             .ignoresSafeArea()
             .onTapGesture {
                 showAmountDetail = false
-            }
-    }
-    
-    private var noticeBgView: some View {
-        AppColor.Surface.opacityGrayMid
-            .ignoresSafeArea()
-            .onTapGesture {
-                presentNotice = nil
             }
     }
 }
