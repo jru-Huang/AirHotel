@@ -67,7 +67,7 @@ struct ContentView: View {
             VStack {
                 NavigationLink("機加酒") {
 //                    SearchView()
-                    ComboPackages()
+                    PackagesComboView()
 //                    PackagesNoticeInfoView(title: "8 8 8")
                 }
             }

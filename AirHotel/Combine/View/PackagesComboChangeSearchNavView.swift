@@ -1,5 +1,5 @@
 //
-//  ComboChangeSearchNavView.swift
+//  PackagesComboChangeSearchNavView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/5.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboChangeSearchNavView: View {
+struct PackagesComboChangeSearchNavView: View {
     
     let navBarHeight: CGFloat
     var onTouchBack: (() -> Void)
@@ -48,5 +48,5 @@ struct ComboChangeSearchNavView: View {
 }
 
 #Preview {
-    ComboChangeSearchNavView(navBarHeight: 44, onTouchBack: {print("點擊返回P0")}, onTouchCancel: { print("點擊取消")})
+    PackagesComboChangeSearchNavView(navBarHeight: 44, onTouchBack: {print("點擊返回P0")}, onTouchCancel: { print("點擊取消")})
 }

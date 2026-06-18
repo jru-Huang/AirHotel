@@ -1,5 +1,5 @@
 //
-//  ComboHeader.swift
+//  PackagesComboHeader.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboHeader: View {
+struct PackagesComboHeader: View {
     var body: some View {
         HStack(spacing: 12) {
             titleLine()
@@ -62,5 +62,5 @@ struct ComboHeader: View {
 }
 
 #Preview {
-    ComboHeader()
+    PackagesComboHeader()
 }

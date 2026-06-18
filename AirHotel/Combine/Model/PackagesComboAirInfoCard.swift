@@ -1,5 +1,5 @@
 //
-//  ComboAirInfoCard.swift
+//  PackagesComboAirInfoCard.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ComboFlightSegment: Identifiable {
+struct PackagesComboFlightSegment: Identifiable {
     let id = UUID()
     let tag: String
     let date: String
@@ -26,8 +26,8 @@ struct ComboFlightSegment: Identifiable {
     let arrLocDiffMark: Bool //去抵達回出發地點不同
 }
 
-struct ComboAirInfoCard {
-    let flights: [ComboFlightSegment]
+struct PackagesComboAirInfoCard {
+    let flights: [PackagesComboFlightSegment]
     let airTagList:[String]
-    let luggageType: ComboPackagesViewModel.LuggageType
+    let luggageType: PackagesComboViewModel.LuggageType
 }

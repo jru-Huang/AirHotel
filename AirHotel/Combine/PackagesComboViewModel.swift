@@ -1,5 +1,5 @@
 //
-//  ComboPackagesViewModel.swift
+//  PackagesComboViewModel.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-final class ComboPackagesViewModel: ObservableObject {
+final class PackagesComboViewModel: ObservableObject {
     
     enum LuggageType {
         case free
@@ -50,29 +50,29 @@ final class ComboPackagesViewModel: ObservableObject {
         }
     }
     
-    @Published var navInfo: ComboNavInfo = ComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩")
+    @Published var navInfo: PackagesComboNavInfo = PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩")
     
     //稅收資訊公告
     @Published var taxNotice: String = "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。"
     
     // 機票更新資訊公告
-    @Published var systemNotice1: ComboNoticeInfo =
-        ComboNoticeInfo(imageName: "ic_time_20",
+    @Published var systemNotice1: PackagesComboNoticeInfo =
+    PackagesComboNoticeInfo(imageName: "ic_time_20",
                         content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款",
                         bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
                         strokeColor: AppColor.Border.brandPrimarySubtle)
     
     //臨時資訊公告
-    @Published var systemNotice2: ComboNoticeInfo =
-        ComboNoticeInfo(imageName: "ic_bell_20",
+    @Published var systemNotice2: PackagesComboNoticeInfo =
+    PackagesComboNoticeInfo(imageName: "ic_bell_20",
                         content: "春節期間（2/8–2/14），官網與系統皆正常運作，客服服務時間為 09:00–18:00，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。",
                         bgColor: AppColor.Surface.brandSecondaryExtraSubtle,
                         strokeColor: AppColor.Border.brandSecondarySubtle)
     
     //機票
-    @Published var airInfoCard: ComboAirInfoCard = ComboAirInfoCard(
+    @Published var airInfoCard: PackagesComboAirInfoCard = PackagesComboAirInfoCard(
         flights: [
-            ComboFlightSegment(
+            PackagesComboFlightSegment(
                 tag: "去程",
                 date: "2026年01月24日 週六",
                 noticeText: "", //多家航空
@@ -89,7 +89,7 @@ final class ComboPackagesViewModel: ObservableObject {
                 depLocDiffMark: false,
                 arrLocDiffMark: true
             ),
-            ComboFlightSegment(
+            PackagesComboFlightSegment(
                 tag: "回程",
                 date: "2026年01月28日 週三",
                 noticeText: "共享航班",
@@ -112,7 +112,7 @@ final class ComboPackagesViewModel: ObservableObject {
     )
     
     //飯店
-    @Published var hotelInfoCard: ComboHotelInfoCard = ComboHotelInfoCard(
+    @Published var hotelInfoCard: PackagesComboHotelInfoCard = PackagesComboHotelInfoCard(
         hotelNotice: "您的去程航班為 01/24 12:05 抵達，請留意入住日、回程航班為 01/28 03:05 出發請留意退房日。",
         checkInOutDate: "01月24日-01月28日 (4晚)",
         hotelName: "JR九州最大五星超高級日本大都五星超高級日本大都五星超高級會酒池袋總店會酒池袋總店啊",
@@ -127,85 +127,85 @@ final class ComboPackagesViewModel: ObservableObject {
     )
     
     //優惠
-    @Published var discountInfoCard: ComboDiscountInfoCard = ComboDiscountInfoCard(
+    @Published var discountInfoCard: PackagesComboDiscountInfoCard = PackagesComboDiscountInfoCard(
         discount: "優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小",
         discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"
     )
     
     //售價明細
-    @Published var amountInfo: ComboAmountInfo = ComboAmountInfo(
+    @Published var amountInfo: PackagesComboAmountInfo = PackagesComboAmountInfo(
         detailInfo: [
-        ComboAmountDetailInfo(appellation: "大人",
+            PackagesComboAmountDetailInfo(appellation: "大人",
                               pricePrePerson: "$17,200",
                               numberOfPeople: "x4",
                               totalPrice: "$68,800"),
-        ComboAmountDetailInfo(appellation: "小孩",
+            PackagesComboAmountDetailInfo(appellation: "小孩",
                               pricePrePerson: "$17,200",
                               numberOfPeople: "x1",
                               totalPrice: "$17,200")
     ],discountInfo: [
-        ComboAmountDiscountInfo(isDiscount: true,
+        PackagesComboAmountDiscountInfo(isDiscount: true,
                                 title: "優惠代碼折扣",
                                 content: "晚鳥清艙折抵800元",
                                 discount: "-$2,000"),
-        ComboAmountDiscountInfo(isDiscount: false,
+        PackagesComboAmountDiscountInfo(isDiscount: false,
                                 title: "可樂旅遊幣折抵",
                                 content: "均分於所有旅客",
                                 discount: "-$120")
     ])
     
     // 稅收內容公告
-    let taxNoticeInfo: NoticeDetailInfo = NoticeDetailInfo(
+    let taxNoticeInfo: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
         navTitle: "注意事項",
         noticeInfoList:
             [
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                NoticeDetail(title: "日本政府政策：酒店房租稅",
+                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                              content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。")
              
             ]
         )
     
     //系統內容公告: 有位低價
-    let systemNoticeInfo1: NoticeDetailInfo = NoticeDetailInfo(
+    let systemNoticeInfo1: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
         navTitle: "系統公告",
         noticeInfoList:
             [
-                NoticeDetail(title: "",
+                PackagesNoticeDetail(title: "",
                              content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款")
                 ]
         )
     //系統內容公告: 臨時公告
-    let systemNoticeInfo2: NoticeDetailInfo = NoticeDetailInfo(
+    let systemNoticeInfo2: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
         navTitle: "系統公告",
         noticeInfoList:
             [
-                NoticeDetail(title: "",
+                PackagesNoticeDetail(title: "",
                              content: "春節期間（2/8–2/14），官網與系統皆正常運作，客服服務時間為 09:00–18:00，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。")
                 ]
         )
     
     // 房型取消限制說明
-    let hotelCancelNotice: NoticeDetailInfo = NoticeDetailInfo(
+    let hotelCancelNotice: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
         navTitle: "可免費取消",
         noticeInfoList:
             [
-                NoticeDetail(title: "",
+                PackagesNoticeDetail(title: "",
                              content: "此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。 \n在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)")
                 ]
         )

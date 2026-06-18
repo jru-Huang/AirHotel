@@ -1,5 +1,5 @@
 //
-//  ComboNavView.swift
+//  PackagesComboNavView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ComboNavView: View {
+struct PackagesComboNavView: View {
     @Binding var isShowedSearchView: Bool
     
     let navBarHeight: CGFloat
-    let navInfo: ComboNavInfo
+    let navInfo: PackagesComboNavInfo
     
     var showSearchView: ((Bool) -> Void)
     
@@ -69,5 +69,5 @@ struct ComboNavView: View {
 }
 
 #Preview {
-    ComboNavView(isShowedSearchView: .constant(false), navBarHeight: 44, navInfo: ComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩"), showSearchView: {_ in print("showSearchView")})
+    PackagesComboNavView(isShowedSearchView: .constant(false), navBarHeight: 44, navInfo: PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩"), showSearchView: {_ in print("showSearchView")})
 }

@@ -1,5 +1,5 @@
 //
-//  ComboAmountDetailInfo.swift
+//  PackagesComboAmountDetailInfo.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/8.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ComboAmountInfo {
-    let detailInfo: [ComboAmountDetailInfo]
-    let discountInfo: [ComboAmountDiscountInfo]
+struct PackagesComboAmountInfo {
+    let detailInfo: [PackagesComboAmountDetailInfo]
+    let discountInfo: [PackagesComboAmountDiscountInfo]
 }
 
-struct ComboAmountDetailInfo: Identifiable {
+struct PackagesComboAmountDetailInfo: Identifiable {
     let id = UUID()
     let appellation: String
     let pricePrePerson: String
@@ -20,7 +20,7 @@ struct ComboAmountDetailInfo: Identifiable {
     let totalPrice: String
 }
 
-struct ComboAmountDiscountInfo: Identifiable {
+struct PackagesComboAmountDiscountInfo: Identifiable {
     let id = UUID()
     let isDiscount: Bool //是：優惠代碼；否：可樂旅遊幣
     let title: String

@@ -1,5 +1,5 @@
 //
-//  ComboCardTitle.swift
+//  PackagesComboCardTitle.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboCardTitle: View {
+struct PackagesComboCardTitle: View {
     let title: String
     let titleButton: String
     
@@ -37,5 +37,5 @@ struct ComboCardTitle: View {
 }
 
 #Preview {
-    ComboCardTitle(title: "已選航班", titleButton: "更換航班", clickAction: {print("點擊更換航班")})
+    PackagesComboCardTitle(title: "已選航班", titleButton: "更換航班", clickAction: {print("點擊更換航班")})
 }

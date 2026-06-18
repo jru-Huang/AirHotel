@@ -1,5 +1,5 @@
 //
-//  ComboAmountBottomView.swift
+//  PackagesComboAmountBottomView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/3.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboAmountBottomView: View {
+struct PackagesComboAmountBottomView: View {
     @Binding var showAmountDetail: Bool
     
     var body: some View {
@@ -64,5 +64,5 @@ struct ComboAmountBottomView: View {
 }
 
 #Preview {
-    ComboAmountBottomView(showAmountDetail: .constant(true))
+    PackagesComboAmountBottomView(showAmountDetail: .constant(true))
 }

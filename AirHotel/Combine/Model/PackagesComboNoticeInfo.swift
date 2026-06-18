@@ -1,5 +1,5 @@
 //
-//  ComboNoticeInfo.swift
+//  PackagesComboNoticeInfo.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboNoticeInfo: Identifiable {
+struct PackagesComboNoticeInfo: Identifiable {
     let id = UUID()
     let imageName: String
     let content: String

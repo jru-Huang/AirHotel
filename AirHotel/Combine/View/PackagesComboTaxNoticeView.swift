@@ -1,5 +1,5 @@
 //
-//  ComboTaxNoticeView.swift
+//  PackagesComboTaxNoticeView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ComboTaxNoticeView: View {
+struct PackagesComboTaxNoticeView: View {
     let taxNotice: String
     var onTouchNotice: (() -> Void)
     
@@ -42,5 +42,5 @@ struct ComboTaxNoticeView: View {
 }
 
 #Preview {
-    ComboTaxNoticeView(taxNotice: "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。", onTouchNotice: { print("點擊公告")})
+    PackagesComboTaxNoticeView(taxNotice: "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。", onTouchNotice: { print("點擊公告")})
 }

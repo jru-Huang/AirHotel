@@ -1,5 +1,5 @@
 //
-//  ComboSystemNoticeView.swift
+//  PackagesComboSystemNoticeView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/5/29.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ComboSystemNoticeView: View {
-    let systemNotice: ComboNoticeInfo
+struct PackagesComboSystemNoticeView: View {
+    let systemNotice: PackagesComboNoticeInfo
     var onTouchNotice: (()-> Void)
     
     var body: some View {
@@ -23,7 +23,7 @@ struct ComboSystemNoticeView: View {
         .padding(.top, 6)
     }
     
-    private func noticeView(noticeInfo: ComboNoticeInfo) -> some View {
+    private func noticeView(noticeInfo: PackagesComboNoticeInfo) -> some View {
         
         HStack(spacing: 4) {
             Image(noticeInfo.imageName)
@@ -43,8 +43,8 @@ struct ComboSystemNoticeView: View {
 }
 
 #Preview {
-    ComboSystemNoticeView(systemNotice:
-                            ComboNoticeInfo(imageName: "ic_time_20",
+    PackagesComboSystemNoticeView(systemNotice:
+                            PackagesComboNoticeInfo(imageName: "ic_time_20",
                                                             content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款",
                                                             bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
                                                             strokeColor: AppColor.Border.brandPrimarySubtle),

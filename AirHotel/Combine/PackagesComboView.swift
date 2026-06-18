@@ -7,17 +7,17 @@
 
 import SwiftUI
 
-struct ComboPackages: View {
-    @StateObject private var viewModel: ComboPackagesViewModel
+struct PackagesComboView: View {
+    @StateObject private var viewModel: PackagesComboViewModel
     
     @State private var showSearchView: Bool = false
     @State private var showAmountDetail: Bool = false
-    @State private var presentNotice: PresentedNotice?
+    @State private var presentNotice: PackagesNoticeInfo?
     
     let navBarHeight: CGFloat = 44
     
     init() {
-        _viewModel = StateObject(wrappedValue: ComboPackagesViewModel())
+        _viewModel = StateObject(wrappedValue: PackagesComboViewModel())
     }
     
     var body: some View {
@@ -28,7 +28,7 @@ struct ComboPackages: View {
     }
 }
 
-extension ComboPackages {
+extension PackagesComboView {
     
     private func contentView(proxy: GeometryProxy) -> some View {
         ZStack {
@@ -59,17 +59,17 @@ extension ComboPackages {
     
     private func mainContentView(bottomInset: CGFloat) -> some View {
         VStack(spacing: 0) {
-            ComboTaxNoticeView(taxNotice: viewModel.taxNotice, onTouchNotice: {
-                presentNotice = PresentedNotice(noticeInfo: viewModel.taxNoticeInfo)
+            PackagesComboTaxNoticeView(taxNotice: viewModel.taxNotice, onTouchNotice: {
+                presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.taxNoticeInfo)
             })
             
             ScrollView {
                 VStack(spacing: 0) {
-                    ComboSystemNoticeView(systemNotice: viewModel.systemNotice1, onTouchNotice: {
-                        presentNotice = PresentedNotice(noticeInfo: viewModel.systemNoticeInfo1)
+                    PackagesComboSystemNoticeView(systemNotice: viewModel.systemNotice1, onTouchNotice: {
+                        presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.systemNoticeInfo1)
                     })
-                    ComboSystemNoticeView(systemNotice: viewModel.systemNotice2, onTouchNotice: {
-                        presentNotice = PresentedNotice(noticeInfo: viewModel.systemNoticeInfo2)
+                    PackagesComboSystemNoticeView(systemNotice: viewModel.systemNotice2, onTouchNotice: {
+                        presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.systemNoticeInfo2)
                     })
                     packagesContentView
                 }
@@ -81,12 +81,12 @@ extension ComboPackages {
     
     private var packagesContentView: some View {
         VStack(spacing: 12) {
-            ComboHeader()
-            ComboAirCard(info: viewModel.airInfoCard)
-            ComboHotelCard(info: viewModel.hotelInfoCard, onTouchNotice: {
-                presentNotice = PresentedNotice(noticeInfo: viewModel.hotelCancelNotice)
+            PackagesComboHeader()
+            PackagesComboAirCard(info: viewModel.airInfoCard)
+            PackagesComboHotelCard(info: viewModel.hotelInfoCard, onTouchNotice: {
+                presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.hotelCancelNotice)
             })
-            ComboDiscountCard(info: $viewModel.discountInfoCard)
+            PackagesComboDiscountCard(info: $viewModel.discountInfoCard)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -94,7 +94,7 @@ extension ComboPackages {
     
     private var navContainerView: some View {
         VStack(spacing: 0) {
-            ComboNavView(
+            PackagesComboNavView(
                 isShowedSearchView: $showSearchView,
                 navBarHeight: navBarHeight,
                 navInfo: viewModel.navInfo,
@@ -114,13 +114,13 @@ extension ComboPackages {
             Spacer()
             
             if showAmountDetail {
-                ComboAmountDetailView(
+                PackagesComboAmountDetailView(
                     showAmountDetail: $showAmountDetail,
                     info: viewModel.amountInfo)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            ComboAmountBottomView(showAmountDetail: $showAmountDetail)
+            PackagesComboAmountBottomView(showAmountDetail: $showAmountDetail)
         }
         .animation(.easeInOut(duration: 0.3), value: showAmountDetail)
     }
@@ -141,7 +141,7 @@ extension ComboPackages {
     
     private var changeSearchView: some View {
         VStack(spacing: 0) {
-            ComboChangeSearchNavView(
+            PackagesComboChangeSearchNavView(
                 navBarHeight: navBarHeight,
                 onTouchBack: {
                     print("點擊返回P0機加酒首頁")
@@ -172,5 +172,5 @@ extension ComboPackages {
 }
 
 #Preview {
-    ComboPackages()
+    PackagesComboView()
 }

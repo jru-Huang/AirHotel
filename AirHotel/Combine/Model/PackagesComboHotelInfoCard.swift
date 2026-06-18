@@ -1,5 +1,5 @@
 //
-//  ComboHotelInfoCard.swift
+//  PackagesComboHotelInfoCard.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/3.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ComboHotelInfoCard {
+struct PackagesComboHotelInfoCard {
     let hotelNotice: String
     let checkInOutDate: String
     let hotelName: String
@@ -16,7 +16,7 @@ struct ComboHotelInfoCard {
     let hotelGrade: CGFloat
     let starHotel: String
     let hasBreakfast: Bool
-    let bookingRuleKey: ComboPackagesViewModel.BookingRuleKey
+    let bookingRuleKey: PackagesComboViewModel.BookingRuleKey
     let bookingRule: String
     let hotelTagList: [String]
 }

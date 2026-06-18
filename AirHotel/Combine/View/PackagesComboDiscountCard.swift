@@ -1,5 +1,5 @@
 //
-//  ComboDiscountCard.swift
+//  PackagesComboDiscountCard.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/1.
@@ -8,9 +8,9 @@
 import SwiftUI
 import Combine
 
-struct ComboDiscountCard: View {
+struct PackagesComboDiscountCard: View {
     
-    @Binding var info: ComboDiscountInfoCard
+    @Binding var info: PackagesComboDiscountInfoCard
     
     @State var isLogin: Bool = true
     @State var colaCoinMark: Bool = true
@@ -218,8 +218,8 @@ struct ComboDiscountCard: View {
 }
 
 #Preview {
-    ComboDiscountCard(info:
+    PackagesComboDiscountCard(info:
             .constant(
-                ComboDiscountInfoCard(discount: "優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小", discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"))
+                PackagesComboDiscountInfoCard(discount: "優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小優惠折扣買大送小", discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"))
     )
 }

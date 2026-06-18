@@ -1,5 +1,5 @@
 //
-//  ComboAmountDetailView.swift
+//  PackagesComboAmountDetailView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/3.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ComboAmountDetailView: View {
+struct PackagesComboAmountDetailView: View {
     
     @Binding var showAmountDetail: Bool
     
-    let info: ComboAmountInfo
+    let info: PackagesComboAmountInfo
     
     var body: some View {
         VStack(spacing: 0) {
@@ -130,22 +130,22 @@ struct ComboAmountDetailView: View {
 }
 
 #Preview {
-    ComboAmountDetailView(showAmountDetail: .constant(false), info: ComboAmountInfo(
+    PackagesComboAmountDetailView(showAmountDetail: .constant(false), info: PackagesComboAmountInfo(
         detailInfo: [
-            ComboAmountDetailInfo(appellation: "大人",
+            PackagesComboAmountDetailInfo(appellation: "大人",
                                   pricePrePerson: "$17,200",
                                   numberOfPeople: "x4",
                                   totalPrice: "$68,800"),
-            ComboAmountDetailInfo(appellation: "小孩",
+            PackagesComboAmountDetailInfo(appellation: "小孩",
                                   pricePrePerson: "$17,200",
                                   numberOfPeople: "x1",
                                   totalPrice: "$17,200")
         ], discountInfo: [
-            ComboAmountDiscountInfo(isDiscount: true,
+            PackagesComboAmountDiscountInfo(isDiscount: true,
                                     title: "優惠代碼折扣",
                                     content: "晚鳥清艙折抵800元",
                                     discount: "-$2,000"),
-            ComboAmountDiscountInfo(isDiscount: false,
+            PackagesComboAmountDiscountInfo(isDiscount: false,
                                     title: "可樂旅遊幣折抵",
                                     content: "均分於所有旅客",
                                     discount: "-$120")

@@ -11,7 +11,7 @@ struct PackagesNoticeInfoView: View {
     
     private let hideDuration: Double = 0.2
     
-    let info: NoticeDetailInfo
+    let info: PackagesNoticeDetailInfo
     var onDismiss: (() -> Void)
     
     @State private var showContent: Bool = false
@@ -86,7 +86,7 @@ struct PackagesNoticeInfoView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func noticeContentView(noticeInfoList: [NoticeDetail], maxHeight: CGFloat) -> some View {
+    private func noticeContentView(noticeInfoList: [PackagesNoticeDetail], maxHeight: CGFloat) -> some View {
         ScrollView {
             noticeContentBody(noticeInfoList: noticeInfoList)
         }
@@ -95,7 +95,7 @@ struct PackagesNoticeInfoView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func noticeContentBody(noticeInfoList: [NoticeDetail]) -> some View {
+    private func noticeContentBody(noticeInfoList: [PackagesNoticeDetail]) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             ForEach(noticeInfoList) { notice in
                 VStack(alignment: .leading, spacing: 4) {
@@ -144,14 +144,14 @@ struct PackagesNoticeInfoView: View {
 }
 
 #Preview {
-    PackagesNoticeInfoView(info: NoticeDetailInfo(navTitle: "注意事項",
+    PackagesNoticeInfoView(info: PackagesNoticeDetailInfo(navTitle: "注意事項",
                                                   noticeInfoList:
                                                      [
-                                                         NoticeDetail(title: "日本政府政策：酒店房租稅",
+                                                        PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                                                                       content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                                                         NoticeDetail(title: "日本政府政策：酒店房租稅",
+                                                        PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                                                                       content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                                                         NoticeDetail(title: "日本政府政策：酒店房租稅",
+                                                        PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
                                                                       content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。")
                                                       
                                                      ]
