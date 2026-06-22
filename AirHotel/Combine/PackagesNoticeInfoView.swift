@@ -97,26 +97,30 @@ struct PackagesNoticeInfoView: View {
     
     private func noticeContentBody(noticeInfoList: [PackagesNoticeDetail]) -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            ForEach(noticeInfoList) { notice in
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 4) {
-                        if notice.title.isEmpty == false {
-                            titleLine()
-                            Text(notice.title)
-                                .font(AppTypography.T03M)
-                                .foregroundStyle(AppColor.Text.neutralBodyBase)
-                        }
-                    }
-                    
-                    Text(notice.content)
-                        .font(AppTypography.B03)
-                        .foregroundStyle(AppColor.Text.neutralBodyBase)
-                }
+            ForEach(noticeInfoList) { item in
+                noticeItemView(item)
             }
         }
         .padding(.top, 16)
         .padding(.horizontal, 20)
         .padding(.bottom, 40)
+    }
+
+    private func noticeItemView(_ notice: PackagesNoticeDetail) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 4) {
+                if notice.title.isEmpty == false {
+                    titleLine()
+                    Text(notice.title)
+                        .font(AppTypography.T03M)
+                        .foregroundStyle(AppColor.Text.neutralBodyBase)
+                }
+            }
+
+            Text(notice.content)
+                .font(AppTypography.B03R)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
+        }
     }
     
     private var closeButtonView: some View {

@@ -14,15 +14,15 @@ struct PackagesComboAmountBottomView: View {
         HStack(alignment: .bottom, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 Text("機＋酒含稅總計")
-                    .font(AppTypography.T06)
+                    .font(AppTypography.B06R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
                 HStack(spacing: 4) {
                     Text("$")
-                        .font(AppTypography.B05)
+                        .font(AppTypography.B05R)
                         .foregroundStyle(AppColor.Text.marketOrangeDark)
                     Text("83,880")
-                        .font(AppTypography.N03M)
+                        .font(AppTypography.N03B)
                         .foregroundStyle(AppColor.Text.marketOrangeDark)
                 }
             }

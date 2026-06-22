@@ -105,7 +105,7 @@ struct PackagesComboAmountDetailView: View {
                 }
                 
                 Text(content)
-                    .font(AppTypography.B05)
+                    .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
             Spacer()

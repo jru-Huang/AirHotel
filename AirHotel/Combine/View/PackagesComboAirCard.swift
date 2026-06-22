@@ -63,7 +63,7 @@ struct PackagesComboAirCard: View {
                 if segment.noticeText.isEmpty == false {
                     HStack(spacing: 1) {
                         Text(segment.noticeText)
-                            .font(AppTypography.B05)
+                            .font(AppTypography.B05R)
                             .foregroundStyle(AppColor.Text.brandSecondaryBase)
                         Image("ic_notice_16")
                     }

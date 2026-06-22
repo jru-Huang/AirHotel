@@ -16,7 +16,7 @@ struct PackagesComboCardTitle: View {
     var body: some View {
         HStack {
             Text(title)
-                .font(AppTypography.T02)
+                .font(AppTypography.T02M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
             Spacer()
             Button {

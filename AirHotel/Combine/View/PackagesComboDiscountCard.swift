@@ -76,7 +76,7 @@ struct PackagesComboDiscountCard: View {
             
             if info.discountError.isEmpty == false {
                 Text(info.discountError)
-                    .font(AppTypography.B05)
+                    .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.stateError)
                     .padding(.leading, 26) //icon 20 + spacing 6
                     .multilineTextAlignment(.leading)
@@ -158,7 +158,7 @@ struct PackagesComboDiscountCard: View {
         } label: {
             HStack(spacing: 10) {
                 Text(inputCoinText)
-                    .font(AppTypography.B05)
+                    .font(AppTypography.B05R)
                     .foregroundStyle(inputCoinText == "請輸入欲使用的數量" ? AppColor.Text.neutralCaption : AppColor.Text.neutralBodyBase)
                     .multilineTextAlignment(.leading)
                 
@@ -181,7 +181,7 @@ struct PackagesComboDiscountCard: View {
     private var remarkView: some View {
         HStack {
             Text(colaCoinRemarkText)
-                .font(AppTypography.B05)
+                .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.neutralBodyLight)
                 .multilineTextAlignment(.leading)
             
@@ -189,7 +189,7 @@ struct PackagesComboDiscountCard: View {
             //清空可樂幣
             HStack(spacing: 2) {
                 Text("可折抵")
-                    .font(AppTypography.B05)
+                    .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
                 Text("$1000")
@@ -197,7 +197,7 @@ struct PackagesComboDiscountCard: View {
                     .foregroundStyle(AppColor.Text.marketOrangeDark)
                 
                 Text("元")
-                    .font(AppTypography.B05)
+                    .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
         }
@@ -205,7 +205,7 @@ struct PackagesComboDiscountCard: View {
     
     private var disableView: some View {
         Text(colaCoinDisableDes)
-            .font(AppTypography.B05)
+            .font(AppTypography.B05R)
             .foregroundStyle(AppColor.Text.stateError)
             .multilineTextAlignment(.leading)
     }

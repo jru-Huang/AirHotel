@@ -43,7 +43,7 @@ struct PackagesComboHotelCard: View {
     
     private var noticeView: some View {
         Text(info.hotelNotice)
-            .font(AppTypography.B03)
+            .font(AppTypography.B03R)
             .foregroundStyle(AppColor.Text.marketOrangeDark)
     }
     
@@ -89,7 +89,7 @@ struct PackagesComboHotelCard: View {
                     VStack(alignment: .leading, spacing: 6) {
                         if info.hotelSubtitle.isEmpty == false {
                             Text(info.hotelSubtitle)
-                                .font(AppTypography.B05)
+                                .font(AppTypography.B06M)
                                 .foregroundStyle(AppColor.Text.neutralBodyMid)
                                 .lineLimit(1)
                         }
@@ -142,7 +142,7 @@ struct PackagesComboHotelCard: View {
                     HStack(spacing: 2) {
                         Image(info.hasBreakfast == true ? "ic_breakfast_16_breakfast_gray" : "ic_breakfast_16_nobreakfast_gray")
                         Text(info.hasBreakfast == true ? "僅包含大人早餐" : "不包含早餐")
-                            .font(AppTypography.B05)
+                            .font(AppTypography.B05R)
                             .foregroundStyle(AppColor.Text.neutralBodyMid)
                     }
                     
@@ -154,7 +154,7 @@ struct PackagesComboHotelCard: View {
                             HStack(spacing: 2) {
                                 Image(info.bookingRuleKey.imageName)
                                 Text(info.bookingRule)
-                                    .font(AppTypography.B05)
+                                    .font(AppTypography.B05R)
                                     .foregroundStyle(AppColor.Text.neutralBodyMid)
                                     .overlay(alignment: .bottom) {
                                         GeometryReader { geo in

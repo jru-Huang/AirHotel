@@ -16,9 +16,10 @@ enum AppTypography {
 
     static let H01 = font(DesignToken.globalTypographyHeadlineH01)
     static let H02 = font(DesignToken.globalTypographyHeadlineH02)
+    static let H03 = font(DesignToken.globalTypographyHeadlineH03)
 
-    static let T01 = font(DesignToken.globalTypographyTitleT01)
-    static let T02 = font(DesignToken.globalTypographyTitleT02)
+    static let T01M = font(DesignToken.globalTypographyTitleT01M)
+    static let T02M = font(DesignToken.globalTypographyTitleT02M)
     static let T03M = font(DesignToken.globalTypographyTitleT03M)
     static let T03R = font(DesignToken.globalTypographyTitleT03R)
     static let T04B = font(DesignToken.globalTypographyTitleT04B)
@@ -27,18 +28,18 @@ enum AppTypography {
     static let T05B = font(DesignToken.globalTypographyTitleT05B)
     static let T05M = font(DesignToken.globalTypographyTitleT05M)
     static let T05R = font(DesignToken.globalTypographyTitleT05R)
-    static let T06 = font(DesignToken.globalTypographyTitleT06)
+    static let T06R = font(DesignToken.globalTypographyTitleT06R)
 
-    static let B01 = font(DesignToken.globalTypographyBodyB01)
-    static let B02 = font(DesignToken.globalTypographyBodyB02)
-    static let B03 = font(DesignToken.globalTypographyBodyB03)
+    static let B01R = font(DesignToken.globalTypographyBodyB01R)
+    static let B02R = font(DesignToken.globalTypographyBodyB02R)
+    static let B03R = font(DesignToken.globalTypographyBodyB03R)
     static let B04R = font(DesignToken.globalTypographyBodyB04R)
     static let B04M = font(DesignToken.globalTypographyBodyB04M)
-    static let B05 = font(DesignToken.globalTypographyBodyB05)
+    static let B05R = font(DesignToken.globalTypographyBodyB05R)
     static let B06M = font(DesignToken.globalTypographyBodyB06M)
     static let B06R = font(DesignToken.globalTypographyBodyB06R)
 
-    static let L01 = font(DesignToken.globalTypographyLabelL01)
+    static let L01R = font(DesignToken.globalTypographyLabelL01R)
     static let L02M = font(DesignToken.globalTypographyLabelL02M)
     static let L02R = font(DesignToken.globalTypographyLabelL02R)
     static let L03M = font(DesignToken.globalTypographyLabelL03M)
@@ -61,10 +62,10 @@ enum AppTypography {
     static let N07R = font(DesignToken.globalTypographyNumberN07R)
 
     static let display = D01
-    static let title = T01
-    static let body = B02
+    static let title = T01M
+    static let body = B02R
     static let label = L02M
-    static let caption = B05
+    static let caption = B05R
 
     enum UI {
         static let D01 = uiFont(DesignToken.globalTypographyDisplayD01)
@@ -73,9 +74,10 @@ enum AppTypography {
 
         static let H01 = uiFont(DesignToken.globalTypographyHeadlineH01)
         static let H02 = uiFont(DesignToken.globalTypographyHeadlineH02)
-
-        static let T01 = uiFont(DesignToken.globalTypographyTitleT01)
-        static let T02 = uiFont(DesignToken.globalTypographyTitleT02)
+        static let H03 = uiFont(DesignToken.globalTypographyHeadlineH03)
+        
+        static let T01M = uiFont(DesignToken.globalTypographyTitleT01M)
+        static let T02M = uiFont(DesignToken.globalTypographyTitleT02M)
         static let T03M = uiFont(DesignToken.globalTypographyTitleT03M)
         static let T03R = uiFont(DesignToken.globalTypographyTitleT03R)
         static let T04B = uiFont(DesignToken.globalTypographyTitleT04B)
@@ -84,18 +86,18 @@ enum AppTypography {
         static let T05B = uiFont(DesignToken.globalTypographyTitleT05B)
         static let T05M = uiFont(DesignToken.globalTypographyTitleT05M)
         static let T05R = uiFont(DesignToken.globalTypographyTitleT05R)
-        static let T06 = uiFont(DesignToken.globalTypographyTitleT06)
+        static let T06R = uiFont(DesignToken.globalTypographyTitleT06R)
 
-        static let B01 = uiFont(DesignToken.globalTypographyBodyB01)
-        static let B02 = uiFont(DesignToken.globalTypographyBodyB02)
-        static let B03 = uiFont(DesignToken.globalTypographyBodyB03)
+        static let B01R = uiFont(DesignToken.globalTypographyBodyB01R)
+        static let B02R = uiFont(DesignToken.globalTypographyBodyB02R)
+        static let B03R = uiFont(DesignToken.globalTypographyBodyB03R)
         static let B04R = uiFont(DesignToken.globalTypographyBodyB04R)
         static let B04M = uiFont(DesignToken.globalTypographyBodyB04M)
-        static let B05 = uiFont(DesignToken.globalTypographyBodyB05)
+        static let B05R = uiFont(DesignToken.globalTypographyBodyB05R)
         static let B06M = uiFont(DesignToken.globalTypographyBodyB06M)
         static let B06R = uiFont(DesignToken.globalTypographyBodyB06R)
 
-        static let L01 = uiFont(DesignToken.globalTypographyLabelL01)
+        static let L01R = uiFont(DesignToken.globalTypographyLabelL01R)
         static let L02M = uiFont(DesignToken.globalTypographyLabelL02M)
         static let L02R = uiFont(DesignToken.globalTypographyLabelL02R)
         static let L03M = uiFont(DesignToken.globalTypographyLabelL03M)
@@ -118,10 +120,10 @@ enum AppTypography {
         static let N07R = uiFont(DesignToken.globalTypographyNumberN07R)
 
         static let display = D01
-        static let title = T01
-        static let body = B02
+        static let title = T01M
+        static let body = B02R
         static let label = L02M
-        static let caption = B05
+        static let caption = B05R
     }
 
     private static func font(_ typography: [String: Any]) -> Font {

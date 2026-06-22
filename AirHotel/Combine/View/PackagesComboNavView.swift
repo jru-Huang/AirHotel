@@ -40,13 +40,13 @@ struct PackagesComboNavView: View {
                     }
                     HStack(spacing: 4) {
                         Text(navInfo.date)
-                            .font(AppTypography.T06)
+                            .font(AppTypography.T06R)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
                         Rectangle()
                             .fill(AppColor.Border.neutralBase)
                             .frame(width: 0.5, height: 9)
                         Text(navInfo.roomAndPeople)
-                            .font(AppTypography.T06)
+                            .font(AppTypography.T06R)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
                     }
                 }
