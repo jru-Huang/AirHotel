@@ -209,4 +209,29 @@ final class PackagesComboViewModel: ObservableObject {
                              content: "此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。 \n在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)")
                 ]
         )
+    
+    func onViewAppear() {
+        let response: PackagesDynamicBundleResponse = load("Combo.json")
+        print(response)
+    }
+    
+    
+    private func load<T: Decodable>(_ filename: String) -> T {
+            let data: Data
+            guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
+            else {
+                fatalError("Couldn't find \(filename) in main bundle.")
+            }
+            do {
+                data = try Data(contentsOf: file)
+            } catch {
+                fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+            }
+            do {
+                let decoder = JSONDecoder()
+                return try decoder.decode(T.self, from: data)
+            } catch {
+                fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+            }
+        }
 }

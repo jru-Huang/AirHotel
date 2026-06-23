@@ -25,6 +25,9 @@ struct PackagesComboView: View {
             contentView(proxy: proxy)
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.onViewAppear()
+        }
     }
 }
 

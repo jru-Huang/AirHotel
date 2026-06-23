@@ -28,6 +28,8 @@
 		7B39BE392FC96CC3003ABF42 /* PackagesComboViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */; };
 		7B39BE3B2FC971CF003ABF42 /* PackagesComboNavInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */; };
 		7B39BE3D2FC97A61003ABF42 /* PackagesComboHotelCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3C2FC97A61003ABF42 /* PackagesComboHotelCard.swift */; };
+		7B4460CC2FEA39BA00271458 /* Combo.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B4460CB2FEA39BA00271458 /* Combo.json */; };
+		7B5D2B222FE923B200678C97 /* PackagesDynamicBundleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */; };
 		7B6411BD2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BC2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift */; };
 		7B6411BF2FD001AF00EC660B /* PackagesComboAmountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BE2FD001AF00EC660B /* PackagesComboAmountDetailView.swift */; };
 		7B6411C12FD0221B00EC660B /* PackagesComboHotelInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoCard.swift */; };
@@ -65,6 +67,8 @@
 		7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboViewModel.swift; sourceTree = "<group>"; };
 		7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavInfo.swift; sourceTree = "<group>"; };
 		7B39BE3C2FC97A61003ABF42 /* PackagesComboHotelCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHotelCard.swift; sourceTree = "<group>"; };
+		7B4460CB2FEA39BA00271458 /* Combo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Combo.json; sourceTree = "<group>"; };
+		7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesDynamicBundleResponse.swift; sourceTree = "<group>"; };
 		7B6411BC2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountBottomView.swift; sourceTree = "<group>"; };
 		7B6411BE2FD001AF00EC660B /* PackagesComboAmountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountDetailView.swift; sourceTree = "<group>"; };
 		7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHotelInfoCard.swift; sourceTree = "<group>"; };
@@ -112,11 +116,12 @@
 		7B2D22E52FC7DC9A00D0531F /* Combine */ = {
 			isa = PBXGroup;
 			children = (
+				7B4460CA2FEA397700271458 /* Mock */,
 				7B39BE2D2FC948D2003ABF42 /* Model */,
 				7B2D22E82FC81D3C00D0531F /* View */,
 				7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */,
-				7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */,
 				7B9107632FD6938E00083AF1 /* PackagesNoticeInfoView.swift */,
+				7B4460CD2FEA39E100271458 /* ViewModel */,
 			);
 			path = Combine;
 			sourceTree = "<group>";
@@ -149,8 +154,25 @@
 				7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */,
 				7B9107612FD6650300083AF1 /* PackagesComboAmountDetailInfo.swift */,
 				7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfo.swift */,
+				7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7B4460CA2FEA397700271458 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				7B4460CB2FEA39BA00271458 /* Combo.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		7B4460CD2FEA39E100271458 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		7B785D122FA8421400079056 = {
@@ -252,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B4460CC2FEA39BA00271458 /* Combo.json in Resources */,
 				7B2D22E42FC7DC0800D0531F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +319,7 @@
 				7B6411BD2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift in Sources */,
 				7B39BE2C2FC94706003ABF42 /* PackagesComboAirInfoCard.swift in Sources */,
 				7B39BE2F2FC9665D003ABF42 /* PackagesComboNoticeInfo.swift in Sources */,
+				7B5D2B222FE923B200678C97 /* PackagesDynamicBundleResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

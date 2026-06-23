@@ -1,0 +1,213 @@
+{
+    "Flow_Id": "43fedee98c3563bd5b70f5433ac61e486b5168e0",
+    "Condition_Detail": {
+        "Travel_Title": "台北 - 東京(TYO)",
+        "Departure_Date": "2026/07/10(五)",
+        "Return_Date": "2026/07/13(一)",
+        "Service_Class_Name": "不限艙等",
+        "Direct_Name": "不限直飛",
+        "Room_Number": 1,
+        "Pax_Qty_Desc": "1大",
+        "Partial_Stay_Desc": "部分入住07/10(五)-07/11(六)",
+        "Chd_Age": [],
+        "CheckIn_Date": "2026/07/10",
+        "CheckOut_Date": "2026/07/11"
+    },
+    "AirTicket_Preselection": {
+        "Page_Id": "54a3fed7-299b-463b-8402-d75496a2c835",
+        "SegmentInfo_List": [
+            {
+                "Item_Index": 101,
+                "Breakdown_Price": 5799,
+                "Breakdown_PriceDesc": "5799",
+                "Segment_Content": {
+                    "Segment_Index": 36,
+                    "Departure_Time": "12:10",
+                    "Arrival_Time": "16:30",
+                    "Departure_DateTime": "2026-07-22T12:10:00",
+                    "Arrival_DateTime": "2026-07-22T16:30:00",
+                    "Date_Variation": "",
+                    "Segment_TimeDesc": "03:20",
+                    "Segment_Time": 260,
+                    "Departure_LocCode": "TPE",
+                    "Arrival_LocCode": "NRT",
+                    "Transit_Count": 0,
+                    "Flight_List": [
+                        {
+                            "Flight_Index": 48,
+                            "Departure_Date": "07/22",
+                            "Departure_Time": "12:10",
+                            "Arrival_Date": "07/22",
+                            "Arrival_Time": "16:30",
+                            "Departure_DateTime": "2026-07-22T12:10:00",
+                            "Arrival_DateTime": "2026-07-22T16:30:00",
+                            "Date_Variation": "",
+                            "Departure_LocCode": "TPE",
+                            "Departure_Terminal": "第一航站",
+                            "Departure_LocDesc": "TPE 台北 桃園機場",
+                            "Arrival_LocCode": "NRT",
+                            "Arrival_Terminal": "第一航站",
+                            "Arrival_LocDesc": "NRT 東京 成田機場",
+                            "Ticketing_Carrier": "SL",
+                            "Ticketing_CarrierName": "泰國獅子航空",
+                            "Operating_Carrier": "SL",
+                            "Operating_CarrierName": "泰國獅子航空",
+                            "Carrier_Logo": "https://uatb2c.colatour.com.tw/COLA_AppFiles/AirTicket/Airline/SL.png",
+                            "Carrier_No": "394",
+                            "Carrier_Desc": "SL394",
+                            "Equipment_Type": "波音 737-900",
+                            "Service_ClassDesc": "",
+                            "Carrier_Time": 200,
+                            "Carrier_TimeDesc": "3時20分",
+                            "Is_Lcc": true,
+                            "Stopover_List": []
+                        }
+                    ]
+                },
+                "Ticketing_Airline": "SL",
+                "Is_NdcOptional": false,
+                "Is_FareFamilyOptional": false
+            },
+            {
+                "Item_Index": 101,
+                "Breakdown_Price": 5799,
+                "Breakdown_PriceDesc": "5799",
+                "Segment_Content": {
+                    "Segment_Index": 36,
+                    "Departure_Time": "12:10",
+                    "Arrival_Time": "16:30",
+                    "Departure_DateTime": "2026-07-22T12:10:00",
+                    "Arrival_DateTime": "2026-07-22T16:30:00",
+                    "Date_Variation": "",
+                    "Segment_TimeDesc": "03:20",
+                    "Segment_Time": 260,
+                    "Departure_LocCode": "TPE",
+                    "Arrival_LocCode": "NRT",
+                    "Transit_Count": 0,
+                    "Flight_List": [
+                        {
+                            "Flight_Index": 48,
+                            "Departure_Date": "07/22",
+                            "Departure_Time": "12:10",
+                            "Arrival_Date": "07/22",
+                            "Arrival_Time": "16:30",
+                            "Departure_DateTime": "2026-07-22T12:10:00",
+                            "Arrival_DateTime": "2026-07-22T16:30:00",
+                            "Date_Variation": "",
+                            "Departure_LocCode": "TPE",
+                            "Departure_Terminal": "第一航站",
+                            "Departure_LocDesc": "TPE 台北 桃園機場",
+                            "Arrival_LocCode": "NRT",
+                            "Arrival_Terminal": "第一航站",
+                            "Arrival_LocDesc": "NRT 東京 成田機場",
+                            "Ticketing_Carrier": "SL",
+                            "Ticketing_CarrierName": "泰國獅子航空",
+                            "Operating_Carrier": "SL",
+                            "Operating_CarrierName": "泰國獅子航空",
+                            "Carrier_Logo": "https://uatb2c.colatour.com.tw/COLA_AppFiles/AirTicket/Airline/SL.png",
+                            "Carrier_No": "394",
+                            "Carrier_Desc": "SL394",
+                            "Equipment_Type": "波音 737-900",
+                            "Service_ClassDesc": "",
+                            "Carrier_Time": 200,
+                            "Carrier_TimeDesc": "3時20分",
+                            "Is_Lcc": true,
+                            "Stopover_List": []
+                        }
+                    ]
+                },
+                "Ticketing_Airline": "SL",
+                "Is_NdcOptional": false,
+                "Is_FareFamilyOptional": false
+            }
+        ],
+        "BaggageInfo_Desc": "部分不含免費托運行李",
+        "Display_Tag": [
+            "旅展促銷",
+            "國慶優惠"
+        ]
+    },
+    "Hotel_Preselection": {
+        "Price_Id": "TTPGa4Vc5SjnvMnhuCv0kktKwBRXEc3uT/OIXERxyRQ=",
+        "HotelInfo_List": [
+            {
+                "Hotel_No": 174364,
+                "Hotel_Chinese_Name": "JR九州BLOSSOM飯店新宿",
+                "Hotel_English_Name": "JR KYUSHU HOTEL BLOSSOM SHINJUKU",
+                "Location_Name": "新宿/大久保/中野",
+                "Hotel_Img": "https://www.colatour.com.tw/COLA_AppFiles/A03H_Hotel/Images/174364-01.GIF",
+                "Hotel_HotMark": false,
+                "Hotel_Grade": 4.0,
+                "Hotel_Sort": 21,
+                "Hotel_Address": " (東京都涉谷區代代木2-6-2)",
+                "Hotel_TraceMark": false,
+                "Hotel_Rating": 4.7,
+                "Hotel_Longitude": "139.69835",
+                "Hotel_Latitude": "35.68764",
+                "Hotel_Traffic_Info": "距離JR線・小田急線・京王線新宿站南口步行3分鐘",
+                "Hotel_Brief": "酒店於2014年8月8日開幕，位於新宿區相當優越的位置，距離各線新宿地鐵站僅約3分鐘步行，方便觀光及商務旅客。現代化客房配備完善設施，設置大片落地窗，高樓層客房更有機會可以一覽東京都夜景。",
+                "Hotel_LandmarkMark1": false,
+                "Hotel_LandmarkMark2": false,
+                "Hotel_LandmarkMark3": true,
+                "Hotel_LandmarkMark4": false,
+                "Hotel_LandmarkMark5": false,
+                "Hotel_LandmarkMark6": true,
+                "Hotel_RoomMark1": true,
+                "Hotel_RoomMark4": true,
+                "Hotel_RoomMark7": false,
+                "Hotel_ServiceMark1": false,
+                "Hotel_ServiceMark3": true,
+                "Hotel_ServiceMark6": false,
+                "Hotel_ServiceMark7": false,
+                "Hotel_ServiceMark8": false,
+                "Hotel_ServiceMark9": false,
+                "Hotel_ServiceMark10": false,
+                "Hotel_ServiceMark13": true,
+                "Hotel_ServiceMark15": false,
+                "Hotel_GreenMark": false,
+                "Total_Price": 21999
+            }
+        ],
+        "Room_Info": {
+            "Room_Description": "經濟雙床房, 非吸煙房 (No Tower View) (偏好 2 張單人床)",
+            "Bed_Description": "2 張單人床",
+            "Guarantee_Mark": false,
+            "Free_Cancel_DeadLine": "2026/06/16 18:00:00",
+            "Breakfast_Type": "早餐",
+            "Breakfast_Remark": "僅大人早餐",
+            "Room_Img": [
+                {
+                    "Img_URL": "https://i.travelapi.com/lodging/1000000/490000/481300/481277/4702fb88_z.jpg",
+                    "Img_Alt": null
+                },
+                {
+                    "Img_URL": "https://i.travelapi.com/lodging/1000000/490000/481300/481277/65772694_z.jpg",
+                    "Img_Alt": null
+                }
+            ],
+            "Room_IntroText": "<p><strong>2 張單人床</strong></p><p>客房面積 5.7 坪 (19 平方公尺)</p><br /><p><b>客房配置</b> - 1 間臥室</p><p><b>上網</b> - 免費無線上網和有線上網</p><p><b>娛樂</b> - 衛星電視頻道</p><p><b>餐飲</b> - 冰箱和免費瓶裝水</p><p><b>舒適睡眠</b> - 高級寢具、遮光窗簾和床單</p><p><b>浴室</b> - 私人浴室，浴缸及淋浴設備 (二合一)、拖鞋、免費盥洗用品</p><p><b>設備</b> - 保險箱、書桌和電話</p><p><b>貼心設施服務</b> - 每日客房清潔服務，以及設有恆溫控制的冷暖空調</p><p><b>環保設施</b> - 環保盥洗用品</p><p>禁煙客房</p>"
+        },
+        "Display_Tag": [
+            "旅展促銷",
+            "國慶優惠"
+        ]
+    },
+    "Total_Amount": 9999,
+    "Adt_PerPrice": 9999,
+    "Chd_PerPrice": 9999,
+    "Notice_Content": {
+        "Announce_Text": [
+            "春節期間，官網與系統皆正常運作，客服服務時間為09:00-1800，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。"
+        ],
+        "StopBooking_Text": "有位低價機票將於 23:20-24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於23:20前完成訂位與付款",
+        "Policy_List": [
+            {
+                "Title": "香港政府新政策：酒店房租稅",
+                "Text": "根據香港政府的規範，將於2025年1月1日起徵收3%酒店房租稅。此類的稅金有可能不包括在房費內，需請客人現場自行支付給酒店。請以酒店現場公告為準"
+            }
+        ],
+        "Overnight_Mark": true,
+        "WarningTime_Text": "您的去程航班時間為07/10 00:55抵達請留意入住日、回程航班為07/10 04:55請留意退房日"
+    },
+    "Expire_Time": "2026-07-10T16:25:00"
+}
