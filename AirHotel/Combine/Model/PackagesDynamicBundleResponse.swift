@@ -323,14 +323,14 @@ struct PackagesDynamicBundleResponse: Codable {
     }
     
     struct NoticeContent: Codable {
-        let announceText: [String]?
+        let announceTextList: [String]?
         let stopBookingText: String?
         let policyList: [Policy]?
         let overnightMark: Bool?
         let warningTimeText: String?
         
         enum CodingKeys: String, CodingKey {
-            case announceText = "Announce_Text"
+            case announceTextList = "Announce_Text"
             case stopBookingText = "StopBooking_Text"
             case policyList = "Policy_List"
             case overnightMark = "Overnight_Mark"

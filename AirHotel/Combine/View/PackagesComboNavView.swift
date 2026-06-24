@@ -64,6 +64,7 @@ struct PackagesComboNavView: View {
         }
         .padding(.horizontal, 16)
         .frame(height: navBarHeight)
+        .background(AppColor.Surface.neutralWhite)
         .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: 1)
     }
 }

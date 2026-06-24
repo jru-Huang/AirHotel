@@ -24,7 +24,7 @@ struct PackagesComboView: View {
         GeometryReader { proxy in
             contentView(proxy: proxy)
         }
-        .navigationBarBackButtonHidden()
+//        .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.onViewAppear()
         }
@@ -62,18 +62,26 @@ extension PackagesComboView {
     
     private func mainContentView(bottomInset: CGFloat) -> some View {
         VStack(spacing: 0) {
-            PackagesComboTaxNoticeView(taxNotice: viewModel.taxNotice, onTouchNotice: {
-                presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.taxNoticeInfo)
-            })
+            if let policyNotice = viewModel.policyNotice {
+                PackagesComboPolicyNoticeView(notice: policyNotice.noticeDetailList.first?.content ?? "", onTouchNotice: {
+                    presentNotice = PackagesNoticeInfo(noticeInfo: policyNotice)
+                })
+            }
             
             ScrollView {
                 VStack(spacing: 0) {
-                    PackagesComboSystemNoticeView(systemNotice: viewModel.systemNotice1, onTouchNotice: {
-                        presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.systemNoticeInfo1)
-                    })
-                    PackagesComboSystemNoticeView(systemNotice: viewModel.systemNotice2, onTouchNotice: {
-                        presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.systemNoticeInfo2)
-                    })
+                    if let stopBookingNotice = viewModel.stopBookingNotice {
+                        PackagesComboSystemNoticeView(systemNoticeConfig: stopBookingNotice.config!, onTouchNotice: {
+                            presentNotice = PackagesNoticeInfo(noticeInfo: stopBookingNotice.detailInfo!)
+                        })
+                    }
+                    
+                    if let announceNotice = viewModel.announceNotice {
+                        PackagesComboSystemNoticeView(systemNoticeConfig: announceNotice.config!, onTouchNotice: {
+                            presentNotice = PackagesNoticeInfo(noticeInfo: announceNotice.detailInfo!)
+                        })
+                    }
+                    
                     packagesContentView
                 }
                 .padding(.bottom, bottomInset + 12)

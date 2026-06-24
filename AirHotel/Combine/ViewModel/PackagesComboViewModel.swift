@@ -52,22 +52,9 @@ final class PackagesComboViewModel: ObservableObject {
     
     @Published var navInfo: PackagesComboNavInfo = PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩")
     
-    //稅收資訊公告
-    @Published var taxNotice: String = "東京從2002年10月徵收住宿税。徵税標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿税，需客人另付前臺，具體以飯店告知為準。"
-    
-    // 機票更新資訊公告
-    @Published var systemNotice1: PackagesComboNoticeInfo =
-    PackagesComboNoticeInfo(imageName: "ic_time_20",
-                        content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款",
-                        bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
-                        strokeColor: AppColor.Border.brandPrimarySubtle)
-    
-    //臨時資訊公告
-    @Published var systemNotice2: PackagesComboNoticeInfo =
-    PackagesComboNoticeInfo(imageName: "ic_bell_20",
-                        content: "春節期間（2/8–2/14），官網與系統皆正常運作，客服服務時間為 09:00–18:00，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。",
-                        bgColor: AppColor.Surface.brandSecondaryExtraSubtle,
-                        strokeColor: AppColor.Border.brandSecondarySubtle)
+    @Published var policyNotice: PackagesNoticeDetailInfo?
+    @Published var stopBookingNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
+    @Published var announceNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
     
     //機票
     @Published var airInfoCard: PackagesComboAirInfoCard = PackagesComboAirInfoCard(
@@ -154,56 +141,10 @@ final class PackagesComboViewModel: ObservableObject {
                                 discount: "-$120")
     ])
     
-    // 稅收內容公告
-    let taxNoticeInfo: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
-        navTitle: "注意事項",
-        noticeInfoList:
-            [
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。"),
-                PackagesNoticeDetail(title: "日本政府政策：酒店房租稅",
-                             content: "東京從2002年10月起徵收住宿稅。徵稅標準根據住宿金額按每人每晚徵收，每晚住宿費在1萬日元以上每人每晚徵收100日元，1.5萬日元以上每人每晚徵收200日元，部分房價不包含住宿稅，需客人另付前臺，具體以飯店告知爲準。")
-             
-            ]
-        )
-    
-    //系統內容公告: 有位低價
-    let systemNoticeInfo1: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
-        navTitle: "系統公告",
-        noticeInfoList:
-            [
-                PackagesNoticeDetail(title: "",
-                             content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款")
-                ]
-        )
-    //系統內容公告: 臨時公告
-    let systemNoticeInfo2: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
-        navTitle: "系統公告",
-        noticeInfoList:
-            [
-                PackagesNoticeDetail(title: "",
-                             content: "春節期間（2/8–2/14），官網與系統皆正常運作，客服服務時間為 09:00–18:00，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。")
-                ]
-        )
-    
     // 房型取消限制說明
     let hotelCancelNotice: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
         navTitle: "可免費取消",
-        noticeInfoList:
+        noticeDetailList:
             [
                 PackagesNoticeDetail(title: "",
                              content: "此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。 \n在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)")
@@ -213,8 +154,57 @@ final class PackagesComboViewModel: ObservableObject {
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
         print(response)
+        
+        setNotices(noticeContent: response.noticeContent)
     }
     
+    private func setNotices(noticeContent: PackagesDynamicBundleResponse.NoticeContent?) {
+        if let policyList = noticeContent?.policyList, policyList.isEmpty == false {
+            let detailList = policyList.compactMap { policy -> PackagesNoticeDetail? in
+                PackagesNoticeDetail(title: policy.title ?? "", content: policy.text ?? "")
+            }
+            
+            policyNotice = PackagesNoticeDetailInfo(navTitle: "注意事項", noticeDetailList: detailList)
+        }
+        
+        if noticeContent?.stopBookingText?.isEmpty == false {
+            let stopBookingNoticeConfig = setSystemNotice(
+                contentList: noticeContent?.stopBookingText.map { [$0] },
+                imageName: "ic_time_20",
+                bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
+                strokeColor: AppColor.Border.brandPrimarySubtle
+            )
+            stopBookingNotice = (stopBookingNoticeConfig.noticeConfig, stopBookingNoticeConfig.detailInfo)
+        }
+        
+        if noticeContent?.announceTextList?.isEmpty == false {
+            let announceNoticeConfig = setSystemNotice(
+                contentList: noticeContent?.announceTextList,
+                imageName: "ic_bell_20",
+                bgColor: AppColor.Surface.brandSecondaryExtraSubtle,
+                strokeColor: AppColor.Border.brandSecondarySubtle
+            )
+            announceNotice = (announceNoticeConfig.noticeConfig, announceNoticeConfig.detailInfo)
+        }
+    }
+
+    private func setSystemNotice(contentList: [String]?, imageName: String, bgColor: Color, strokeColor: Color) -> (noticeConfig: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?) {
+
+        guard let contentList else { return (nil, nil) }
+
+        return (
+            PackagesComboSystemNoticeConfig(
+                imageName: imageName,
+                content: contentList.first ?? "",
+                bgColor: bgColor,
+                strokeColor: strokeColor
+            ),
+            PackagesNoticeDetailInfo(
+                navTitle: "系統公告",
+                noticeDetailList: contentList.map { PackagesNoticeDetail(title: "", content: $0) }
+            )
+        )
+    }
     
     private func load<T: Decodable>(_ filename: String) -> T {
             let data: Data

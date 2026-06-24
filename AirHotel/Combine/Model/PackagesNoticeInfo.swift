@@ -15,7 +15,7 @@ struct PackagesNoticeInfo: Identifiable {
 struct PackagesNoticeDetailInfo: Identifiable {
     let id = UUID()
     let navTitle: String
-    let noticeInfoList: [PackagesNoticeDetail]
+    let noticeDetailList: [PackagesNoticeDetail]
 }
 
 struct PackagesNoticeDetail: Identifiable  {

@@ -20,10 +20,10 @@
 		7B2D22EC2FC820B900D0531F /* PackagesComboCardTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */; };
 		7B3343662FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3343652FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift */; };
 		7B39BE2C2FC94706003ABF42 /* PackagesComboAirInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoCard.swift */; };
-		7B39BE2F2FC9665D003ABF42 /* PackagesComboNoticeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* PackagesComboNoticeInfo.swift */; };
+		7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */; };
 		7B39BE312FC96A69003ABF42 /* PackagesComboHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */; };
 		7B39BE332FC96B3C003ABF42 /* PackagesComboNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */; };
-		7B39BE352FC96B96003ABF42 /* PackagesComboTaxNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE342FC96B96003ABF42 /* PackagesComboTaxNoticeView.swift */; };
+		7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */; };
 		7B39BE372FC96BC8003ABF42 /* PackagesComboSystemNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE362FC96BC8003ABF42 /* PackagesComboSystemNoticeView.swift */; };
 		7B39BE392FC96CC3003ABF42 /* PackagesComboViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */; };
 		7B39BE3B2FC971CF003ABF42 /* PackagesComboNavInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */; };
@@ -59,10 +59,10 @@
 		7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboCardTitle.swift; sourceTree = "<group>"; };
 		7B3343652FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboDiscountCard.swift; sourceTree = "<group>"; };
 		7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAirInfoCard.swift; sourceTree = "<group>"; };
-		7B39BE2E2FC9665D003ABF42 /* PackagesComboNoticeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNoticeInfo.swift; sourceTree = "<group>"; };
+		7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboSystemNoticeConfig.swift; sourceTree = "<group>"; };
 		7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHeader.swift; sourceTree = "<group>"; };
 		7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavView.swift; sourceTree = "<group>"; };
-		7B39BE342FC96B96003ABF42 /* PackagesComboTaxNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboTaxNoticeView.swift; sourceTree = "<group>"; };
+		7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboPolicyNoticeView.swift; sourceTree = "<group>"; };
 		7B39BE362FC96BC8003ABF42 /* PackagesComboSystemNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboSystemNoticeView.swift; sourceTree = "<group>"; };
 		7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboViewModel.swift; sourceTree = "<group>"; };
 		7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavInfo.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */,
-				7B39BE342FC96B96003ABF42 /* PackagesComboTaxNoticeView.swift */,
+				7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */,
 				7B39BE362FC96BC8003ABF42 /* PackagesComboSystemNoticeView.swift */,
 				7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */,
 				7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */,
@@ -148,7 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */,
-				7B39BE2E2FC9665D003ABF42 /* PackagesComboNoticeInfo.swift */,
+				7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */,
 				7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoCard.swift */,
 				7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoCard.swift */,
 				7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */,
@@ -296,7 +296,7 @@
 				7B2D22E02FC7DC0800D0531F /* Constant.swift in Sources */,
 				7B2D22E12FC7DC0800D0531F /* ContentView.swift in Sources */,
 				7B2D22EA2FC81D4B00D0531F /* PackagesComboAirCard.swift in Sources */,
-				7B39BE352FC96B96003ABF42 /* PackagesComboTaxNoticeView.swift in Sources */,
+				7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */,
 				7BE414C42FD2784600BF0EB6 /* AppSpacing.swift in Sources */,
 				7BE414C52FD2784600BF0EB6 /* UIColor+Hex.swift in Sources */,
 				7BE414CA2FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift in Sources */,
@@ -318,7 +318,7 @@
 				7B6411C12FD0221B00EC660B /* PackagesComboHotelInfoCard.swift in Sources */,
 				7B6411BD2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift in Sources */,
 				7B39BE2C2FC94706003ABF42 /* PackagesComboAirInfoCard.swift in Sources */,
-				7B39BE2F2FC9665D003ABF42 /* PackagesComboNoticeInfo.swift in Sources */,
+				7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift in Sources */,
 				7B5D2B222FE923B200678C97 /* PackagesDynamicBundleResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
