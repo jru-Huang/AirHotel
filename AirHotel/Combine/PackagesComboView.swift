@@ -106,10 +106,11 @@ extension PackagesComboView {
     private var navContainerView: some View {
         VStack(spacing: 0) {
             PackagesComboNavView(
-                isShowedSearchView: $showSearchView,
                 navBarHeight: navBarHeight,
                 navInfo: viewModel.navInfo,
-                showSearchView: { self.showSearchView = $0 }
+                onTouchBack: {},
+                onTouchSearch: { self.showSearchView.toggle() },
+                onTouchTrace: {}
             )
             Spacer()
         }
@@ -154,9 +155,6 @@ extension PackagesComboView {
         VStack(spacing: 0) {
             PackagesComboChangeSearchNavView(
                 navBarHeight: navBarHeight,
-                onTouchBack: {
-                    print("點擊返回P0機加酒首頁")
-                },
                 onTouchCancel: {
                     showSearchView = false
                 })

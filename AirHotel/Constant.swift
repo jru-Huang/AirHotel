@@ -53,3 +53,54 @@ struct RoundedCorner: Shape {
     }
 }
 
+var dateFormatList: [String] = ["yyyy-MM-dd HH:mm:ss",
+                                "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                                "yyyy-MM-dd'T'HH:mm:ss",
+                                "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+                                "yyyy-MM-dd'T'HH:mm:ssZ",
+                                "yyyy-MM-dd HH:mm:ss Z",
+                                "yyyy/MM/dd",
+                                "MM/dd HH:mm"]
+
+var calendarForDatePicker: Calendar {
+    var calendar = Calendar(identifier: .gregorian)
+    calendar.timeZone = TimeZone(abbreviation: "UTC+8:00")!
+    calendar.locale = Locale(identifier: "zh_TW")
+    return calendar
+}
+
+class FormatUtil: NSObject {
+    static func convertStringToString(dateStringFrom: String?, dateFormatTo: String, amSymbolTo: String? = nil, pmSymbolTo: String? = nil) -> String {
+        guard let dateStringFrom = dateStringFrom else {  return "" }
+        var dateStringAfterTransform = ""
+        let dateFormmaterConvertTo = DateFormatter()
+        dateFormmaterConvertTo.setToBasic(dateFormat: dateFormatTo, amSymbol: amSymbolTo, pmSymbol: pmSymbolTo)
+        
+        let dateFormatterConvertFrom = DateFormatter()
+        dateFormatterConvertFrom.setToBasic()
+        
+        dateFormatList.forEach { (dateFormat) in
+            if (dateStringAfterTransform == "") {
+                dateFormatterConvertFrom.dateFormat = dateFormat
+                if let dateBeforeConvert = dateFormatterConvertFrom.date(from: dateStringFrom) {
+                    let dateStringAfterConvert = dateFormmaterConvertTo.string(from: dateBeforeConvert)
+                    dateStringAfterTransform = "\(dateStringAfterConvert)"
+                }
+            }
+        }
+        
+        return dateStringAfterTransform
+    }
+}
+
+extension DateFormatter {
+    func setToBasic(dateFormat: String? = nil, amSymbol: String? = nil, pmSymbol: String? = nil) {
+        self.calendar = calendarForDatePicker
+        self.timeZone = TimeZone(abbreviation: "UTC+8:00")
+        self.locale = Locale(identifier: "zh_TW") // 語系
+        self.dateFormat = dateFormat
+        self.amSymbol = amSymbol
+        self.pmSymbol = pmSymbol
+    }
+}
+

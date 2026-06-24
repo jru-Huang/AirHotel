@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct PackagesComboNavView: View {
-    @Binding var isShowedSearchView: Bool
     
     let navBarHeight: CGFloat
-    let navInfo: PackagesComboNavInfo
+    let navInfo: PackagesComboNavInfo?
     
-    var showSearchView: ((Bool) -> Void)
+    let onTouchBack: () -> Void
+    let onTouchSearch: () -> Void
+    let onTouchTrace: () -> Void
     
     var body: some View {
         HStack(spacing: 12) {
             Button {
-                print("點擊返回")
+                onTouchBack()
                 
             } label: {
                 Image("arrow_back_purple")
@@ -26,10 +27,28 @@ struct PackagesComboNavView: View {
                     .padding(.vertical, 5)
             }
             
+            navBarView
+            
             Button {
-                print("更改搜尋條件")
-                isShowedSearchView.toggle()
-                showSearchView(isShowedSearchView)
+                onTouchTrace()
+            } label: {
+                Image("ic_love_20")
+                    .padding(.leading, 5)
+                    .padding(.vertical, 5)
+            }
+            
+        }
+        .padding(.horizontal, 16)
+        .frame(height: navBarHeight)
+        .background(AppColor.Surface.neutralWhite)
+        .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: 1)
+    }
+    
+    @ViewBuilder
+    private var navBarView: some View {
+        if let navInfo {
+            Button {
+                onTouchSearch()
             } label: {
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
@@ -52,23 +71,12 @@ struct PackagesComboNavView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            
-            Button {
-                print("點擊收藏")
-            } label: {
-                Image("ic_love_20")
-                    .padding(.leading, 5)
-                    .padding(.vertical, 5)
-            }
-            
+        }else {
+            Spacer()
         }
-        .padding(.horizontal, 16)
-        .frame(height: navBarHeight)
-        .background(AppColor.Surface.neutralWhite)
-        .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: 1)
     }
 }
 
 #Preview {
-    PackagesComboNavView(isShowedSearchView: .constant(false), navBarHeight: 44, navInfo: PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩"), showSearchView: {_ in print("showSearchView")})
+    PackagesComboNavView(navBarHeight: 44, navInfo: PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩"), onTouchBack: {}, onTouchSearch: {}, onTouchTrace: {})
 }

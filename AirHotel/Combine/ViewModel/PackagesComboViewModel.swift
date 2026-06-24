@@ -50,7 +50,7 @@ final class PackagesComboViewModel: ObservableObject {
         }
     }
     
-    @Published var navInfo: PackagesComboNavInfo = PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩")
+    @Published var navInfo: PackagesComboNavInfo?// = PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩")
     
     @Published var policyNotice: PackagesNoticeDetailInfo?
     @Published var stopBookingNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
@@ -154,8 +154,15 @@ final class PackagesComboViewModel: ObservableObject {
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
         print(response)
-        
+        setNav(conditionDetail: response.conditionDetail)
         setNotices(noticeContent: response.noticeContent)
+    }
+    
+    private func setNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
+        guard let conditionDetail else { return }
+        navInfo = PackagesComboNavInfo(location: conditionDetail.travelTitle ?? "",
+                                       date: "\(conditionDetail.departureDate ?? "")–\(conditionDetail.returnDate ?? "")",
+                                       roomAndPeople: "\(conditionDetail.roomNumber ?? 0)間房，\(conditionDetail.paxQtyDesc ?? "")")
     }
     
     private func setNotices(noticeContent: PackagesDynamicBundleResponse.NoticeContent?) {

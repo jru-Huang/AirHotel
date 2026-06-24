@@ -32,7 +32,7 @@ struct PackagesDynamicBundleResponse: Codable {
     
     struct ConditionDetail: Codable {
         let travelTitle: String?
-        let departure_Date: String?
+        let departureDate: String?
         let returnDate: String?
         let serviceClassName: String?
         let directName: String?
@@ -45,7 +45,7 @@ struct PackagesDynamicBundleResponse: Codable {
         
         enum CodingKeys: String, CodingKey {
             case travelTitle = "Travel_Title"
-            case departure_Date = "Departure_Date"
+            case departureDate = "Departure_Date"
             case returnDate = "Return_Date"
             case serviceClassName = "Service_Class_Name"
             case directName = "Direct_Name"
