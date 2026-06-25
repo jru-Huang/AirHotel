@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct PackagesNoticeInfoView: View {
-    
-    private let hideDuration: Double = 0.2
+    @State private var showContent: Bool = false
     
     let info: PackagesNoticeDetailInfo
     var onDismiss: (() -> Void)
     
-    @State private var showContent: Bool = false
+    private let hideDuration: Double = 0.2
     
     var body: some View {
         GeometryReader { proxy in
@@ -22,7 +21,7 @@ struct PackagesNoticeInfoView: View {
             
             ZStack {
                 backgroundView
-                content(maxHeight: maxHeight)
+                noticeInfoView(maxHeight: maxHeight)
             }
             .onAppear {
                 withAnimation(.easeOut(duration: 0.25)) {
@@ -41,12 +40,12 @@ struct PackagesNoticeInfoView: View {
             .opacity(showContent ? 1 : 0)
     }
     
-    private func content(maxHeight: CGFloat) -> some View {
+    private func noticeInfoView(maxHeight: CGFloat) -> some View {
         ZStack(alignment: .bottom) {
             Color.clear
             
             VStack(spacing: 0) {
-                noticeView(maxHeight: maxHeight)
+                contentView(maxHeight: maxHeight)
                 closeButtonView
             }
             .frame(maxHeight: maxHeight, alignment: .bottom)
@@ -55,10 +54,10 @@ struct PackagesNoticeInfoView: View {
         .opacity(showContent ? 1 : 0)
     }
     
-    private func noticeView(maxHeight: CGFloat) -> some View {
+    private func contentView(maxHeight: CGFloat) -> some View {
         VStack(spacing: 0) {
             noticeHeaderView
-            noticeContentView(detailList: info.noticeDetailList, maxHeight: maxHeight)
+            noticeBodyView(detailList: info.noticeDetailList, maxHeight: maxHeight)
         }
         .frame(maxWidth: .infinity)
         .background(AppColor.Surface.neutralWhite)
@@ -86,19 +85,19 @@ struct PackagesNoticeInfoView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func noticeContentView(detailList: [PackagesNoticeDetail], maxHeight: CGFloat) -> some View {
+    private func noticeBodyView(detailList: [PackagesNoticeDetail], maxHeight: CGFloat) -> some View {
         ScrollView {
-            noticeContentBody(detailList: detailList)
+            contentView(detailList: detailList)
         }
         .frame(maxHeight: maxHeight)
         .fixedSize(horizontal: false, vertical: true)
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func noticeContentBody(detailList: [PackagesNoticeDetail]) -> some View {
+    private func contentView(detailList: [PackagesNoticeDetail]) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             ForEach(detailList) { item in
-                noticeItemView(item)
+                itemView(item)
             }
         }
         .padding(.top, 16)
@@ -106,7 +105,7 @@ struct PackagesNoticeInfoView: View {
         .padding(.bottom, 40)
     }
 
-    private func noticeItemView(_ notice: PackagesNoticeDetail) -> some View {
+    private func itemView(_ notice: PackagesNoticeDetail) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 4) {
                 if notice.title.isEmpty == false {

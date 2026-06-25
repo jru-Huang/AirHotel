@@ -64,11 +64,15 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 10) {
                 NavigationLink("機加酒") {
 //                    SearchView()
                     PackagesComboView()
 //                    PackagesNoticeInfoView(title: "8 8 8")
+                }
+                
+                NavigationLink("Loading") {
+                    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "ic_night_100", title: "標題標題標題", rightTitle: "我知道了"), onDismiss: {})
                 }
             }
         }

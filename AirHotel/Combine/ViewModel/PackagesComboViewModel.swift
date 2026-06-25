@@ -50,8 +50,7 @@ final class PackagesComboViewModel: ObservableObject {
         }
     }
     
-    @Published var navInfo: PackagesComboNavInfo?// = PackagesComboNavInfo(location: "台北–東京", date: "01/24–01/28", roomAndPeople: "1間房，4大人1小孩")
-    
+    @Published var navInfo: PackagesComboNavInfo?
     @Published var policyNotice: PackagesNoticeDetailInfo?
     @Published var stopBookingNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
     @Published var announceNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
