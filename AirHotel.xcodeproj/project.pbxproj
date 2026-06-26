@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfo.swift */; };
+		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */; };
 		7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */; };
 		7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */; };
 		7B2D22E02FC7DC0800D0531F /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D92FC7DC0800D0531F /* Constant.swift */; };
@@ -48,7 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfo.swift; sourceTree = "<group>"; };
+		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoModel.swift; sourceTree = "<group>"; };
 		7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirHotelApp.swift; sourceTree = "<group>"; };
 		7B2D22D72FC7DC0800D0531F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboView.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 				7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoModel.swift */,
 				7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */,
 				7B9107612FD6650300083AF1 /* PackagesComboAmountDetailInfo.swift */,
-				7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfo.swift */,
+				7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */,
 				7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */,
 			);
 			path = Model;
@@ -320,7 +320,7 @@
 				7B2D22E72FC7DCB500D0531F /* BookingConfirmView.swift in Sources */,
 				7B39BE312FC96A69003ABF42 /* PackagesComboHeader.swift in Sources */,
 				7B39BE372FC96BC8003ABF42 /* PackagesComboSystemNoticeView.swift in Sources */,
-				7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfo.swift in Sources */,
+				7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */,
 				7B39BE332FC96B3C003ABF42 /* PackagesComboNavView.swift in Sources */,
 				7B6411C12FD0221B00EC660B /* PackagesComboHotelInfoModel.swift in Sources */,
 				7B6411BD2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift in Sources */,

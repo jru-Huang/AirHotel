@@ -12,7 +12,7 @@ struct PackagesComboView: View {
     
     @State private var showSearchView: Bool = false
     @State private var showAmountDetail: Bool = false
-    @State private var presentNotice: PackagesNoticeInfo?
+    @State private var presentNotice: PackagesNoticeInfoModel?
     
     let navBarHeight: CGFloat = 44
     
@@ -64,7 +64,7 @@ extension PackagesComboView {
         VStack(spacing: 0) {
             if let policyNotice = viewModel.policyNotice {
                 PackagesComboPolicyNoticeView(notice: policyNotice.noticeDetailList.first?.content ?? "", onTouchNotice: {
-                    presentNotice = PackagesNoticeInfo(noticeInfo: policyNotice)
+                    presentNotice = PackagesNoticeInfoModel(noticeInfo: policyNotice)
                 })
             }
             
@@ -72,13 +72,13 @@ extension PackagesComboView {
                 VStack(spacing: 0) {
                     if let stopBookingNotice = viewModel.stopBookingNotice {
                         PackagesComboSystemNoticeView(systemNoticeConfig: stopBookingNotice.config!, onTouchNotice: {
-                            presentNotice = PackagesNoticeInfo(noticeInfo: stopBookingNotice.detailInfo!)
+                            presentNotice = PackagesNoticeInfoModel(noticeInfo: stopBookingNotice.detailInfo!)
                         })
                     }
                     
                     if let announceNotice = viewModel.announceNotice {
                         PackagesComboSystemNoticeView(systemNoticeConfig: announceNotice.config!, onTouchNotice: {
-                            presentNotice = PackagesNoticeInfo(noticeInfo: announceNotice.detailInfo!)
+                            presentNotice = PackagesNoticeInfoModel(noticeInfo: announceNotice.detailInfo!)
                         })
                     }
                     
@@ -98,7 +98,7 @@ extension PackagesComboView {
             
             if let hotelInfo = viewModel.hotelInfoCard {
                 PackagesComboHotelCard(info: hotelInfo, onTouchNotice: {
-                    presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.hotelCancelNotice)
+                    presentNotice = PackagesNoticeInfoModel(noticeInfo: viewModel.hotelCancelNotice)
                 })
             }
             

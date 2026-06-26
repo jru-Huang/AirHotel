@@ -1,5 +1,5 @@
 //
-//  PackagesNoticeInfo.swift
+//  PackagesNoticeInfoModel.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/6/8.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PackagesNoticeInfo: Identifiable {
+struct PackagesNoticeInfoModel: Identifiable {
     let id = UUID()
     let noticeInfo: PackagesNoticeDetailInfo
 }
