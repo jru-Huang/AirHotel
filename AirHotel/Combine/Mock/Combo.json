@@ -164,7 +164,7 @@
                 "Hotel_ServiceMark10": false,
                 "Hotel_ServiceMark13": true,
                 "Hotel_ServiceMark15": false,
-                "Hotel_GreenMark": false,
+                "Hotel_GreenMark": true,
                 "Total_Price": 21999
             }
         ],

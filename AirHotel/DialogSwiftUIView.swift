@@ -12,15 +12,15 @@ struct DialogSwiftUIModel {
     let title: String?
     let message: String?
     let isSingleButton: Bool
-    let leftTitle: String?
+    let leftTitle: String
     let rightTitle: String
     
     init(imgName: String,
          title: String? = nil,
          content: String? = nil,
-         isSingleButton: Bool = true,
-         leftTitle: String? = nil,
-         rightTitle: String = "重新整理") {
+         isSingleButton: Bool = false,
+         leftTitle: String = "重新整理",
+         rightTitle: String = "繼續瀏覽") {
         
         self.imgName = imgName
         self.title = title
@@ -33,24 +33,28 @@ struct DialogSwiftUIModel {
 
 struct DialogSwiftUIView: View {
     
-    @State var model: DialogSwiftUIModel
+    @State private var isBgVisible: Bool = false
+    @State private var isDialogVisible = true
     
-    @State private var showContent: Bool = false
+    let model: DialogSwiftUIModel
     
-    let onDismiss: (() -> Void)
-    let onLeftAction: (()->Void)? = nil
-    let onRightAction: (()->Void)? = nil
+    var onLeftAction: (()->Void)? = nil
+    var onRightAction: (()->Void)? = nil
     
     private let hideDuration: Double = 0.2
     
     var body: some View {
         ZStack {
             backgroundView
-            dialogView
+            
+            if isDialogVisible {
+                dialogView
+            }
         }
         .onAppear {
             withAnimation(.easeOut(duration: 0.25)) {
-                showContent = true
+                isBgVisible = true
+                isDialogVisible = true
             }
         }
     }
@@ -58,7 +62,7 @@ struct DialogSwiftUIView: View {
     private var backgroundView: some View {
         AppColor.Surface.opacityGrayMid
             .ignoresSafeArea()
-            .opacity(showContent ? 1 : 0)
+            .opacity(isBgVisible ? 1 : 0)
     }
     
     private var dialogView: some View {
@@ -69,7 +73,6 @@ struct DialogSwiftUIView: View {
         .padding(20)
         .frame(maxWidth: screenWidth * 0.8)
         .background(AppColor.Surface.neutralWhite, in: RoundedRectangle(cornerRadius: 8))
-        .opacity(showContent ? 1 : 0)
     }
     
     private var contentView: some View {
@@ -105,11 +108,15 @@ struct DialogSwiftUIView: View {
             // Left Button
             if !model.isSingleButton {
                 Button {
-                    onLeftAction?()
+                    dismiss(completion: {
+                        onLeftAction?()
+                    })
+                    
                 } label: {
-                    Text(model.leftTitle ?? "")
+                    Text(model.leftTitle)
                         .font(AppTypography.L02M)
                         .foregroundStyle(AppColor.Text.brandSecondaryBase)
+                        .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
                 .background(AppColor.Surface.neutralWhite, in: RoundedRectangle(cornerRadius: 4))
@@ -121,11 +128,15 @@ struct DialogSwiftUIView: View {
             
             // Right Button
             Button {
-                onRightAction?()
+                dismiss(completion: {
+                    onRightAction?()
+                })
+                
             } label: {
                 Text(model.rightTitle)
                     .font(AppTypography.L02M)
                     .foregroundStyle(AppColor.Text.neutralWhite)
+                    .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .center)
             .background(AppColor.Surface.brandSecondaryBase, in: RoundedRectangle(cornerRadius: 4))
@@ -133,17 +144,22 @@ struct DialogSwiftUIView: View {
         }
     }
     
-    private func dismiss() {
+    private func dismiss(completion: (() -> Void)? = nil) {
+        withAnimation(nil) {
+            isDialogVisible = false
+        }
+        
         withAnimation(.easeIn(duration: hideDuration)) {
-            showContent = false
+            isBgVisible = false
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + hideDuration) {
-            onDismiss()
+            completion?()
         }
     }
 }
 
+
 #Preview {
-    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "Hotel", title: "標題標題標題", content: "內容內容內容內容內容內容內容"), onDismiss: {})
+    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "Hotel", title: "標題標題標題", content: "內容內容內容內容內容內容內容"), onLeftAction: {}, onRightAction: {})
 }

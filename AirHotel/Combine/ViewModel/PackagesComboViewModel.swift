@@ -98,19 +98,7 @@ final class PackagesComboViewModel: ObservableObject {
     )
     
     //飯店
-    @Published var hotelInfoCard: PackagesComboHotelInfoCard = PackagesComboHotelInfoCard(
-        hotelNotice: "您的去程航班為 01/24 12:05 抵達，請留意入住日、回程航班為 01/28 03:05 出發請留意退房日。",
-        checkInOutDate: "01月24日-01月28日 (4晚)",
-        hotelName: "JR九州最大五星超高級日本大都五星超高級日本大都五星超高級會酒池袋總店會酒池袋總店啊",
-        hotelSubtitle: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE",
-        overall: "4.3",
-        hotelGrade: 3.5,
-        starHotel: "4星飯店",
-        hasBreakfast: false,
-        bookingRuleKey: .Refundable,
-        bookingRule: "可免費取消", //"不可更改、取消及退費"
-        hotelTagList: ["慶祝台灣隊金牌","旅展促銷","限時早鳥優惠","週三狂歡日","慶祝台灣隊金牌2"]
-    )
+    @Published var hotelInfoCard: PackagesComboHotelInfoModel?
     
     //優惠
     @Published var discountInfoCard: PackagesComboDiscountInfoCard = PackagesComboDiscountInfoCard(
@@ -122,23 +110,23 @@ final class PackagesComboViewModel: ObservableObject {
     @Published var amountInfo: PackagesComboAmountInfo = PackagesComboAmountInfo(
         detailInfo: [
             PackagesComboAmountDetailInfo(appellation: "大人",
-                              pricePrePerson: "$17,200",
-                              numberOfPeople: "x4",
-                              totalPrice: "$68,800"),
+                                          pricePrePerson: "$17,200",
+                                          numberOfPeople: "x4",
+                                          totalPrice: "$68,800"),
             PackagesComboAmountDetailInfo(appellation: "小孩",
-                              pricePrePerson: "$17,200",
-                              numberOfPeople: "x1",
-                              totalPrice: "$17,200")
-    ],discountInfo: [
-        PackagesComboAmountDiscountInfo(isDiscount: true,
-                                title: "優惠代碼折扣",
-                                content: "晚鳥清艙折抵800元",
-                                discount: "-$2,000"),
-        PackagesComboAmountDiscountInfo(isDiscount: false,
-                                title: "可樂旅遊幣折抵",
-                                content: "均分於所有旅客",
-                                discount: "-$120")
-    ])
+                                          pricePrePerson: "$17,200",
+                                          numberOfPeople: "x1",
+                                          totalPrice: "$17,200")
+        ],discountInfo: [
+            PackagesComboAmountDiscountInfo(isDiscount: true,
+                                            title: "優惠代碼折扣",
+                                            content: "晚鳥清艙折抵800元",
+                                            discount: "-$2,000"),
+            PackagesComboAmountDiscountInfo(isDiscount: false,
+                                            title: "可樂旅遊幣折抵",
+                                            content: "均分於所有旅客",
+                                            discount: "-$120")
+        ])
     
     // 房型取消限制說明
     let hotelCancelNotice: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
@@ -146,15 +134,16 @@ final class PackagesComboViewModel: ObservableObject {
         noticeDetailList:
             [
                 PackagesNoticeDetail(title: "",
-                             content: "此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。 \n在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)")
-                ]
-        )
+                                     content: "此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。 \n在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)")
+            ]
+    )
     
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
         print(response)
         setNav(conditionDetail: response.conditionDetail)
         setNotices(noticeContent: response.noticeContent)
+        setHotelCard(response: response)
     }
     
     private func setNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
@@ -193,11 +182,11 @@ final class PackagesComboViewModel: ObservableObject {
             announceNotice = (announceNoticeConfig.noticeConfig, announceNoticeConfig.detailInfo)
         }
     }
-
+    
     private func setSystemNotice(contentList: [String]?, imageName: String, bgColor: Color, strokeColor: Color) -> (noticeConfig: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?) {
-
+        
         guard let contentList else { return (nil, nil) }
-
+        
         return (
             PackagesComboSystemNoticeConfig(
                 imageName: imageName,
@@ -212,22 +201,52 @@ final class PackagesComboViewModel: ObservableObject {
         )
     }
     
+    private func setHotelCard(response: PackagesDynamicBundleResponse) {
+        let warningTimeText = response.noticeContent?.warningTimeText ?? ""
+        
+        let checkInDate = (response.conditionDetail?.checkInDate)?.split(separator: "/").dropFirst().joined(separator: "月") ?? ""
+        let checkOutDate = (response.conditionDetail?.checkOutDate)?.split(separator: "/").dropFirst().joined(separator: "月") ?? ""
+        let checkInOutDate = "\(checkInDate)日-\(checkOutDate)日 (?晚)"
+        
+        let hotelPreselection = response.hotelPreselection
+        let hotelInfo = hotelPreselection?.hotelInfoList?.first
+        let hotelGrade = hotelInfo?.hotelGrade ?? 0.0
+        
+        
+        hotelInfoCard = PackagesComboHotelInfoModel(
+            hotelNotice: warningTimeText,
+            checkInOutDate: checkInOutDate,
+            hotelImg: hotelInfo?.hotelImg ?? "",
+            hotelChineseName: hotelInfo?.hotelChineseName ?? "",
+            hotelEnglishName: hotelInfo?.hotelEnglishName ?? "",
+            hotelRating: hotelInfo?.hotelRating ?? 0.0,
+            hotelGrade: hotelGrade,
+            hotelStar: "\(Int(hotelGrade))星飯店",
+            roomDescription: hotelPreselection?.roomInfo?.roomDescription ?? "",
+            hasBreakfast: false,
+            bookingRuleKey: .Refundable,
+            bookingRule: "可免費取消", //"不可更改、取消及退費"
+            hotelTagList: hotelPreselection?.displayTag ?? [],
+            hotelGreenMark: hotelInfo?.hotelGreenMark ?? false
+        )
+    }
+    
     private func load<T: Decodable>(_ filename: String) -> T {
-            let data: Data
-            guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-            else {
-                fatalError("Couldn't find \(filename) in main bundle.")
-            }
-            do {
-                data = try Data(contentsOf: file)
-            } catch {
-                fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-            }
-            do {
-                let decoder = JSONDecoder()
-                return try decoder.decode(T.self, from: data)
-            } catch {
-                fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
-            }
+        let data: Data
+        guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
+        else {
+            fatalError("Couldn't find \(filename) in main bundle.")
         }
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+        }
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+        }
+    }
 }

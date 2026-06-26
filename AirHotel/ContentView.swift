@@ -72,7 +72,7 @@ struct ContentView: View {
                 }
                 
                 NavigationLink("Loading") {
-                    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "ic_night_100", title: "標題標題標題", rightTitle: "我知道了"), onDismiss: {})
+                    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "ic_night_100", title: "標題標題標題", rightTitle: "我知道了"))
                 }
             }
         }

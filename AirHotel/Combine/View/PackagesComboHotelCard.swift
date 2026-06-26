@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 struct PackagesComboHotelCard: View {
-    let info: PackagesComboHotelInfoCard
+    let info: PackagesComboHotelInfoModel
     var onTouchNotice: (() -> Void)
     
     var body: some View {
@@ -72,52 +72,63 @@ struct PackagesComboHotelCard: View {
             
             HStack {
                 VStack(spacing: 0) {
-                    Image("Hotel")
-                        .scaledToFill()
-                    Spacer()
+                    HomeAdImageViewSwiftUIView(url: info.hotelImg,
+                                               width: 58,
+                                               height: 58)
+                    Spacer(minLength: 0)
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 4))
                 
                 VStack(alignment: .leading, spacing: 2) {
                     
                     TextWithIconView(
-                        text: info.hotelName,
+                        text: info.hotelChineseName,
                         iconName: "ic_esg_16",
-                        numberOfLines: 3
+                        numberOfLines: 3,
+                        showIcon: info.hotelGreenMark
                     )
                     
                     VStack(alignment: .leading, spacing: 6) {
-                        if info.hotelSubtitle.isEmpty == false {
-                            Text(info.hotelSubtitle)
+                        
+                        if info.hotelEnglishName.isEmpty == false {
+                            Text(info.hotelEnglishName)
                                 .font(AppTypography.B06M)
                                 .foregroundStyle(AppColor.Text.neutralBodyMid)
                                 .lineLimit(1)
+                        }else {
+                            Spacer()
                         }
                         
                         HStack(spacing: 4) {
-                            Text(info.overall)
-                                .padding(.horizontal, 4)
-                                .padding(.bottom, 1)
-                                .font(AppTypography.N07M)
-                                .foregroundStyle(AppColor.Text.neutralWhite)
-                                .background(AppColor.Surface.brandPrimaryBase, in: RoundedCorner(radius: 4, corners: [.topLeft, .bottomRight]))
+                            if info.hotelRating != 0.0 {
+                                Text(String(format: "%.1f", info.hotelRating))
+                                    .padding(.horizontal, 4)
+                                    .padding(.bottom, 1)
+                                    .font(AppTypography.N07M)
+                                    .foregroundStyle(AppColor.Text.neutralWhite)
+                                    .background(AppColor.Surface.brandPrimaryBase, in: RoundedCorner(radius: 4, corners: [.topLeft, .bottomRight]))
+                            }
                             
                             HStack(spacing: 2) {
-                                
-                                HStack(spacing: 0) {
-                                    
-                                    let fullStarCount: Int = Int(info.hotelGrade)
-                                    ForEach(0..<fullStarCount, id: \.self) { _ in
-                                        Image("ic_star_12_all")
-                                    }
-                                    
-                                    if info.hotelGrade > Double(fullStarCount) {
-                                        Image("ic_star_12_half")
+                                if info.hotelGrade != 0.0 {
+                                    HStack(spacing: 0) {
+                                        
+                                        let fullStarCount: Int = Int(info.hotelGrade)
+                                        ForEach(0..<fullStarCount, id: \.self) { _ in
+                                            Image("ic_star_12_all")
+                                        }
+                                        
+                                        if info.hotelGrade > Double(fullStarCount) {
+                                            Image("ic_star_12_half")
+                                        }
                                     }
                                 }
-                                Text(info.starHotel)
-                                    .font(AppTypography.B06R)
-                                    .foregroundStyle(AppColor.Text.neutralBodyLight)
+                                
+                                if info.hotelGrade != 0.0 {
+                                    Text(info.hotelStar)
+                                        .font(AppTypography.B06R)
+                                        .foregroundStyle(AppColor.Text.neutralBodyLight)
+                                }
                             }
                         }
                     }
@@ -133,7 +144,7 @@ struct PackagesComboHotelCard: View {
         } label: {
             
             VStack(alignment: .leading, spacing: 6) {
-                Text("標準雙床房，非吸菸房(View will be selected by the hotel )")
+                Text(info.roomDescription)
                     .font(AppTypography.B04M)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
                     .multilineTextAlignment(.leading)
@@ -214,49 +225,48 @@ struct PackagesComboHotelCard: View {
     }
 }
 
-struct TextWithIconView: UIViewRepresentable {
+private struct TextWithIconView: View {
     let text: String
     let iconName: String
     let numberOfLines: Int
+    let showIcon: Bool
     
-    func makeUIView(context: Context) -> UILabel {
-        let label = UILabel()
-        label.numberOfLines = numberOfLines
-        label.lineBreakMode = .byTruncatingTail
-        return label
+    var body: some View {
+        inlineText
+            .font(AppTypography.T03M)
+            .foregroundStyle(AppColor.Text.neutralBodyBase)
+            .lineLimit(numberOfLines)
+            .multilineTextAlignment(.leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    func updateUIView(_ label: UILabel, context: Context) {
-        let attachment = NSTextAttachment()
-        attachment.image = UIImage(named: iconName)
-        attachment.bounds = CGRect(x: 0, y: -4, width: 16, height: 16)
+    private var inlineText: Text {
+        var result = Text(text)
         
-        let attributedText = NSMutableAttributedString(
-            string: text + " ",
-            attributes: [
-                .font: AppTypography.UI.T03M,
-                .foregroundColor: AppColor.UI.Text.neutralBodyBase
-            ]
-        )
+        if showIcon {
+            result = result + Text(" ") + Text(Image(iconName)).baselineOffset(-3)
+        }
         
-        attributedText.append(NSAttributedString(attachment: attachment))
-        label.attributedText = attributedText
-        label.preferredMaxLayoutWidth = screenWidth - 32 - 24 - 8 - 58
-        label.textAlignment = .left
+        return result
     }
 }
 
 #Preview {
-    PackagesComboHotelCard(info: PackagesComboHotelInfoCard(
+    PackagesComboHotelCard(info: PackagesComboHotelInfoModel(
         hotelNotice: "您的去程航班為 01/24 12:05 抵達，請留意入住日、回程航班為 01/28 03:05 出發請留意退房日。",
         checkInOutDate: "01月24日-01月28日 (4晚)",
-        hotelName: "JR九州最大五星超高級日本大都五星超高級日本大都五星超高級會酒池袋總店會酒池袋總店啊",
-        hotelSubtitle: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE",
-        overall: "4.3",
+        hotelImg: "",
+        hotelChineseName: "JR九州最大五星超高級日本大都五星超高級日本大都五星超高級會酒池袋總店會酒池袋總店啊",
+        hotelEnglishName: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE",
+        hotelRating: 4.3,
         hotelGrade: 3.5,
-        starHotel: "4星飯店",
+        hotelStar: "4星飯店",
+        roomDescription: "標準雙床房，非吸菸房(View will be selected by the hotel )",
         hasBreakfast: false,
         bookingRuleKey: .Refundable,
         bookingRule: "可免費取消",
-        hotelTagList: ["慶祝台灣隊金牌","旅展促銷","限時早鳥優惠","週三狂歡日","慶祝台灣隊金牌2"]), onTouchNotice: {print("房型取消")})
+        hotelTagList: ["慶祝台灣隊金牌","旅展促銷","限時早鳥優惠","週三狂歡日","慶祝台灣隊金牌2"],
+        hotelGreenMark: false),
+                           onTouchNotice: {print("房型取消")}
+    )
 }

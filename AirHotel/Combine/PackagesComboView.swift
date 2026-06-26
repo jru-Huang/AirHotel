@@ -24,7 +24,7 @@ struct PackagesComboView: View {
         GeometryReader { proxy in
             contentView(proxy: proxy)
         }
-//        .navigationBarBackButtonHidden()
+        //        .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.onViewAppear()
         }
@@ -93,10 +93,15 @@ extension PackagesComboView {
     private var packagesContentView: some View {
         VStack(spacing: 12) {
             PackagesComboHeader()
+            
             PackagesComboAirCard(info: viewModel.airInfoCard)
-            PackagesComboHotelCard(info: viewModel.hotelInfoCard, onTouchNotice: {
-                presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.hotelCancelNotice)
-            })
+            
+            if let hotelInfo = viewModel.hotelInfoCard {
+                PackagesComboHotelCard(info: hotelInfo, onTouchNotice: {
+                    presentNotice = PackagesNoticeInfo(noticeInfo: viewModel.hotelCancelNotice)
+                })
+            }
+            
             PackagesComboDiscountCard(info: $viewModel.discountInfoCard)
         }
         .padding(.horizontal, 16)
