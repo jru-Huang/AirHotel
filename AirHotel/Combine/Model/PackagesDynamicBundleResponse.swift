@@ -31,30 +31,54 @@ struct PackagesDynamicBundleResponse: Codable {
     }
     
     struct ConditionDetail: Codable {
-        let travelTitle: String?
+        let departureCode: String?
+        let departureName: String?
+        let departureType: String?
+        let arrivalCode: String?
+        let arrivalName: String?
+        let arrivalType: String?
         let departureDate: String?
         let returnDate: String?
-        let serviceClassName: String?
-        let directName: String?
+        let serviceClass: ServiceClass?
+        let directMark: Bool?
         let roomNumber: Int?
-        let paxQtyDesc: String?
-        let partialStayDesc: String?
-        let chdAge: [Int]?
+        let adultsNumber: Int?
+        let childNumber: Int?
+        let partialStayMark: Bool?
+        let childAge: [Int]?
         let checkInDate: String?
         let checkOutDate: String?
+        let nightDesc: String?
         
         enum CodingKeys: String, CodingKey {
-            case travelTitle = "Travel_Title"
+            case departureCode = "Departure_Code"
+            case departureName = "Departure_Name"
+            case departureType = "Departure_Type"
+            case arrivalCode = "Arrival_Code"
+            case arrivalName = "Arrival_Name"
+            case arrivalType = "Arrival_Type"
             case departureDate = "Departure_Date"
             case returnDate = "Return_Date"
-            case serviceClassName = "Service_Class_Name"
-            case directName = "Direct_Name"
+            case serviceClass = "Service_Class"
+            case directMark = "Direct_Mark"
             case roomNumber = "Room_Number"
-            case paxQtyDesc = "Pax_Qty_Desc"
-            case partialStayDesc = "Partial_Stay_Desc"
-            case chdAge = "Chd_Age"
+            case adultsNumber = "Adults_Number"
+            case childNumber = "Child_Number"
+            case partialStayMark = "Partial_Stay_Mark"
+            case childAge = "Child_Age"
             case checkInDate = "CheckIn_Date"
             case checkOutDate = "CheckOut_Date"
+            case nightDesc = "Night_Desc"
+        }
+    }
+    
+    struct ServiceClass: Codable {
+        let value: String?
+        let Text: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case value = "Value"
+            case Text = "Text"
         }
     }
     
@@ -148,6 +172,7 @@ struct PackagesDynamicBundleResponse: Codable {
         let serviceClassDesc: String?
         let carrierTime: Int?
         let carrierTimeDesc: String?
+        let transitTime: Int?
         let isLcc: Bool?
         let stopoverList: [Stopover]?
         
@@ -177,6 +202,7 @@ struct PackagesDynamicBundleResponse: Codable {
             case serviceClassDesc = "Service_ClassDesc"
             case carrierTime = "Carrier_Time"
             case carrierTimeDesc = "Carrier_TimeDesc"
+            case transitTime = "Transit_Time"
             case isLcc = "Is_Lcc"
             case stopoverList = "Stopover_List"
         }
@@ -186,11 +212,13 @@ struct PackagesDynamicBundleResponse: Codable {
         let airportCode: String?
         let airportName: String?
         let stopoverTime: Int?
+        let stopoverLocDesc: String?
         
         enum CodingKeys: String, CodingKey {
             case airportCode = "Airport_Code"
             case airportName = "Airport_Name"
             case stopoverTime = "Stopover_Time"
+            case stopoverLocDesc = "Stopover_LocDesc"
         }
     }
     
@@ -199,18 +227,12 @@ struct PackagesDynamicBundleResponse: Codable {
         let hotelInfoList: [HotelInfo]?
         let roomInfo: RoomInfo?
         let displayTag: [String]?
-        let totalAmount: Int?
-        let adtPerPrice: Int?
-        let chdPerPrice: Int?
         
         enum CodingKeys: String, CodingKey {
             case priceId = "Price_Id"
             case hotelInfoList = "HotelInfo_List"
             case roomInfo = "Room_Info"
             case displayTag = "Display_Tag"
-            case totalAmount = "Total_Amount"
-            case adtPerPrice = "Adt_PerPrice"
-            case chdPerPrice = "Chd_PerPrice"
         }
     }
     

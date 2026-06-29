@@ -1,17 +1,27 @@
 {
     "Flow_Id": "43fedee98c3563bd5b70f5433ac61e486b5168e0",
     "Condition_Detail": {
-        "Travel_Title": "台北 - 東京(TYO)",
-        "Departure_Date": "2026/07/10(五)",
-        "Return_Date": "2026/07/13(一)",
-        "Service_Class_Name": "不限艙等",
-        "Direct_Name": "不限直飛",
+        "Departure_Code": "TPE",
+        "Departure_Name": "台北",
+        "Departure_Type": "City",
+        "Arrival_Code": "TYO",
+        "Arrival_Name": "東京",
+        "Arrival_Type": "City",
+        "Departure_Date": "2026/07/10",
+        "Return_Date": "2026/07/13",
+        "Service_Class": {
+            "Value": "ALL",
+            "Text": "不限艙等"
+        },
+        "Direct_Mark": false,
         "Room_Number": 1,
-        "Pax_Qty_Desc": "1大",
-        "Partial_Stay_Desc": "部分入住07/10(五)-07/11(六)",
-        "Chd_Age": [],
-        "CheckIn_Date": "2026/07/10",
-        "CheckOut_Date": "2026/07/11"
+        "Adults_Number": 1,
+        "Child_Number": 0,
+        "Child_Age": [],
+        "Partial_Stay_Mark": false,
+        "CheckIn_Date": "",
+        "CheckOut_Date": "",
+        "Night_Desc": "3晚"
     },
     "AirTicket_Preselection": {
         "Page_Id": "54a3fed7-299b-463b-8402-d75496a2c835",
@@ -56,11 +66,19 @@
                             "Carrier_No": "394",
                             "Carrier_Desc": "SL394",
                             "Equipment_Type": "波音 737-900",
-                            "Service_ClassDesc": "",
+                            "Service_ClassDesc": "經濟艙",
                             "Carrier_Time": 200,
                             "Carrier_TimeDesc": "3時20分",
+                            "Transit_Time": 0,
                             "Is_Lcc": true,
-                            "Stopover_List": []
+                            "Stopover_List": [
+                                {
+                                    "Airport_Code": "BKK",
+                                    "Airport_Name": "蘇凡納布機場",
+                                    "Stopover_LocDesc": "BKK 曼谷 蘇凡納布機場",
+                                    "Stopover_Time": 90
+                                }
+                            ]
                         }
                     ]
                 },
@@ -108,11 +126,19 @@
                             "Carrier_No": "394",
                             "Carrier_Desc": "SL394",
                             "Equipment_Type": "波音 737-900",
-                            "Service_ClassDesc": "",
+                            "Service_ClassDesc": "經濟艙",
                             "Carrier_Time": 200,
                             "Carrier_TimeDesc": "3時20分",
+                            "Transit_Time": 0,
                             "Is_Lcc": true,
-                            "Stopover_List": []
+                            "Stopover_List": [
+                                {
+                                    "Airport_Code": "BKK",
+                                    "Airport_Name": "蘇凡納布機場",
+                                    "Stopover_LocDesc": "BKK 曼谷 蘇凡納布機場",
+                                    "Stopover_Time": 90
+                                }
+                            ]
                         }
                     ]
                 },
@@ -164,7 +190,7 @@
                 "Hotel_ServiceMark10": false,
                 "Hotel_ServiceMark13": true,
                 "Hotel_ServiceMark15": false,
-                "Hotel_GreenMark": true,
+                "Hotel_GreenMark": false,
                 "Total_Price": 21999
             }
         ],

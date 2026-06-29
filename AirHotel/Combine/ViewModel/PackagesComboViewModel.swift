@@ -148,9 +148,15 @@ final class PackagesComboViewModel: ObservableObject {
     
     private func setNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
         guard let conditionDetail else { return }
-        navInfo = PackagesComboNavInfo(location: conditionDetail.travelTitle ?? "",
-                                       date: "\(conditionDetail.departureDate ?? "")–\(conditionDetail.returnDate ?? "")",
-                                       roomAndPeople: "\(conditionDetail.roomNumber ?? 0)間房，\(conditionDetail.paxQtyDesc ?? "")")
+        // 改成用 Request 資料！「更改搜尋」也是！！！
+        let depName = conditionDetail.departureName ?? ""
+        let arrivalName = conditionDetail.arrivalName ?? ""
+        let depDate = convertDateString(dateString: conditionDetail.departureDate ?? "", joinedString: "/")
+        let returnDate = convertDateString(dateString: conditionDetail.returnDate ?? "", joinedString: "/")
+        let roomAndPeople = "\("從request帶？")"
+        navInfo = PackagesComboNavInfo(location: "\(depName)-\(arrivalName)",
+                                       date: "\(depDate)–\(returnDate)",
+                                       roomAndPeople: "\(conditionDetail.roomNumber ?? 0)間房，\(roomAndPeople)")
     }
     
     private func setNotices(noticeContent: PackagesDynamicBundleResponse.NoticeContent?) {
@@ -204,14 +210,14 @@ final class PackagesComboViewModel: ObservableObject {
     private func setHotelCard(response: PackagesDynamicBundleResponse) {
         let warningTimeText = response.noticeContent?.warningTimeText ?? ""
         
-        let checkInDate = (response.conditionDetail?.checkInDate)?.split(separator: "/").dropFirst().joined(separator: "月") ?? ""
-        let checkOutDate = (response.conditionDetail?.checkOutDate)?.split(separator: "/").dropFirst().joined(separator: "月") ?? ""
-        let checkInOutDate = "\(checkInDate)日-\(checkOutDate)日 (?晚)"
+        let checkInDate = convertDateString(dateString: response.conditionDetail?.checkInDate ?? "", joinedString: "月")
+        let checkOutDate = convertDateString(dateString: response.conditionDetail?.checkOutDate ?? "", joinedString: "月")
+        let nightDesc = response.conditionDetail?.nightDesc ?? "-"
+        let checkInOutDate = "\(checkInDate)日-\(checkOutDate)日 (\(nightDesc)晚)"
         
         let hotelPreselection = response.hotelPreselection
         let hotelInfo = hotelPreselection?.hotelInfoList?.first
         let hotelGrade = hotelInfo?.hotelGrade ?? 0.0
-        
         
         hotelInfoCard = PackagesComboHotelInfoModel(
             hotelNotice: warningTimeText,
@@ -229,6 +235,10 @@ final class PackagesComboViewModel: ObservableObject {
             hotelTagList: hotelPreselection?.displayTag ?? [],
             hotelGreenMark: hotelInfo?.hotelGreenMark ?? false
         )
+    }
+    
+    private func convertDateString(dateString: String, joinedString: String) -> String {
+      return dateString.split(separator: "/").dropFirst().joined(separator: joinedString)
     }
     
     private func load<T: Decodable>(_ filename: String) -> T {
