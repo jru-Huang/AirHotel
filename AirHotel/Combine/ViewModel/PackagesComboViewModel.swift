@@ -91,27 +91,26 @@ final class PackagesComboViewModel: ObservableObject {
     
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
-        print(response)
-        setNav(conditionDetail: response.conditionDetail)
-        setNotices(noticeContent: response.noticeContent)
-        setAirInfoCard(response: response)
-        setHotelCard(response: response)
+        setupNav(conditionDetail: response.conditionDetail)
+        setupNotices(noticeContent: response.noticeContent)
+        setupAirInfoCard(response: response)
+        setupHotelCard(response: response)
     }
     
-    private func setNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
+    private func setupNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
         guard let conditionDetail else { return }
         // jru: 改成用 Request 資料！「更改搜尋」也是！！！
-        let depName = conditionDetail.departureName ?? ""
+        let departureName = conditionDetail.departureName ?? ""
         let arrivalName = conditionDetail.arrivalName ?? ""
-        let depDate = convertDateString(dateString: conditionDetail.departureDate ?? "", joinedString: "/")
+        let departureDate = convertDateString(dateString: conditionDetail.departureDate ?? "", joinedString: "/")
         let returnDate = convertDateString(dateString: conditionDetail.returnDate ?? "", joinedString: "/")
         let roomAndPeople = "\("從request帶？")"
-        navInfo = PackagesComboNavInfo(location: "\(depName)-\(arrivalName)",
-                                       date: "\(depDate)–\(returnDate)",
+        navInfo = PackagesComboNavInfo(location: "\(departureName)-\(arrivalName)",
+                                       date: "\(departureDate)–\(returnDate)",
                                        roomAndPeople: "\(conditionDetail.roomNumber ?? 0)間房，\(roomAndPeople)")
     }
     
-    private func setNotices(noticeContent: PackagesDynamicBundleResponse.NoticeContent?) {
+    private func setupNotices(noticeContent: PackagesDynamicBundleResponse.NoticeContent?) {
         if let policyList = noticeContent?.policyList, policyList.isEmpty == false {
             let detailList = policyList.compactMap { policy -> PackagesNoticeDetail? in
                 PackagesNoticeDetail(title: policy.title ?? "", content: policy.text ?? "")
@@ -159,67 +158,28 @@ final class PackagesComboViewModel: ObservableObject {
         )
     }
     
-    private func setAirInfoCard(response: PackagesDynamicBundleResponse) {
-        let depSegment = response.airTicketPreselection?.segmentInfoList?[0].segmentContent
-        let depFlight = depSegment?.flightList?.first
-        let returnSegment = response.airTicketPreselection?.segmentInfoList?[1].segmentContent
+    private func setupAirInfoCard(response: PackagesDynamicBundleResponse) {
+        let segmentInfoList = response.airTicketPreselection?.segmentInfoList ?? []
+        let departureSegment = segmentInfoList.first?.segmentContent
+        let returnSegment = segmentInfoList.dropFirst().first?.segmentContent
+        let departureFlight = departureSegment?.flightList?.first
         let returnFlight = returnSegment?.flightList?.first
-        
-        let depDateTime = FormatUtil.convertStringToString(dateStringFrom: depSegment?.departureDateTime, dateFormatTo: "yyyy年MM月dd日 週EEEEE")
-        let returnDateTime = FormatUtil.convertStringToString(dateStringFrom: returnSegment?.departureDateTime, dateFormatTo: "yyyy年MM月dd日 週EEEEE")
-        
-        var depTransitCountDesc = ""
-        if let transitCount = depSegment?.transitCount {
-            depTransitCountDesc = transitCount == 0 ? "直飛" : "轉機\(transitCount)次"
-        }else {
-            depTransitCountDesc = ""
-        }
-        
-        var returnTransitCountDesc = ""
-        if let transitCount = returnSegment?.transitCount {
-            returnTransitCountDesc = transitCount == 0 ? "直飛" : "轉機\(transitCount)次"
-        }else {
-            returnTransitCountDesc = ""
-        }
-        
-        let isLocDiff = (depFlight?.arrivalLocCode != returnFlight?.departureLocCode)
-        
+        let isLocDifferent = departureFlight?.arrivalLocCode != returnFlight?.departureLocCode
+
         airInfoCard = PackagesComboAirInfoModel(
             segmentInfoList: [
-                PackagesComboSegmentInfoModel(
+                setSegmentInfoModel(
                     type: "去程",
-                    date: depDateTime,
-                    noticeText: "？？？", //多家航空
-                    carrierLogo: depFlight?.carrierLogo ?? "",
-                    ticketingCarrier: depFlight?.ticketingCarrier ?? "",
-                    depTime: depSegment?.departureTime ?? "",
-                    depLocation: depSegment?.departureLocCode ?? "",
-                    depTerminal: "Terminal",
-                    arrTime: depSegment?.arrivalTime ?? "",
-                    arrLocation: depSegment?.arrivalLocCode ?? "",
-                    arrTerminal: "Terminal",
-                    dateVariation: depFlight?.dateVariation ?? "",
-                    segmentTimeDesc: depSegment?.segmentTimeDesc ?? "",
-                    transitCountDesc: depTransitCountDesc,
+                    segment: departureSegment,
+                    flight: departureFlight,
                     isDepLocHighlight: false,
-                    isArrLocHighlight: isLocDiff
+                    isArrLocHighlight: isLocDifferent
                 ),
-                PackagesComboSegmentInfoModel(
+                setSegmentInfoModel(
                     type: "回程",
-                    date: returnDateTime,
-                    noticeText: "？？？",
-                    carrierLogo: returnFlight?.carrierLogo ?? "",
-                    ticketingCarrier: returnFlight?.ticketingCarrier ?? "",
-                    depTime: returnSegment?.departureTime ?? "",
-                    depLocation: returnSegment?.departureLocCode ?? "",
-                    depTerminal: "Terminal",
-                    arrTime: returnSegment?.arrivalTime ?? "",
-                    arrLocation: returnSegment?.arrivalLocCode ?? "",
-                    arrTerminal: "Terminal",
-                    dateVariation: returnFlight?.dateVariation ?? "",
-                    segmentTimeDesc: returnSegment?.segmentTimeDesc ?? "",
-                    transitCountDesc: returnTransitCountDesc,
-                    isDepLocHighlight: isLocDiff,
+                    segment: returnSegment,
+                    flight: returnFlight,
+                    isDepLocHighlight: isLocDifferent,
                     isArrLocHighlight: false
                 )
             ],
@@ -228,32 +188,20 @@ final class PackagesComboViewModel: ObservableObject {
         )
     }
     
-    private func setHotelCard(response: PackagesDynamicBundleResponse) {
-        let warningTimeText = response.noticeContent?.warningTimeText ?? ""
-        
+    private func setupHotelCard(response: PackagesDynamicBundleResponse) {
         let conditionDetail = response.conditionDetail
-        let checkInDate = conditionDetail?.checkInDate ?? ""
-        let checkOutDate = conditionDetail?.checkOutDate ?? ""
-        let checkInDateString = checkInDate.isEmpty == false ? checkInDate : conditionDetail?.departureDate ?? ""
-        let checkOutDateString = checkOutDate.isEmpty == false ? checkOutDate : conditionDetail?.returnDate ?? ""
-        let convertedCheckInDate = convertDateString(dateString: checkInDateString, joinedString: "月")
-        let convertedCheckOutDate = convertDateString(dateString: checkOutDateString, joinedString: "月")
-        let nightDesc = response.conditionDetail?.nightDesc ?? "-"
-        let checkInOutDate = "\(convertedCheckInDate)日-\(convertedCheckOutDate)日 (\(nightDesc))"
-        
         let hotelPreselection = response.hotelPreselection
         let roomInfo = hotelPreselection?.roomInfo
         let hotelInfo = hotelPreselection?.hotelInfoList?.first
-        let hotelGrade = hotelInfo?.hotelGrade ?? 0.0
         
         hotelInfoCard = PackagesComboHotelInfoModel(
-            hotelNotice: warningTimeText,
-            checkInOutDate: checkInOutDate,
+            hotelNotice: response.noticeContent?.warningTimeText ?? "",
+            checkInOutDate: setCheckInOutDate(from: conditionDetail),
             hotelImg: hotelInfo?.hotelImg ?? "",
             hotelChineseName: hotelInfo?.hotelChineseName ?? "",
             hotelEnglishName: hotelInfo?.hotelEnglishName ?? "",
             hotelRating: hotelInfo?.hotelRating ?? 0.0,
-            hotelGrade: hotelGrade,
+            hotelGrade: hotelInfo?.hotelGrade ?? 0.0,
             gradeDesc: hotelInfo?.gradeDesc ?? "",
             roomDescription: roomInfo?.roomDescription ?? "",
             breakfastMark: roomInfo?.breakfastMark ?? false,
@@ -263,7 +211,62 @@ final class PackagesComboViewModel: ObservableObject {
             hotelTagList: hotelPreselection?.displayTag ?? [],
             hotelGreenMark: hotelInfo?.hotelGreenMark ?? false
         )
-        
+
+        setHotelBookingRule(response: response)
+    }
+
+    private func setSegmentInfoModel(type: String, segment: PackagesDynamicBundleResponse.SegmentContent?, flight: PackagesDynamicBundleResponse.Flight?, isDepLocHighlight: Bool, isArrLocHighlight: Bool) -> PackagesComboSegmentInfoModel {
+        PackagesComboSegmentInfoModel(
+            type: type,
+            date: formatSegmentDate(segment?.departureDateTime),
+            noticeText: "？？？", //多家航空
+            carrierLogo: flight?.carrierLogo ?? "",
+            ticketingCarrier: flight?.ticketingCarrier ?? "",
+            depTime: segment?.departureTime ?? "",
+            depLocation: segment?.departureLocCode ?? "",
+            depTerminal: "Terminal",
+            arrTime: segment?.arrivalTime ?? "",
+            arrLocation: segment?.arrivalLocCode ?? "",
+            arrTerminal: "Terminal",
+            dateVariation: flight?.dateVariation ?? "",
+            segmentTimeDesc: segment?.segmentTimeDesc ?? "",
+            transitCountDesc: transitCountDescription(segment?.transitCount),
+            isDepLocHighlight: isDepLocHighlight,
+            isArrLocHighlight: isArrLocHighlight
+        )
+    }
+
+    private func formatSegmentDate(_ departureDateTime: String?) -> String {
+        FormatUtil.convertStringToString(
+            dateStringFrom: departureDateTime,
+            dateFormatTo: "yyyy年MM月dd日 週EEEEE"
+        )
+    }
+
+    private func transitCountDescription(_ transitCount: Int?) -> String {
+        guard let transitCount else { return "" }
+        return transitCount == 0 ? "直飛" : "轉機\(transitCount)次"
+    }
+
+    private func setCheckInOutDate(from conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) -> String {
+        let checkInDate = checkDateValue(conditionDetail?.checkInDate, secondaryValue: conditionDetail?.departureDate)
+        let checkOutDate = checkDateValue(conditionDetail?.checkOutDate, secondaryValue: conditionDetail?.returnDate)
+        let convertedCheckInDate = convertDateString(dateString: checkInDate, joinedString: "月")
+        let convertedCheckOutDate = convertDateString(dateString: checkOutDate, joinedString: "月")
+        let nightDesc = conditionDetail?.nightDesc ?? "-"
+
+        return "\(convertedCheckInDate)日-\(convertedCheckOutDate)日 (\(nightDesc))"
+    }
+
+    private func checkDateValue(_ value: String?, secondaryValue: String?) -> String {
+        let primaryValue = value ?? ""
+        return primaryValue.isEmpty == false ? primaryValue : (secondaryValue ?? "")
+    }
+
+    private func setHotelBookingRule(response: PackagesDynamicBundleResponse) {
+        let roomInfo = response.hotelPreselection?.roomInfo
+        let title = roomInfo?.bookingRuleTitle ?? ""
+
         if roomInfo?.bookingRule == "點此查看是否可免費取消" {
             // /Products/Hotel/IsGuarantee
             /*
@@ -272,13 +275,28 @@ final class PackagesComboViewModel: ObservableObject {
                 "Price_Id": "5g4Trg9v7Rd3qE+WXb++ZDQva2YxuPzMDfACF3jzk3E="
              */
             let flowId = response.flowId ?? ""
-            let priceId = hotelPreselection?.priceId ?? ""
-            var hotelIsGuaranteeResponse = PackagesHotelIsGuaranteeResponse(guaranteeMark: false, serviceFeeDesc: "此為機加酒服務套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。BBBBB", cancelDesc: "在2026年06月16日 18:00前可免費取消。(如有變動將另行通知)AAAAA")
-            //response
-            setHotelBookingRuleDesc(title: roomInfo?.bookingRuleTitle ?? "", serviceFeeDesc: hotelIsGuaranteeResponse.serviceFeeDesc ?? "", cancelDesc: hotelIsGuaranteeResponse.cancelDesc ?? "")
-        }else {
-            setHotelBookingRuleDesc(title: roomInfo?.bookingRuleTitle ?? "", serviceFeeDesc: roomInfo?.serviceFeeDesc ?? "", cancelDesc: roomInfo?.cancelDesc ?? "")
+            let priceId = response.hotelPreselection?.priceId ?? ""
+            _ = flowId
+            _ = priceId
+            let hotelIsGuaranteeResponse = PackagesHotelIsGuaranteeResponse(
+                guaranteeMark: false,
+                serviceFeeDesc: "此為機加酒服務套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。BBBBB",
+                cancelDesc: "在2026年06月16日 18:00前可免費取消。(如有變動將另行通知)AAAAA"
+            )
+
+            setHotelBookingRuleDesc(
+                title: title,
+                serviceFeeDesc: hotelIsGuaranteeResponse.serviceFeeDesc ?? "",
+                cancelDesc: hotelIsGuaranteeResponse.cancelDesc ?? ""
+            )
+            return
         }
+
+        setHotelBookingRuleDesc(
+            title: title,
+            serviceFeeDesc: roomInfo?.serviceFeeDesc ?? "",
+            cancelDesc: roomInfo?.cancelDesc ?? ""
+        )
     }
     
     private func setHotelBookingRuleDesc(title: String, serviceFeeDesc: String, cancelDesc: String) {
