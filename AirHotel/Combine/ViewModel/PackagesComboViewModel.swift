@@ -53,30 +53,13 @@ final class PackagesComboViewModel: ObservableObject {
         }
     }
     
-    enum BookingRuleKey: String {
-        case Refundable
-        case NonRefundable
-        
-        var imageName: String {
-            switch self {
-            case .Refundable:
-                "ic_check_16"
-            case .NonRefundable:
-                "ic_cancel_16"
-            }
-        }
-    }
-    
     @Published var navInfo: PackagesComboNavInfo?
     @Published var policyNotice: PackagesNoticeDetailInfo?
     @Published var stopBookingNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
     @Published var announceNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
-    
-    //機票
     @Published var airInfoCard: PackagesComboAirInfoModel?
-    
-    //飯店
     @Published var hotelInfoCard: PackagesComboHotelInfoModel?
+    @Published var hotelBookingRuleDesc: PackagesNoticeDetailInfo?
     
     //優惠
     @Published var discountInfoCard: PackagesComboDiscountInfoCard = PackagesComboDiscountInfoCard(
@@ -105,16 +88,6 @@ final class PackagesComboViewModel: ObservableObject {
                                             content: "均分於所有旅客",
                                             discount: "-$120")
         ])
-    
-    // 房型取消限制說明
-    let hotelCancelNotice: PackagesNoticeDetailInfo = PackagesNoticeDetailInfo(
-        navTitle: "可免費取消",
-        noticeDetailList:
-            [
-                PackagesNoticeDetail(title: "",
-                                     content: "此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。 \n在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)")
-            ]
-    )
     
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
@@ -221,10 +194,10 @@ final class PackagesComboViewModel: ObservableObject {
                     ticketingCarrier: depFlight?.ticketingCarrier ?? "",
                     depTime: depSegment?.departureTime ?? "",
                     depLocation: depSegment?.departureLocCode ?? "",
-                    depTerminal: "T1",
+                    depTerminal: "Terminal",
                     arrTime: depSegment?.arrivalTime ?? "",
                     arrLocation: depSegment?.arrivalLocCode ?? "",
-                    arrTerminal: "T1",
+                    arrTerminal: "Terminal",
                     dateVariation: depFlight?.dateVariation ?? "",
                     segmentTimeDesc: depSegment?.segmentTimeDesc ?? "",
                     transitCountDesc: depTransitCountDesc,
@@ -239,10 +212,10 @@ final class PackagesComboViewModel: ObservableObject {
                     ticketingCarrier: returnFlight?.ticketingCarrier ?? "",
                     depTime: returnSegment?.departureTime ?? "",
                     depLocation: returnSegment?.departureLocCode ?? "",
-                    depTerminal: "T1",
+                    depTerminal: "Terminal",
                     arrTime: returnSegment?.arrivalTime ?? "",
                     arrLocation: returnSegment?.arrivalLocCode ?? "",
-                    arrTerminal: "T1",
+                    arrTerminal: "Terminal",
                     dateVariation: returnFlight?.dateVariation ?? "",
                     segmentTimeDesc: returnSegment?.segmentTimeDesc ?? "",
                     transitCountDesc: returnTransitCountDesc,
@@ -258,12 +231,18 @@ final class PackagesComboViewModel: ObservableObject {
     private func setHotelCard(response: PackagesDynamicBundleResponse) {
         let warningTimeText = response.noticeContent?.warningTimeText ?? ""
         
-        let checkInDate = convertDateString(dateString: response.conditionDetail?.checkInDate ?? "", joinedString: "月")
-        let checkOutDate = convertDateString(dateString: response.conditionDetail?.checkOutDate ?? "", joinedString: "月")
+        let conditionDetail = response.conditionDetail
+        let checkInDate = conditionDetail?.checkInDate ?? ""
+        let checkOutDate = conditionDetail?.checkOutDate ?? ""
+        let checkInDateString = checkInDate.isEmpty == false ? checkInDate : conditionDetail?.departureDate ?? ""
+        let checkOutDateString = checkOutDate.isEmpty == false ? checkOutDate : conditionDetail?.returnDate ?? ""
+        let convertedCheckInDate = convertDateString(dateString: checkInDateString, joinedString: "月")
+        let convertedCheckOutDate = convertDateString(dateString: checkOutDateString, joinedString: "月")
         let nightDesc = response.conditionDetail?.nightDesc ?? "-"
-        let checkInOutDate = "\(checkInDate)日-\(checkOutDate)日 (\(nightDesc)晚)"
+        let checkInOutDate = "\(convertedCheckInDate)日-\(convertedCheckOutDate)日 (\(nightDesc))"
         
         let hotelPreselection = response.hotelPreselection
+        let roomInfo = hotelPreselection?.roomInfo
         let hotelInfo = hotelPreselection?.hotelInfoList?.first
         let hotelGrade = hotelInfo?.hotelGrade ?? 0.0
         
@@ -275,14 +254,45 @@ final class PackagesComboViewModel: ObservableObject {
             hotelEnglishName: hotelInfo?.hotelEnglishName ?? "",
             hotelRating: hotelInfo?.hotelRating ?? 0.0,
             hotelGrade: hotelGrade,
-            hotelStar: "\(Int(hotelGrade))星飯店",
-            roomDescription: hotelPreselection?.roomInfo?.roomDescription ?? "",
-            hasBreakfast: false,
-            bookingRuleKey: .Refundable,
-            bookingRule: "可免費取消", //"不可更改、取消及退費"
+            gradeDesc: hotelInfo?.gradeDesc ?? "",
+            roomDescription: roomInfo?.roomDescription ?? "",
+            breakfastMark: roomInfo?.breakfastMark ?? false,
+            breakfastType: roomInfo?.breakfastType ?? "",
+            guaranteeMark: roomInfo?.guaranteeMark ?? true, // false:可免費取消; true:不可更改、取消及退費
+            bookingRule: roomInfo?.bookingRule ?? "",
             hotelTagList: hotelPreselection?.displayTag ?? [],
             hotelGreenMark: hotelInfo?.hotelGreenMark ?? false
         )
+        
+        if roomInfo?.bookingRule == "點此查看是否可免費取消" {
+            // /Products/Hotel/IsGuarantee
+            /*
+            request:
+                "Flow_Id": "43fedee98c3563bd5b70f5433ac61e486b5168e0",
+                "Price_Id": "5g4Trg9v7Rd3qE+WXb++ZDQva2YxuPzMDfACF3jzk3E="
+             */
+            let flowId = response.flowId ?? ""
+            let priceId = hotelPreselection?.priceId ?? ""
+            var hotelIsGuaranteeResponse = PackagesHotelIsGuaranteeResponse(guaranteeMark: false, serviceFeeDesc: "此為機加酒服務套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。BBBBB", cancelDesc: "在2026年06月16日 18:00前可免費取消。(如有變動將另行通知)AAAAA")
+            //response
+            setHotelBookingRuleDesc(title: roomInfo?.bookingRuleTitle ?? "", serviceFeeDesc: hotelIsGuaranteeResponse.serviceFeeDesc ?? "", cancelDesc: hotelIsGuaranteeResponse.cancelDesc ?? "")
+        }else {
+            setHotelBookingRuleDesc(title: roomInfo?.bookingRuleTitle ?? "", serviceFeeDesc: roomInfo?.serviceFeeDesc ?? "", cancelDesc: roomInfo?.cancelDesc ?? "")
+        }
+    }
+    
+    private func setHotelBookingRuleDesc(title: String, serviceFeeDesc: String, cancelDesc: String) {
+        let noticeDetailList: [PackagesNoticeDetail] = [
+            PackagesNoticeDetail(title: "", content: serviceFeeDesc),
+            PackagesNoticeDetail(title: "", content: cancelDesc)
+        ].compactMap({$0.content.isEmpty ? nil : $0})
+        
+        if noticeDetailList.isEmpty == false {
+            hotelBookingRuleDesc = PackagesNoticeDetailInfo(
+                navTitle: title,
+                noticeDetailList: noticeDetailList
+            )
+        }
     }
     
     private func convertDateString(dateString: String, joinedString: String) -> String {

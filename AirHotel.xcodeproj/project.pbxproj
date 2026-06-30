@@ -29,6 +29,7 @@
 		7B39BE3B2FC971CF003ABF42 /* PackagesComboNavInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */; };
 		7B39BE3D2FC97A61003ABF42 /* PackagesComboHotelCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3C2FC97A61003ABF42 /* PackagesComboHotelCard.swift */; };
 		7B4460CC2FEA39BA00271458 /* Combo.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B4460CB2FEA39BA00271458 /* Combo.json */; };
+		7B4767992FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4767982FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift */; };
 		7B5D2B222FE923B200678C97 /* PackagesDynamicBundleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */; };
 		7B6411BD2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BC2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift */; };
 		7B6411BF2FD001AF00EC660B /* PackagesComboAmountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BE2FD001AF00EC660B /* PackagesComboAmountDetailView.swift */; };
@@ -70,6 +71,7 @@
 		7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavInfo.swift; sourceTree = "<group>"; };
 		7B39BE3C2FC97A61003ABF42 /* PackagesComboHotelCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHotelCard.swift; sourceTree = "<group>"; };
 		7B4460CB2FEA39BA00271458 /* Combo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Combo.json; sourceTree = "<group>"; };
+		7B4767982FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesHotelIsGuaranteeResponse.swift; sourceTree = "<group>"; };
 		7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesDynamicBundleResponse.swift; sourceTree = "<group>"; };
 		7B6411BC2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountBottomView.swift; sourceTree = "<group>"; };
 		7B6411BE2FD001AF00EC660B /* PackagesComboAmountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountDetailView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		7B39BE2D2FC948D2003ABF42 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B47679A2FF378A00070BAA4 /* Response */,
 				7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */,
 				7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */,
 				7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoModel.swift */,
@@ -160,7 +163,6 @@
 				7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */,
 				7B9107612FD6650300083AF1 /* PackagesComboAmountDetailInfo.swift */,
 				7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */,
-				7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,6 +181,15 @@
 				7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7B47679A2FF378A00070BAA4 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				7B5D2B212FE923B200678C97 /* PackagesDynamicBundleResponse.swift */,
+				7B4767982FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		7B785D122FA8421400079056 = {
@@ -294,6 +305,7 @@
 			files = (
 				7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */,
 				7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */,
+				7B4767992FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift in Sources */,
 				7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */,
 				7B6411BF2FD001AF00EC660B /* PackagesComboAmountDetailView.swift in Sources */,
 				7B9107642FD6938E00083AF1 /* PackagesNoticeInfoView.swift in Sources */,

@@ -319,10 +319,12 @@ struct PackagesDynamicBundleResponse: Codable {
     struct RoomInfo: Codable {
         let roomDescription: String?
         let bedDescription: String?
+        let bookingRuleTitle: String?
         let bookingRule: String?
         let guaranteeMark: Bool?
         let serviceFeeDesc: String?
         let cancelDesc: String?
+        let breakfastMark: Bool?
         let breakfastType: String?
         let breakfastRemark: String?
         let coverImg: [CoverImg]?
@@ -330,10 +332,12 @@ struct PackagesDynamicBundleResponse: Codable {
         enum CodingKeys: String, CodingKey {
             case roomDescription = "Room_Description"
             case bedDescription = "Bed_Description"
+            case bookingRuleTitle = "Booking_Rule_Title"
             case bookingRule = "Booking_Rule"
             case guaranteeMark = "Guarantee_Mark"
             case serviceFeeDesc = "Service_Fee_Desc"
             case cancelDesc = "Cancel_Desc"
+            case breakfastMark = "Breakfast_Mark"
             case breakfastType = "Breakfast_Type"
             case breakfastRemark = "Breakfast_Remark"
             case coverImg = "Cover_img"

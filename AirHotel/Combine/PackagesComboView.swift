@@ -102,8 +102,10 @@ extension PackagesComboView {
             }
             
             if let hotelInfo = viewModel.hotelInfoCard {
-                PackagesComboHotelCard(info: hotelInfo, onTouchNotice: {
-                    presentNotice = PackagesNoticeInfoModel(noticeInfo: viewModel.hotelCancelNotice)
+                PackagesComboHotelCard(info: hotelInfo, onTouchBookingRuleDesc: {
+                    if let hotelBookingRuleDesc = viewModel.hotelBookingRuleDesc {
+                        presentNotice = PackagesNoticeInfoModel(noticeInfo: hotelBookingRuleDesc)
+                    }
                 })
             }
             

@@ -15,10 +15,11 @@ struct PackagesComboHotelInfoModel {
     let hotelEnglishName: String
     let hotelRating: Double
     let hotelGrade: Double
-    let hotelStar: String
+    let gradeDesc: String
     let roomDescription: String
-    let hasBreakfast: Bool
-    let bookingRuleKey: PackagesComboViewModel.BookingRuleKey
+    let breakfastMark: Bool
+    let breakfastType: String
+    let guaranteeMark: Bool
     let bookingRule: String
     let hotelTagList: [String]
     let hotelGreenMark: Bool

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PackagesComboHotelCard: View {
     let info: PackagesComboHotelInfoModel
-    var onTouchNotice: (() -> Void)
+    var onTouchBookingRuleDesc: (() -> Void)
     
     var body: some View {
         VStack(spacing: 12) {
@@ -124,11 +124,10 @@ struct PackagesComboHotelCard: View {
                                     }
                                 }
                                 
-                                if info.hotelGrade != 0.0 {
-                                    Text(info.hotelStar)
-                                        .font(AppTypography.B06R)
-                                        .foregroundStyle(AppColor.Text.neutralBodyLight)
-                                }
+                                Text(info.gradeDesc)
+                                    .font(AppTypography.B06R)
+                                    .foregroundStyle(AppColor.Text.neutralBodyLight)
+                                
                             }
                         }
                     }
@@ -140,7 +139,7 @@ struct PackagesComboHotelCard: View {
     private var hotelInfoView: some View {
         
         Button {
-            print("點擊更換房型-> 飯店詳細頁（ 釘選房型 ）")
+            print("點選更換房型卡片(灰色區塊）-> 飯店詳細頁（ 釘選房型 ）")
         } label: {
             
             VStack(alignment: .leading, spacing: 6) {
@@ -151,19 +150,18 @@ struct PackagesComboHotelCard: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 2) {
-                        Image(info.hasBreakfast == true ? "ic_breakfast_16_breakfast_gray" : "ic_breakfast_16_nobreakfast_gray")
-                        Text(info.hasBreakfast == true ? "僅包含大人早餐" : "不包含早餐")
+                        Image(info.breakfastMark == true ? "ic_breakfast_16_breakfast_gray" : "ic_breakfast_16_nobreakfast_gray")
+                        Text(info.breakfastType)
                             .font(AppTypography.B05R)
                             .foregroundStyle(AppColor.Text.neutralBodyMid)
                     }
                     
                     HStack(spacing: 0) {
                         Button {
-                            print("點擊Booking規則-> 房型取消限制說明")
-                            onTouchNotice()
+                            onTouchBookingRuleDesc()
                         } label: {
                             HStack(spacing: 2) {
-                                Image(info.bookingRuleKey.imageName)
+                                Image(info.guaranteeMark == false ? "ic_check_16" : "ic_cancel_16")
                                 Text(info.bookingRule)
                                     .font(AppTypography.B05R)
                                     .foregroundStyle(AppColor.Text.neutralBodyMid)
@@ -260,13 +258,14 @@ private struct TextWithIconView: View {
         hotelEnglishName: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE HOTEL METROPOLITAN TOKYO IKEBUKUROHOTE",
         hotelRating: 4.3,
         hotelGrade: 3.5,
-        hotelStar: "4星飯店",
+        gradeDesc: "4星飯店",
         roomDescription: "標準雙床房，非吸菸房(View will be selected by the hotel )",
-        hasBreakfast: false,
-        bookingRuleKey: .Refundable,
+        breakfastMark: false,
+        breakfastType: "僅大人早餐",
+        guaranteeMark: false,
         bookingRule: "可免費取消",
         hotelTagList: ["慶祝台灣隊金牌","旅展促銷","限時早鳥優惠","週三狂歡日","慶祝台灣隊金牌2"],
         hotelGreenMark: false),
-                           onTouchNotice: {print("房型取消")}
+                           onTouchBookingRuleDesc: {print("房型取消")}
     )
 }
