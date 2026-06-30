@@ -94,7 +94,12 @@ extension PackagesComboView {
         VStack(spacing: 12) {
             PackagesComboHeader()
             
-            PackagesComboAirCard(info: viewModel.airInfoCard)
+            if let airInfo = viewModel.airInfoCard {
+                PackagesComboAirCard(info: airInfo, onTouchCard: {
+                    print("點擊航班詳細資訊")
+                })
+                
+            }
             
             if let hotelInfo = viewModel.hotelInfoCard {
                 PackagesComboHotelCard(info: hotelInfo, onTouchNotice: {

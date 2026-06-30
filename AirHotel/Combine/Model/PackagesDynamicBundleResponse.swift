@@ -12,9 +12,11 @@ struct PackagesDynamicBundleResponse: Codable {
     let conditionDetail: ConditionDetail?
     let airTicketPreselection: AirTicketPreselection?
     let hotelPreselection: HotelPreselection?
-    let totalAmount: Int?
+    let totalPrice: Int?
     let adtPerPrice: Int?
     let chdPerPrice: Int?
+    let adtTotalPrice: Int?
+    let chdTotalPrice: Int?
     let noticeContent: NoticeContent?
     let expireTime: String?
     
@@ -23,9 +25,11 @@ struct PackagesDynamicBundleResponse: Codable {
         case conditionDetail = "Condition_Detail"
         case airTicketPreselection = "AirTicket_Preselection"
         case hotelPreselection = "Hotel_Preselection"
-        case totalAmount = "Total_Amount"
+        case totalPrice = "Total_Price"
         case adtPerPrice = "Adt_PerPrice"
         case chdPerPrice = "Chd_PerPrice"
+        case adtTotalPrice = "Adt_Total_Price"
+        case chdTotalPrice = "Chd_Total_Price"
         case noticeContent = "Notice_Content"
         case expireTime = "Expire_Time"
     }
@@ -84,7 +88,7 @@ struct PackagesDynamicBundleResponse: Codable {
     
     struct AirTicketPreselection: Codable {
         let pageId: String?
-        let segmentInfoList: [SegmentInfoList]?
+        let segmentInfoList: [SegmentInfo]?
         let baggageInfoDesc: String?
         let displayTag: [String]?
         
@@ -96,7 +100,7 @@ struct PackagesDynamicBundleResponse: Codable {
         }
     }
     
-    struct SegmentInfoList: Codable {
+    struct SegmentInfo: Codable {
         let itemIndex: Int?
         let breakdownPrice: Int?
         let breakdownPriceDesc: String?
@@ -244,6 +248,7 @@ struct PackagesDynamicBundleResponse: Codable {
         let hotelImg: String?
         let hotelHotMark: Bool?
         let hotelGrade: Double?
+        let gradeDesc: String?
         let hotelSort: Int?
         let hotelAddress: String?
         let hotelTraceMark: Bool?
@@ -271,7 +276,6 @@ struct PackagesDynamicBundleResponse: Codable {
         let hotelServiceMark13: Bool?
         let hotelServiceMark15: Bool?
         let hotelGreenMark: Bool?
-        let totalPrice: Double?
         
         enum CodingKeys: String, CodingKey {
             case hotelNo = "Hotel_No"
@@ -281,6 +285,7 @@ struct PackagesDynamicBundleResponse: Codable {
             case hotelImg = "Hotel_Img"
             case hotelHotMark = "Hotel_HotMark"
             case hotelGrade = "Hotel_Grade"
+            case gradeDesc = "Grade_Desc"
             case hotelSort = "Hotel_Sort"
             case hotelAddress = "Hotel_Address"
             case hotelTraceMark = "Hotel_TraceMark"
@@ -308,33 +313,34 @@ struct PackagesDynamicBundleResponse: Codable {
             case hotelServiceMark13 = "Hotel_ServiceMark13"
             case hotelServiceMark15 = "Hotel_ServiceMark15"
             case hotelGreenMark = "Hotel_GreenMark"
-            case totalPrice = "Total_Price"
         }
     }
     
     struct RoomInfo: Codable {
         let roomDescription: String?
         let bedDescription: String?
+        let bookingRule: String?
         let guaranteeMark: Bool?
-        let freeCancelDeadLine: String?
+        let serviceFeeDesc: String?
+        let cancelDesc: String?
         let breakfastType: String?
         let breakfastRemark: String?
-        let roomImgList: [RoomImg]?
-        let roomIntroText: String?
+        let coverImg: [CoverImg]?
         
         enum CodingKeys: String, CodingKey {
             case roomDescription = "Room_Description"
             case bedDescription = "Bed_Description"
+            case bookingRule = "Booking_Rule"
             case guaranteeMark = "Guarantee_Mark"
-            case freeCancelDeadLine = "Free_Cancel_DeadLine"
+            case serviceFeeDesc = "Service_Fee_Desc"
+            case cancelDesc = "Cancel_Desc"
             case breakfastType = "Breakfast_Type"
             case breakfastRemark = "Breakfast_Remark"
-            case roomImgList = "Room_Img"
-            case roomIntroText = "Room_IntroText"
+            case coverImg = "Cover_img"
         }
     }
     
-    struct RoomImg: Codable {
+    struct CoverImg: Codable {
         let imgURL: String?
         let imgAlt: String?
         

@@ -41,7 +41,7 @@
                     "Segment_Time": 260,
                     "Departure_LocCode": "TPE",
                     "Arrival_LocCode": "NRT",
-                    "Transit_Count": 0,
+                    "Transit_Count": 2,
                     "Flight_List": [
                         {
                             "Flight_Index": 48,
@@ -62,7 +62,7 @@
                             "Ticketing_CarrierName": "泰國獅子航空",
                             "Operating_Carrier": "SL",
                             "Operating_CarrierName": "泰國獅子航空",
-                            "Carrier_Logo": "https://uatb2c.colatour.com.tw/COLA_AppFiles/AirTicket/Airline/SL.png",
+                            "Carrier_Logo": "",
                             "Carrier_No": "394",
                             "Carrier_Desc": "SL394",
                             "Equipment_Type": "波音 737-900",
@@ -92,12 +92,12 @@
                 "Breakdown_PriceDesc": "5799",
                 "Segment_Content": {
                     "Segment_Index": 36,
-                    "Departure_Time": "12:10",
-                    "Arrival_Time": "16:30",
-                    "Departure_DateTime": "2026-07-22T12:10:00",
-                    "Arrival_DateTime": "2026-07-22T16:30:00",
+                    "Departure_Time": "10:10",
+                    "Arrival_Time": "20:30",
+                    "Departure_DateTime": "2026-07-22T10:10:00",
+                    "Arrival_DateTime": "2026-07-22T20:30:00",
                     "Date_Variation": "",
-                    "Segment_TimeDesc": "03:20",
+                    "Segment_TimeDesc": "06小時23分",
                     "Segment_Time": 260,
                     "Departure_LocCode": "TPE",
                     "Arrival_LocCode": "NRT",
@@ -164,6 +164,7 @@
                 "Hotel_Img": "https://www.colatour.com.tw/COLA_AppFiles/A03H_Hotel/Images/174364-01.GIF",
                 "Hotel_HotMark": false,
                 "Hotel_Grade": 4.0,
+                "Grade_Desc": "4星飯店",
                 "Hotel_Sort": 21,
                 "Hotel_Address": " (東京都涉谷區代代木2-6-2)",
                 "Hotel_TraceMark": false,
@@ -191,36 +192,34 @@
                 "Hotel_ServiceMark13": true,
                 "Hotel_ServiceMark15": false,
                 "Hotel_GreenMark": false,
-                "Total_Price": 21999
             }
         ],
         "Room_Info": {
             "Room_Description": "經濟雙床房, 非吸煙房 (No Tower View) (偏好 2 張單人床)",
             "Bed_Description": "2 張單人床",
+            "Booking_Rule": "06月16日之前可免費取消",
             "Guarantee_Mark": false,
-            "Free_Cancel_DeadLine": "2026/06/16 18:00:00",
-            "Breakfast_Type": "早餐",
-            "Breakfast_Remark": "僅大人早餐",
-            "Room_Img": [
+            "Service_Fee_Desc": "此為機加酒服務套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。",
+            "Cancel_Desc": "在2026年06月16日 18:00前可免費取消。(如有變動將另行通知)",
+            "Breakfast_Type": "僅大人早餐",
+            "Breakfast_Remark": "吃到飽自助式早餐",
+            "Cover_img": [
                 {
                     "Img_URL": "https://i.travelapi.com/lodging/1000000/490000/481300/481277/4702fb88_z.jpg",
-                    "Img_Alt": null
-                },
-                {
-                    "Img_URL": "https://i.travelapi.com/lodging/1000000/490000/481300/481277/65772694_z.jpg",
-                    "Img_Alt": null
+                    "Img_Alt": ""
                 }
-            ],
-            "Room_IntroText": "<p><strong>2 張單人床</strong></p><p>客房面積 5.7 坪 (19 平方公尺)</p><br /><p><b>客房配置</b> - 1 間臥室</p><p><b>上網</b> - 免費無線上網和有線上網</p><p><b>娛樂</b> - 衛星電視頻道</p><p><b>餐飲</b> - 冰箱和免費瓶裝水</p><p><b>舒適睡眠</b> - 高級寢具、遮光窗簾和床單</p><p><b>浴室</b> - 私人浴室，浴缸及淋浴設備 (二合一)、拖鞋、免費盥洗用品</p><p><b>設備</b> - 保險箱、書桌和電話</p><p><b>貼心設施服務</b> - 每日客房清潔服務，以及設有恆溫控制的冷暖空調</p><p><b>環保設施</b> - 環保盥洗用品</p><p>禁煙客房</p>"
+            ]
         },
         "Display_Tag": [
             "旅展促銷",
             "國慶優惠"
         ]
     },
-    "Total_Amount": 9999,
+    "Total_Price": 9999,
     "Adt_PerPrice": 9999,
     "Chd_PerPrice": 9999,
+    "Adt_Total_Price": 9999,
+    "Chd_Total_Price": 9999,
     "Notice_Content": {
         "Announce_Text": [
             "春節期間，官網與系統皆正常運作，客服服務時間為09:00-1800，如有急件需求可透過線上客服聯繫，感謝您的體諒與支持，祝您新春愉快。"

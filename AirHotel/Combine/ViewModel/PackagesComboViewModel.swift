@@ -15,6 +15,23 @@ final class PackagesComboViewModel: ObservableObject {
         case none
         case partial
         
+//        enum LuggageType: : String {
+//        case free = "含免費托運行李"
+//        case none = "無免費託運行李"
+//        case partial = "部分不含托運行李"
+        
+//        init?(note: String) {
+//            if note.contains("部分") {
+//                self = .partial
+//            } else if note.contains("無免費") {
+//                self = .none
+//            } else if note.contains("含免費") {
+//                self = .free
+//            } else {
+//                return nil
+//            }
+//        }
+        
         var note: String {
             switch self {
             case .free:
@@ -56,46 +73,7 @@ final class PackagesComboViewModel: ObservableObject {
     @Published var announceNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
     
     //機票
-    @Published var airInfoCard: PackagesComboAirInfoCard = PackagesComboAirInfoCard(
-        flights: [
-            PackagesComboFlightSegment(
-                tag: "去程",
-                date: "2026年01月24日 週六",
-                noticeText: "", //多家航空
-                imageName: "ic_logo_BR",
-                depTime: "12:05",
-                depLocation: "TPE",
-                depTerminal: "T1",
-                arrTime: "15:30",
-                arrLocation: "HND",
-                arrTerminal: "T1",
-                dateVariation: "",
-                flightTime: "3小時25分",
-                transitNote: "轉機1次",
-                depLocDiffMark: false,
-                arrLocDiffMark: true
-            ),
-            PackagesComboFlightSegment(
-                tag: "回程",
-                date: "2026年01月28日 週三",
-                noticeText: "共享航班",
-                imageName: "ic_logo_BR",
-                depTime: "03:05",
-                depLocation: "NRT",
-                depTerminal: "T1",
-                arrTime: "06:20",
-                arrLocation: "TPE",
-                arrTerminal: "T1",
-                dateVariation: "+1",
-                flightTime: "3小時15分",
-                transitNote: "直飛",
-                depLocDiffMark: true,
-                arrLocDiffMark: false
-            )
-        ],
-        airTagList: ["慶祝台灣隊金牌", "旅展促銷活動", "新春節團購", "春節快樂", "元宵節"],
-        luggageType: .partial
-    )
+    @Published var airInfoCard: PackagesComboAirInfoModel?
     
     //飯店
     @Published var hotelInfoCard: PackagesComboHotelInfoModel?
@@ -143,12 +121,13 @@ final class PackagesComboViewModel: ObservableObject {
         print(response)
         setNav(conditionDetail: response.conditionDetail)
         setNotices(noticeContent: response.noticeContent)
+        setAirInfoCard(response: response)
         setHotelCard(response: response)
     }
     
     private func setNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
         guard let conditionDetail else { return }
-        // 改成用 Request 資料！「更改搜尋」也是！！！
+        // jru: 改成用 Request 資料！「更改搜尋」也是！！！
         let depName = conditionDetail.departureName ?? ""
         let arrivalName = conditionDetail.arrivalName ?? ""
         let depDate = convertDateString(dateString: conditionDetail.departureDate ?? "", joinedString: "/")
@@ -204,6 +183,75 @@ final class PackagesComboViewModel: ObservableObject {
                 navTitle: "系統公告",
                 noticeDetailList: contentList.map { PackagesNoticeDetail(title: "", content: $0) }
             )
+        )
+    }
+    
+    private func setAirInfoCard(response: PackagesDynamicBundleResponse) {
+        let depSegment = response.airTicketPreselection?.segmentInfoList?[0].segmentContent
+        let depFlight = depSegment?.flightList?.first
+        let returnSegment = response.airTicketPreselection?.segmentInfoList?[1].segmentContent
+        let returnFlight = returnSegment?.flightList?.first
+        
+        let depDateTime = FormatUtil.convertStringToString(dateStringFrom: depSegment?.departureDateTime, dateFormatTo: "yyyy年MM月dd日 週EEEEE")
+        let returnDateTime = FormatUtil.convertStringToString(dateStringFrom: returnSegment?.departureDateTime, dateFormatTo: "yyyy年MM月dd日 週EEEEE")
+        
+        var depTransitCountDesc = ""
+        if let transitCount = depSegment?.transitCount {
+            depTransitCountDesc = transitCount == 0 ? "直飛" : "轉機\(transitCount)次"
+        }else {
+            depTransitCountDesc = ""
+        }
+        
+        var returnTransitCountDesc = ""
+        if let transitCount = returnSegment?.transitCount {
+            returnTransitCountDesc = transitCount == 0 ? "直飛" : "轉機\(transitCount)次"
+        }else {
+            returnTransitCountDesc = ""
+        }
+        
+        let isLocDiff = (depFlight?.arrivalLocCode != returnFlight?.departureLocCode)
+        
+        airInfoCard = PackagesComboAirInfoModel(
+            segmentInfoList: [
+                PackagesComboSegmentInfoModel(
+                    type: "去程",
+                    date: depDateTime,
+                    noticeText: "？？？", //多家航空
+                    carrierLogo: depFlight?.carrierLogo ?? "",
+                    ticketingCarrier: depFlight?.ticketingCarrier ?? "",
+                    depTime: depSegment?.departureTime ?? "",
+                    depLocation: depSegment?.departureLocCode ?? "",
+                    depTerminal: "T1",
+                    arrTime: depSegment?.arrivalTime ?? "",
+                    arrLocation: depSegment?.arrivalLocCode ?? "",
+                    arrTerminal: "T1",
+                    dateVariation: depFlight?.dateVariation ?? "",
+                    segmentTimeDesc: depSegment?.segmentTimeDesc ?? "",
+                    transitCountDesc: depTransitCountDesc,
+                    isDepLocHighlight: false,
+                    isArrLocHighlight: isLocDiff
+                ),
+                PackagesComboSegmentInfoModel(
+                    type: "回程",
+                    date: returnDateTime,
+                    noticeText: "？？？",
+                    carrierLogo: returnFlight?.carrierLogo ?? "",
+                    ticketingCarrier: returnFlight?.ticketingCarrier ?? "",
+                    depTime: returnSegment?.departureTime ?? "",
+                    depLocation: returnSegment?.departureLocCode ?? "",
+                    depTerminal: "T1",
+                    arrTime: returnSegment?.arrivalTime ?? "",
+                    arrLocation: returnSegment?.arrivalLocCode ?? "",
+                    arrTerminal: "T1",
+                    dateVariation: returnFlight?.dateVariation ?? "",
+                    segmentTimeDesc: returnSegment?.segmentTimeDesc ?? "",
+                    transitCountDesc: returnTransitCountDesc,
+                    isDepLocHighlight: isLocDiff,
+                    isArrLocHighlight: false
+                )
+            ],
+            airTagList: response.airTicketPreselection?.displayTag ?? [],
+            luggageType: .partial // jru:待確認
         )
     }
     

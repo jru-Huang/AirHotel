@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct PackagesComboAirCard: View {
-    let info: PackagesComboAirInfoCard
+    let info: PackagesComboAirInfoModel
     
+    var onTouchCard: (()->Void)
     var body: some View {
         VStack(spacing: 12) {
             PackagesComboCardTitle(title: "已選航班",
                            titleButton: "更換航班",
                            clickAction: {
-                print("點擊已選航班")
+                print("點擊更換航班")
             })
             flightDetailView
         }
@@ -26,29 +27,29 @@ struct PackagesComboAirCard: View {
     private var flightDetailView: some View {
         VStack(spacing: 4) {
             Button {
-                print("點擊航班卡片")
+                onTouchCard()
             } label: {
-                outAndInboundFlightView
+                depAndReturnFlightView
             }
             
             tagAndLuggageView
         }
     }
     
-    private var outAndInboundFlightView: some View {
+    private var depAndReturnFlightView: some View {
         VStack(spacing: 4) {
-            ForEach(info.flights) { flight in
-                flightInfo(segment: flight)
+            ForEach(info.segmentInfoList) { segmentInfo in
+                flightInfo(segment: segmentInfo)
             }
         }
     }
     
-    private func flightInfo(segment: PackagesComboFlightSegment) -> some View {
+    private func flightInfo(segment: PackagesComboSegmentInfoModel) -> some View {
         VStack(spacing: 0) {
             
             // tag, date
             HStack(spacing: 8) {
-                Text(segment.tag)
+                Text(segment.type)
                     .font(AppTypography.T05M)
                     .foregroundStyle(AppColor.Text.neutralWhite)
                     .padding(.vertical, 2)
@@ -74,15 +75,17 @@ struct PackagesComboAirCard: View {
             
             // flight info
             HStack(spacing: 6) {
-                Image(segment.imageName) //多家＆共享都統一使用雙飛機的圖標 ; 航班無logo、或者沒有串到資料時顯示航空公司代碼
-                    .padding(5)
+                // jru:多家＆共享航空 icon: ic_flight_28
+                carrierLogoView(url: segment.carrierLogo, ticketingCarrier: segment.ticketingCarrier)
+                    .frame(width: 40, height: 40, alignment: .center)
+                    .background(segment.carrierLogo.isEmpty == true ? AppColor.Surface.neutralExtraSubtle : AppColor.Surface.neutralWhite, in: RoundedRectangle(cornerRadius: 4))
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .stroke(AppColor.Border.brandPrimaryExtraSubtle, lineWidth: 1)
                     )
                 
                 HStack(spacing: 8) {
-                    
+                    // Departure
                     VStack(spacing: 0) {
                         Text(segment.depTime)
                             .font(AppTypography.N03B)
@@ -92,8 +95,8 @@ struct PackagesComboAirCard: View {
                             Text(segment.depLocation)
                                 .padding(.horizontal, 2)
                                 .font(AppTypography.B06M)
-                                .foregroundStyle(segment.depLocDiffMark == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
-                                .background(segment.depLocDiffMark == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
+                                .foregroundStyle(segment.isDepLocHighlight == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
+                                .background(segment.isDepLocHighlight == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
                             Text(segment.depTerminal)
                                 .font(AppTypography.B06M)
                                 .foregroundStyle(AppColor.Text.neutralBodyMid)
@@ -104,25 +107,27 @@ struct PackagesComboAirCard: View {
                         HStack(spacing: 4) {
                             RoundedRectangle(cornerRadius: 0.5)
                                 .fill(AppColor.Border.neutralSubtle)
-                                .frame(width: 37.5, height: 1)
+                                .frame(height: 1)
                             
-                            Text(segment.flightTime)
+                            Text(segment.segmentTimeDesc)
                                 .font(AppTypography.B06R)
                                 .foregroundStyle(AppColor.Text.neutralBodyMid)
+                                .fixedSize()
                             
                             RoundedRectangle(cornerRadius: 0.5)
                                 .fill(AppColor.Border.neutralSubtle)
-                                .frame(width: 37.5, height: 1)
+                                .frame(height: 1)
                         }
                         
-                        Text(segment.transitNote)
+                        Text(segment.transitCountDesc)
                             .font(AppTypography.B06R)
                             .foregroundStyle(
-                                segment.transitNote == "直飛" ?
+                                segment.transitCountDesc == "直飛" ?
                                 AppColor.Text.neutralBodyMid : AppColor.Text.brandPrimaryBase
                             )
                     }
                     
+                    // Arrival
                     ZStack(alignment: .topTrailing) {
                         VStack(spacing: 0) {
                             Text(segment.arrTime)
@@ -133,8 +138,8 @@ struct PackagesComboAirCard: View {
                                 Text(segment.arrLocation)
                                     .padding(.horizontal, 2)
                                     .font(AppTypography.B06M)
-                                    .foregroundStyle(segment.arrLocDiffMark == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
-                                    .background(segment.arrLocDiffMark == true ? AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
+                                    .foregroundStyle(segment.isArrLocHighlight == true ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyMid)
+                                    .background(segment.isArrLocHighlight == true ?  AppColor.Surface.neutralMid : Color.clear, in: RoundedRectangle(cornerRadius: 2))
                                 Text(segment.arrTerminal)
                                     .font(AppTypography.B06M)
                                     .foregroundStyle(AppColor.Text.neutralBodyMid)
@@ -199,14 +204,37 @@ struct PackagesComboAirCard: View {
             }
         }
     }
+    
+    private func carrierLogoView(url: String, ticketingCarrier: String) -> some View {
+        return AsyncImage(url: URL(string: url)) { phase in
+            switch phase {
+            case .success(let image):
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .padding(6)
+            case .empty, .failure:
+                Text(ticketingCarrier)
+                    .font(AppTypography.H01)
+                    .foregroundStyle(AppColor.Text.neutralBodyLight)
+                    .padding(6)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            default:
+                Image("ic_flight_28")
+                    .padding(6)
+            }
+        }
+    }
 }
+
 #Preview {
-    PackagesComboAirCard(info: PackagesComboAirInfoCard(flights: [
-        PackagesComboFlightSegment(
-            tag: "去程",
+    PackagesComboAirCard(info: PackagesComboAirInfoModel(segmentInfoList: [
+        PackagesComboSegmentInfoModel(
+            type: "去程",
             date: "2026年01月24日 週六",
             noticeText: "", //多家航空
-            imageName: "ic_logo_BR",
+            carrierLogo: "ic_logo_BR",
+            ticketingCarrier: "BR",
             depTime: "12:05",
             depLocation: "TPE",
             depTerminal: "T1",
@@ -214,16 +242,17 @@ struct PackagesComboAirCard: View {
             arrLocation: "HND",
             arrTerminal: "T1",
             dateVariation: "",
-            flightTime: "3小時25分",
-            transitNote: "轉機1次",
-            depLocDiffMark: false,
-            arrLocDiffMark: true
+            segmentTimeDesc: "3小時25分",
+            transitCountDesc: "轉機1次",
+            isDepLocHighlight: false,
+            isArrLocHighlight: true
         ),
-        PackagesComboFlightSegment(
-            tag: "回程",
+        PackagesComboSegmentInfoModel(
+            type: "回程",
             date: "2026年01月28日 週三",
             noticeText: "共享航班",
-            imageName: "ic_logo_BR",
+            carrierLogo: "ic_logo_BR",
+            ticketingCarrier: "BR",
             depTime: "03:05",
             depLocation: "NRT",
             depTerminal: "T1",
@@ -231,10 +260,10 @@ struct PackagesComboAirCard: View {
             arrLocation: "TPE",
             arrTerminal: "T1",
             dateVariation: "+1",
-            flightTime: "3小時15分",
-            transitNote: "直飛",
-            depLocDiffMark: true,
-            arrLocDiffMark: false
+            segmentTimeDesc: "3小時15分",
+            transitCountDesc: "直飛",
+            isDepLocHighlight: true,
+            isArrLocHighlight: false
         )
-    ], airTagList: ["慶祝台灣隊金牌", "旅展促銷活動", "新春節團購", "春節快樂", "元宵節"], luggageType: .partial))
+    ], airTagList: ["慶祝台灣隊金牌", "旅展促銷活動", "新春節團購", "春節快樂", "元宵節"], luggageType: .partial), onTouchCard: {})
 }
