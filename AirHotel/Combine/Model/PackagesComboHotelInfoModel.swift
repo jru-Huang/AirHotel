@@ -13,8 +13,8 @@ struct PackagesComboHotelInfoModel {
     let hotelImg: String
     let hotelChineseName: String
     let hotelEnglishName: String
-    let hotelRating: Double
-    let hotelGrade: Double
+    let hotelRating: Double?
+    let hotelGrade: Double?
     let gradeDesc: String
     let roomDescription: String
     let breakfastMark: Bool

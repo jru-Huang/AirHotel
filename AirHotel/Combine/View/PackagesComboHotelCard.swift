@@ -100,8 +100,8 @@ struct PackagesComboHotelCard: View {
                         }
                         
                         HStack(spacing: 4) {
-                            if info.hotelRating != 0.0 {
-                                Text(String(format: "%.1f", info.hotelRating))
+                            if let hotelRating = info.hotelRating {
+                                Text(String(format: "%.1f", hotelRating))
                                     .padding(.horizontal, 4)
                                     .padding(.bottom, 1)
                                     .font(AppTypography.N07M)
@@ -110,15 +110,15 @@ struct PackagesComboHotelCard: View {
                             }
                             
                             HStack(spacing: 2) {
-                                if info.hotelGrade != 0.0 {
+                                if let hotelGrade = info.hotelGrade {
                                     HStack(spacing: 0) {
                                         
-                                        let fullStarCount: Int = Int(info.hotelGrade)
+                                        let fullStarCount: Int = Int(hotelGrade)
                                         ForEach(0..<fullStarCount, id: \.self) { _ in
                                             Image("ic_star_12_all")
                                         }
                                         
-                                        if info.hotelGrade > Double(fullStarCount) {
+                                        if hotelGrade > Double(fullStarCount) {
                                             Image("ic_star_12_half")
                                         }
                                     }
