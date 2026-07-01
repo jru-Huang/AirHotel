@@ -28,6 +28,16 @@ struct PackagesComboView: View {
         .onAppear {
             viewModel.onViewAppear()
         }
+        .overlay {
+            if viewModel.isShowingOvernightAlert {
+                DialogSwiftUIView(
+                    model: viewModel.overnightAlertModel,
+                    onRightAction: {
+                        viewModel.dismissOvernightAlert()
+                    }
+                )
+            }
+        }
     }
 }
 

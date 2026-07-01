@@ -15,22 +15,22 @@ final class PackagesComboViewModel: ObservableObject {
         case none
         case partial
         
-//        enum LuggageType: : String {
-//        case free = "含免費托運行李"
-//        case none = "無免費託運行李"
-//        case partial = "部分不含托運行李"
+        //        enum LuggageType: : String {
+        //        case free = "含免費托運行李"
+        //        case none = "無免費託運行李"
+        //        case partial = "部分不含托運行李"
         
-//        init?(note: String) {
-//            if note.contains("部分") {
-//                self = .partial
-//            } else if note.contains("無免費") {
-//                self = .none
-//            } else if note.contains("含免費") {
-//                self = .free
-//            } else {
-//                return nil
-//            }
-//        }
+        //        init?(note: String) {
+        //            if note.contains("部分") {
+        //                self = .partial
+        //            } else if note.contains("無免費") {
+        //                self = .none
+        //            } else if note.contains("含免費") {
+        //                self = .free
+        //            } else {
+        //                return nil
+        //            }
+        //        }
         
         var note: String {
             switch self {
@@ -53,6 +53,7 @@ final class PackagesComboViewModel: ObservableObject {
         }
     }
     
+    @Published var isShowingOvernightAlert: Bool = false
     @Published var navInfo: PackagesComboNavInfo?
     @Published var policyNotice: PackagesNoticeDetailInfo?
     @Published var stopBookingNotice: (config: PackagesComboSystemNoticeConfig?, detailInfo: PackagesNoticeDetailInfo?)?
@@ -61,6 +62,7 @@ final class PackagesComboViewModel: ObservableObject {
     @Published var hotelInfoCard: PackagesComboHotelInfoModel?
     @Published var hotelBookingRuleDesc: PackagesNoticeDetailInfo?
     @Published var totalPrice: String = ""
+    @Published var amountDetail: PackagesComboAmountModel?
     
     //優惠
     @Published var discountInfoCard: PackagesComboDiscountInfoCard = PackagesComboDiscountInfoCard(
@@ -68,11 +70,19 @@ final class PackagesComboViewModel: ObservableObject {
         discountError: "此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。此優惠代碼已全數兌換完畢。"
     )
     
-    //售價明細
-    @Published var amountDetail: PackagesComboAmountModel?
+    var overnightAlertModel: DialogSwiftUIModel {
+        DialogSwiftUIModel(
+            imgName: "ic_night_100",
+            title: "深夜抵達\n請留意入住日期！",
+            isSingleButton: true,
+            rightTitle: "我知道了"
+        )
+    }
     
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
+        isShowingOvernightAlert = response.noticeContent?.overnightMark == true
+        
         setupNav(conditionDetail: response.conditionDetail)
         setupNotices(noticeContent: response.noticeContent)
         setupAirInfoCard(response: response)
@@ -83,6 +93,13 @@ final class PackagesComboViewModel: ObservableObject {
             self.totalPrice = "\(totalPrice.priceAddDot())"
         }
     }
+    
+    func dismissOvernightAlert() {
+        isShowingOvernightAlert = false
+    }
+}
+
+extension PackagesComboViewModel {
     
     private func setupNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
         guard let conditionDetail else { return }
