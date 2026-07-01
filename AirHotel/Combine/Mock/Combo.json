@@ -79,6 +79,43 @@
                                     "Stopover_Time": 90
                                 }
                             ]
+                        },
+                        {
+                            "Flight_Index": 48,
+                            "Departure_Date": "07/22",
+                            "Departure_Time": "12:10",
+                            "Arrival_Date": "07/22",
+                            "Arrival_Time": "16:30",
+                            "Departure_DateTime": "2026-07-22T12:10:00",
+                            "Arrival_DateTime": "2026-07-22T16:30:00",
+                            "Date_Variation": "",
+                            "Departure_LocCode": "TPE",
+                            "Departure_Terminal": "第一航站",
+                            "Departure_LocDesc": "TPE 台北 桃園機場",
+                            "Arrival_LocCode": "NRT",
+                            "Arrival_Terminal": "第一航站",
+                            "Arrival_LocDesc": "NRT 東京 成田機場",
+                            "Ticketing_Carrier": "BR",
+                            "Ticketing_CarrierName": "長榮",
+                            "Operating_Carrier": "BR",
+                            "Operating_CarrierName": "長榮航空",
+                            "Carrier_Logo": "https://uatb2c.colatour.com.tw/COLA_AppFiles/AirTicket/Airline/SL.png",
+                            "Carrier_No": "394",
+                            "Carrier_Desc": "SL394",
+                            "Equipment_Type": "波音 737-900",
+                            "Service_ClassDesc": "經濟艙",
+                            "Carrier_Time": 200,
+                            "Carrier_TimeDesc": "3時20分",
+                            "Transit_Time": 0,
+                            "Is_Lcc": true,
+                            "Stopover_List": [
+                                {
+                                    "Airport_Code": "BKK",
+                                    "Airport_Name": "蘇凡納布機場",
+                                    "Stopover_LocDesc": "BKK 曼谷 蘇凡納布機場",
+                                    "Stopover_Time": 90
+                                }
+                            ]
                         }
                     ]
                 },

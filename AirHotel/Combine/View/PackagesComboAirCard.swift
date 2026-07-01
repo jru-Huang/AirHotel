@@ -61,9 +61,9 @@ struct PackagesComboAirCard: View {
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
                 Spacer()
                 
-                if segment.noticeText.isEmpty == false {
+                if segment.carrierNoticeText.isEmpty == false {
                     HStack(spacing: 1) {
-                        Text(segment.noticeText)
+                        Text(segment.carrierNoticeText)
                             .font(AppTypography.B05R)
                             .foregroundStyle(AppColor.Text.brandSecondaryBase)
                         Image("ic_notice_16")
@@ -232,7 +232,7 @@ struct PackagesComboAirCard: View {
         PackagesComboSegmentInfoModel(
             type: "去程",
             date: "2026年01月24日 週六",
-            noticeText: "", //多家航空
+            carrierNoticeText: "", //多家航空
             carrierLogo: "ic_logo_BR",
             ticketingCarrier: "BR",
             depTime: "12:05",
@@ -250,7 +250,7 @@ struct PackagesComboAirCard: View {
         PackagesComboSegmentInfoModel(
             type: "回程",
             date: "2026年01月28日 週三",
-            noticeText: "共享航班",
+            carrierNoticeText: "共享航班",
             carrierLogo: "ic_logo_BR",
             ticketingCarrier: "BR",
             depTime: "03:05",

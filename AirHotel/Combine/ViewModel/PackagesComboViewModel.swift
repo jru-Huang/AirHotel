@@ -130,7 +130,7 @@ extension PackagesComboViewModel {
                 strokeColor: AppColor.Border.brandSecondarySubtle
             )
         ]
-        .compactMap { $0 }
+            .compactMap { $0 }
     }
     
     private func setPolicyNotice(policyList: [PackagesDynamicBundleResponse.Policy]?) -> PackagesNoticeDetailInfo? {
@@ -140,14 +140,14 @@ extension PackagesComboViewModel {
             let title = policy.title ?? ""
             let content = policy.text ?? ""
             guard title.isEmpty == false || content.isEmpty == false else { return nil }
-           return PackagesNoticeDetail(title: title, content: content)
+            return PackagesNoticeDetail(title: title, content: content)
         }
-
+        
         guard detailList.isEmpty == false else { return nil }
-
+        
         return PackagesNoticeDetailInfo(navTitle: "注意事項", noticeDetailList: detailList)
     }
-
+    
     private func setSystemNotice(contentList: [String]?, imageName: String, bgColor: Color, strokeColor: Color) -> PackagesComboSystemNoticeModel? {
         guard let contentList, contentList.isEmpty == false else { return nil }
         
@@ -157,7 +157,7 @@ extension PackagesComboViewModel {
         }
         
         guard let firstContent = detailList.first?.content, firstContent.isEmpty == false else { return nil }
-
+        
         return PackagesComboSystemNoticeModel(
             config: PackagesComboSystemNoticeConfig(
                 imageName: imageName,
@@ -186,13 +186,14 @@ extension PackagesComboViewModel {
         }
         
         let isLocDifferent = departureFlight?.arrivalLocCode != returnFlight?.departureLocCode
-
+        
         airInfoCard = PackagesComboAirInfoModel(
             segmentInfoList: [
                 setSegmentInfoModel(
                     type: "去程",
                     segment: departureSegment,
                     flight: departureFlight,
+                    carrierNoticeText: segmentCarrierNotice(segment: departureSegment),
                     isDepLocHighlight: false,
                     isArrLocHighlight: isLocDifferent
                 ),
@@ -200,6 +201,7 @@ extension PackagesComboViewModel {
                     type: "回程",
                     segment: returnSegment,
                     flight: returnFlight,
+                    carrierNoticeText: segmentCarrierNotice(segment: returnSegment),
                     isDepLocHighlight: isLocDifferent,
                     isArrLocHighlight: false
                 )
@@ -209,11 +211,12 @@ extension PackagesComboViewModel {
         )
     }
     
-    private func setSegmentInfoModel(type: String, segment: PackagesDynamicBundleResponse.SegmentContent?, flight: PackagesDynamicBundleResponse.Flight?, isDepLocHighlight: Bool, isArrLocHighlight: Bool) -> PackagesComboSegmentInfoModel {
-        PackagesComboSegmentInfoModel(
+    private func setSegmentInfoModel(type: String, segment: PackagesDynamicBundleResponse.SegmentContent?, flight: PackagesDynamicBundleResponse.Flight?, carrierNoticeText: String, isDepLocHighlight: Bool, isArrLocHighlight: Bool) -> PackagesComboSegmentInfoModel {
+        
+        return PackagesComboSegmentInfoModel(
             type: type,
             date: formatSegmentDate(segment?.departureDateTime),
-            noticeText: "？？？", //多家航空
+            carrierNoticeText: carrierNoticeText,
             carrierLogo: flight?.carrierLogo ?? "",
             ticketingCarrier: flight?.ticketingCarrier ?? "",
             depTime: segment?.departureTime ?? "",
@@ -229,14 +232,43 @@ extension PackagesComboViewModel {
             isArrLocHighlight: isArrLocHighlight
         )
     }
-
+    
+    private func segmentCarrierNotice(segment: PackagesDynamicBundleResponse.SegmentContent?) -> String {
+        guard let flightList = segment?.flightList, flightList.isEmpty == false else { return "" }
+        
+        let ticketingCarrierSet = Set(
+            flightList.compactMap { flight -> String? in
+                let ticketingCarrier = flight.ticketingCarrier ?? ""
+                return ticketingCarrier.isEmpty ? nil : ticketingCarrier
+            }
+        )
+        
+        if ticketingCarrierSet.count >= 2 {
+            return "多家航空"
+        }
+        
+        let hasCodeShareFlight = flightList.contains {
+            let ticketingCarrier = $0.ticketingCarrier ?? ""
+            let operatingCarrier = $0.operatingCarrier ?? ""
+            return ticketingCarrier.isEmpty == false &&
+            operatingCarrier.isEmpty == false &&
+            ticketingCarrier != operatingCarrier
+        }
+        
+        if hasCodeShareFlight {
+            return "共享航班"
+        }
+        
+        return ""
+    }
+    
     private func formatSegmentDate(_ departureDateTime: String?) -> String {
         FormatUtil.convertStringToString(
             dateStringFrom: departureDateTime,
             dateFormatTo: "yyyy年MM月dd日 週EEEEE"
         )
     }
-
+    
     private func transitCountDescription(_ transitCount: Int?) -> String {
         guard let transitCount else { return "" }
         return transitCount == 0 ? "直飛" : "轉機\(transitCount)次"
@@ -272,7 +304,7 @@ extension PackagesComboViewModel {
             hotelTagList: hotelPreselection?.displayTag ?? [],
             hotelGreenMark: hotelInfo?.hotelGreenMark ?? false
         )
-
+        
         setHotelBookingRule(response: response)
     }
     
@@ -282,15 +314,15 @@ extension PackagesComboViewModel {
         let convertedCheckInDate = convertDateString(dateString: checkInDate, joinedString: "月")
         let convertedCheckOutDate = convertDateString(dateString: checkOutDate, joinedString: "月")
         let nightDesc = conditionDetail?.nightDesc ?? "-"
-
+        
         return "\(convertedCheckInDate)日-\(convertedCheckOutDate)日 (\(nightDesc))"
     }
-
+    
     private func checkDateValue(_ value: String?, secondaryValue: String?) -> String {
         let primaryValue = value ?? ""
         return primaryValue.isEmpty == false ? primaryValue : (secondaryValue ?? "")
     }
-
+    
     private func setHotelBookingRule(response: PackagesDynamicBundleResponse) {
         let roomInfo = response.hotelPreselection?.roomInfo
         let title = roomInfo?.bookingRuleTitle ?? ""
@@ -299,13 +331,13 @@ extension PackagesComboViewModel {
             hotelBookingRuleDesc = nil
             return
         }
-
+        
         if roomInfo?.bookingRule == "點此查看是否可免費取消" {
             // /Products/Hotel/IsGuarantee
             /*
-            request:
-                "Flow_Id": "43fedee98c3563bd5b70f5433ac61e486b5168e0",
-                "Price_Id": "5g4Trg9v7Rd3qE+WXb++ZDQva2YxuPzMDfACF3jzk3E="
+             request:
+             "Flow_Id": "43fedee98c3563bd5b70f5433ac61e486b5168e0",
+             "Price_Id": "5g4Trg9v7Rd3qE+WXb++ZDQva2YxuPzMDfACF3jzk3E="
              */
             let flowId = response.flowId ?? ""
             let priceId = response.hotelPreselection?.priceId ?? ""
@@ -314,7 +346,7 @@ extension PackagesComboViewModel {
                 serviceFeeDesc: "此為機加酒服務套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。BBBBB",
                 cancelDesc: "在2026年06月16日 18:00前可免費取消。(如有變動將另行通知)AAAAA"
             )
-
+            
             setHotelBookingRuleDesc(
                 title: title,
                 serviceFeeDesc: hotelIsGuaranteeResponse.serviceFeeDesc ?? "",
@@ -322,7 +354,7 @@ extension PackagesComboViewModel {
             )
             return
         }
-
+        
         setHotelBookingRuleDesc(
             title: title,
             serviceFeeDesc: roomInfo?.serviceFeeDesc ?? "",
@@ -347,25 +379,25 @@ extension PackagesComboViewModel {
     }
     
     private func convertDateString(dateString: String, joinedString: String) -> String {
-      return dateString.split(separator: "/").dropFirst().joined(separator: joinedString)
+        return dateString.split(separator: "/").dropFirst().joined(separator: joinedString)
     }
     
     // MARK: 售價明細
     private func setupAmountDetail(response: PackagesDynamicBundleResponse) {
         let personDetailList = [
-               setPersonDetail(
-                   appellation: "大人",
-                   perPrice: response.adtPerPrice,
-                   totalPrice: response.adtTotalPrice,
-                   numberOfPeople: response.conditionDetail?.adultsNumber
-               ),
-               setPersonDetail(
-                   appellation: "小孩",
-                   perPrice: response.chdPerPrice,
-                   totalPrice: response.chdTotalPrice,
-                   numberOfPeople: response.conditionDetail?.childNumber
-               )
-           ].compactMap { $0 }
+            setPersonDetail(
+                appellation: "大人",
+                perPrice: response.adtPerPrice,
+                totalPrice: response.adtTotalPrice,
+                numberOfPeople: response.conditionDetail?.adultsNumber
+            ),
+            setPersonDetail(
+                appellation: "小孩",
+                perPrice: response.chdPerPrice,
+                totalPrice: response.chdTotalPrice,
+                numberOfPeople: response.conditionDetail?.childNumber
+            )
+        ].compactMap { $0 }
         
         let discountList: [PackagesComboAmountDiscount] = [
             PackagesComboAmountDiscount(isDiscount: true,
@@ -379,8 +411,8 @@ extension PackagesComboViewModel {
         ]
         
         amountDetail = personDetailList.isEmpty && discountList.isEmpty
-            ? nil
-            : PackagesComboAmountModel(personDetailList: personDetailList, discountList: discountList)
+        ? nil
+        : PackagesComboAmountModel(personDetailList: personDetailList, discountList: discountList)
     }
     
     private func setPersonDetail(appellation: String, perPrice: Int?, totalPrice: Int?, numberOfPeople: Int?) -> PackagesComboAmountPersonDetail? {

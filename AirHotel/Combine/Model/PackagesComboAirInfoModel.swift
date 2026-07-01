@@ -17,7 +17,7 @@ struct PackagesComboSegmentInfoModel: Identifiable {
     let id = UUID()
     let type: String
     let date: String
-    let noticeText: String
+    let carrierNoticeText: String
     let carrierLogo: String
     let ticketingCarrier: String
     let depTime: String
@@ -26,9 +26,9 @@ struct PackagesComboSegmentInfoModel: Identifiable {
     let arrTime: String
     let arrLocation: String
     let arrTerminal: String
-    let dateVariation: String //換日
+    let dateVariation: String
     let segmentTimeDesc: String
-    let transitCountDesc: String //直飛、轉機
-    let isDepLocHighlight: Bool //去抵達回出發地點不同
-    let isArrLocHighlight: Bool //去抵達回出發地點不同
+    let transitCountDesc: String
+    let isDepLocHighlight: Bool
+    let isArrLocHighlight: Bool
 }
