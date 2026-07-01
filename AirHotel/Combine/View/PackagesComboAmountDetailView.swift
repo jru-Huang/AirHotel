@@ -11,7 +11,7 @@ struct PackagesComboAmountDetailView: View {
     
     @Binding var showAmountDetail: Bool
     
-    let info: PackagesComboAmountInfo
+    let info: PackagesComboAmountModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -51,22 +51,22 @@ struct PackagesComboAmountDetailView: View {
     }
     
     private func setDetailInfo() -> some View {
-        ForEach(info.detailInfo) {
-            detailInfo in
-            priceRow(appellation: detailInfo.appellation,
-                     pricePrePerson: detailInfo.pricePrePerson,
-                     numberOfPeople: detailInfo.numberOfPeople,
-                     totalPrice: detailInfo.totalPrice)
+        ForEach(info.personDetailList) {
+            personDetail in
+            priceRow(appellation: personDetail.appellation,
+                     pricePrePerson: personDetail.pricePrePerson,
+                     numberOfPeople: personDetail.numberOfPeople,
+                     totalPrice: personDetail.totalPrice)
         }
     }
     
     private func setDiscountInfo() -> some View {
-        ForEach(info.discountInfo) { discountInfo in
-            let isDiscount = discountInfo.isDiscount == true
+        ForEach(info.discountList) { discount in
+            let isDiscount = discount.isDiscount == true
             discountRow(icon: isDiscount ? "ic_discount_14" : "ic_cola_coin_14",
-                        title: discountInfo.title,
-                        content: discountInfo.content,
-                        discount: discountInfo.discount,
+                        title: discount.title,
+                        content: discount.content,
+                        discount: discount.discount,
                         titleColor: isDiscount ? AppColor.Text.marketOrangeBase : AppColor.Text.brandPrimaryBase,
                         bgColor: isDiscount ? AppColor.Surface.marketOrangeExtraSubtle : AppColor.Surface.brandPrimaryExtraSubtle,
                         leadingBorderColor: isDiscount ? AppColor.Border.marketOrangeSubtle : AppColor.Border.brandPrimarySubtle)
@@ -130,22 +130,22 @@ struct PackagesComboAmountDetailView: View {
 }
 
 #Preview {
-    PackagesComboAmountDetailView(showAmountDetail: .constant(false), info: PackagesComboAmountInfo(
-        detailInfo: [
-            PackagesComboAmountDetailInfo(appellation: "大人",
+    PackagesComboAmountDetailView(showAmountDetail: .constant(false), info: PackagesComboAmountModel(
+        personDetailList: [
+            PackagesComboAmountPersonDetail(appellation: "大人",
                                   pricePrePerson: "$17,200",
                                   numberOfPeople: "x4",
                                   totalPrice: "$68,800"),
-            PackagesComboAmountDetailInfo(appellation: "小孩",
+            PackagesComboAmountPersonDetail(appellation: "小孩",
                                   pricePrePerson: "$17,200",
                                   numberOfPeople: "x1",
                                   totalPrice: "$17,200")
-        ], discountInfo: [
-            PackagesComboAmountDiscountInfo(isDiscount: true,
+        ], discountList: [
+            PackagesComboAmountDiscount(isDiscount: true,
                                     title: "優惠代碼折扣",
                                     content: "晚鳥清艙折抵800元",
                                     discount: "-$2,000"),
-            PackagesComboAmountDiscountInfo(isDiscount: false,
+            PackagesComboAmountDiscount(isDiscount: false,
                                     title: "可樂旅遊幣折抵",
                                     content: "均分於所有旅客",
                                     discount: "-$120")

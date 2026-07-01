@@ -60,6 +60,7 @@ final class PackagesComboViewModel: ObservableObject {
     @Published var airInfoCard: PackagesComboAirInfoModel?
     @Published var hotelInfoCard: PackagesComboHotelInfoModel?
     @Published var hotelBookingRuleDesc: PackagesNoticeDetailInfo?
+    @Published var totalPrice: String = ""
     
     //優惠
     @Published var discountInfoCard: PackagesComboDiscountInfoCard = PackagesComboDiscountInfoCard(
@@ -68,26 +69,7 @@ final class PackagesComboViewModel: ObservableObject {
     )
     
     //售價明細
-    @Published var amountInfo: PackagesComboAmountInfo = PackagesComboAmountInfo(
-        detailInfo: [
-            PackagesComboAmountDetailInfo(appellation: "大人",
-                                          pricePrePerson: "$17,200",
-                                          numberOfPeople: "x4",
-                                          totalPrice: "$68,800"),
-            PackagesComboAmountDetailInfo(appellation: "小孩",
-                                          pricePrePerson: "$17,200",
-                                          numberOfPeople: "x1",
-                                          totalPrice: "$17,200")
-        ],discountInfo: [
-            PackagesComboAmountDiscountInfo(isDiscount: true,
-                                            title: "優惠代碼折扣",
-                                            content: "晚鳥清艙折抵800元",
-                                            discount: "-$2,000"),
-            PackagesComboAmountDiscountInfo(isDiscount: false,
-                                            title: "可樂旅遊幣折抵",
-                                            content: "均分於所有旅客",
-                                            discount: "-$120")
-        ])
+    @Published var amountDetail: PackagesComboAmountModel?
     
     func onViewAppear() {
         let response: PackagesDynamicBundleResponse = load("Combo.json")
@@ -95,6 +77,11 @@ final class PackagesComboViewModel: ObservableObject {
         setupNotices(noticeContent: response.noticeContent)
         setupAirInfoCard(response: response)
         setupHotelCard(response: response)
+        setupAmountDetail(response: response)
+        
+        if let totalPrice = response.totalPrice {
+            self.totalPrice = "\(totalPrice.priceAddDot())"
+        }
     }
     
     private func setupNav(conditionDetail: PackagesDynamicBundleResponse.ConditionDetail?) {
@@ -214,6 +201,37 @@ final class PackagesComboViewModel: ObservableObject {
 
         setHotelBookingRule(response: response)
     }
+    
+    private func setupAmountDetail(response: PackagesDynamicBundleResponse) {
+        
+        let personDetailList = [
+               setPersonDetail(
+                   appellation: "大人",
+                   perPrice: response.adtPerPrice,
+                   totalPrice: response.adtTotalPrice,
+                   numberOfPeople: response.conditionDetail?.adultsNumber
+               ),
+               setPersonDetail(
+                   appellation: "小孩",
+                   perPrice: response.chdPerPrice,
+                   totalPrice: response.chdTotalPrice,
+                   numberOfPeople: response.conditionDetail?.childNumber
+               )
+           ].compactMap { $0 }
+        
+        let discountList: [PackagesComboAmountDiscount] = [
+            PackagesComboAmountDiscount(isDiscount: true,
+                                        title: "優惠代碼折扣",
+                                        content: "晚鳥清艙折抵800元",
+                                        discount: "-$2,000"),
+            PackagesComboAmountDiscount(isDiscount: false,
+                                        title: "可樂旅遊幣折抵",
+                                        content: "均分於所有旅客",
+                                        discount: "-$120")
+        ]
+        
+        amountDetail = PackagesComboAmountModel(personDetailList: personDetailList, discountList: discountList)
+    }
 
     private func setSegmentInfoModel(type: String, segment: PackagesDynamicBundleResponse.SegmentContent?, flight: PackagesDynamicBundleResponse.Flight?, isDepLocHighlight: Bool, isArrLocHighlight: Bool) -> PackagesComboSegmentInfoModel {
         PackagesComboSegmentInfoModel(
@@ -276,8 +294,6 @@ final class PackagesComboViewModel: ObservableObject {
              */
             let flowId = response.flowId ?? ""
             let priceId = response.hotelPreselection?.priceId ?? ""
-            _ = flowId
-            _ = priceId
             let hotelIsGuaranteeResponse = PackagesHotelIsGuaranteeResponse(
                 guaranteeMark: false,
                 serviceFeeDesc: "此為機加酒服務套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。BBBBB",
@@ -315,6 +331,17 @@ final class PackagesComboViewModel: ObservableObject {
     
     private func convertDateString(dateString: String, joinedString: String) -> String {
       return dateString.split(separator: "/").dropFirst().joined(separator: joinedString)
+    }
+    
+    private func setPersonDetail(appellation: String, perPrice: Int?, totalPrice: Int?, numberOfPeople: Int?) -> PackagesComboAmountPersonDetail? {
+        guard let perPrice, let totalPrice, let numberOfPeople, numberOfPeople > 0 else { return nil }
+        
+        return PackagesComboAmountPersonDetail(
+            appellation: appellation,
+            pricePrePerson: "$\(perPrice.priceAddDot())",
+            numberOfPeople: "x\(numberOfPeople)",
+            totalPrice: "$\(totalPrice.priceAddDot())"
+        )
     }
     
     private func load<T: Decodable>(_ filename: String) -> T {

@@ -16,7 +16,7 @@
         "Direct_Mark": false,
         "Room_Number": 1,
         "Adults_Number": 1,
-        "Child_Number": 0,
+        "Child_Number": 2,
         "Child_Age": [],
         "Partial_Stay_Mark": false,
         "CheckIn_Date": "",
@@ -217,10 +217,10 @@
             "國慶優惠"
         ]
     },
-    "Total_Price": 9999,
-    "Adt_PerPrice": 9999,
+    "Total_Price": 111111,
+    "Adt_PerPrice": 99999,
     "Chd_PerPrice": 9999,
-    "Adt_Total_Price": 9999,
+    "Adt_Total_Price": 119999,
     "Chd_Total_Price": 9999,
     "Notice_Content": {
         "Announce_Text": [

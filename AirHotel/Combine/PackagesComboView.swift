@@ -137,14 +137,14 @@ extension PackagesComboView {
         VStack(spacing: 0) {
             Spacer()
             
-            if showAmountDetail {
+            if let amountDetail = viewModel.amountDetail, showAmountDetail {
                 PackagesComboAmountDetailView(
                     showAmountDetail: $showAmountDetail,
-                    info: viewModel.amountInfo)
+                    info: amountDetail)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             
-            PackagesComboAmountBottomView(showAmountDetail: $showAmountDetail)
+            PackagesComboAmountBottomView(showAmountDetail: $showAmountDetail, totalPrice: viewModel.totalPrice)
         }
         .animation(.easeInOut(duration: 0.3), value: showAmountDetail)
     }

@@ -10,6 +10,8 @@ import SwiftUI
 struct PackagesComboAmountBottomView: View {
     @Binding var showAmountDetail: Bool
     
+    var totalPrice: String
+    
     var body: some View {
         HStack(alignment: .bottom, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
@@ -21,7 +23,8 @@ struct PackagesComboAmountBottomView: View {
                     Text("$")
                         .font(AppTypography.B05R)
                         .foregroundStyle(AppColor.Text.marketOrangeDark)
-                    Text("83,880")
+                    
+                    Text(totalPrice)
                         .font(AppTypography.N03B)
                         .foregroundStyle(AppColor.Text.marketOrangeDark)
                 }
@@ -64,5 +67,5 @@ struct PackagesComboAmountBottomView: View {
 }
 
 #Preview {
-    PackagesComboAmountBottomView(showAmountDetail: .constant(true))
+    PackagesComboAmountBottomView(showAmountDetail: .constant(true), totalPrice: "9999")
 }

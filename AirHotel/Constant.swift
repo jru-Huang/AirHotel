@@ -39,6 +39,18 @@ extension View {
     }
 }
 
+extension Int {
+    func priceAddDot() -> String {
+        
+        let priceFormatter = NumberFormatter()
+        priceFormatter.numberStyle = NumberFormatter.Style.decimal
+        let priceAddComma = priceFormatter.string(from: self as NSNumber)
+        
+        let priceAddDollarSign = "\(priceAddComma ?? "")"
+        return priceAddDollarSign
+    }
+}
+
 struct RoundedCorner: Shape {
     var radius: CGFloat
     var corners: UIRectCorner
