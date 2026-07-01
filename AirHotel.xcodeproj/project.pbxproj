@@ -20,7 +20,7 @@
 		7B2D22EC2FC820B900D0531F /* PackagesComboCardTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */; };
 		7B3343662FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3343652FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift */; };
 		7B39BE2C2FC94706003ABF42 /* PackagesComboAirInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoModel.swift */; };
-		7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */; };
+		7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */; };
 		7B39BE312FC96A69003ABF42 /* PackagesComboHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */; };
 		7B39BE332FC96B3C003ABF42 /* PackagesComboNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */; };
 		7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */; };
@@ -62,7 +62,7 @@
 		7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboCardTitle.swift; sourceTree = "<group>"; };
 		7B3343652FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboDiscountCard.swift; sourceTree = "<group>"; };
 		7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAirInfoModel.swift; sourceTree = "<group>"; };
-		7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboSystemNoticeConfig.swift; sourceTree = "<group>"; };
+		7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboSystemNoticeModel.swift; sourceTree = "<group>"; };
 		7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHeader.swift; sourceTree = "<group>"; };
 		7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavView.swift; sourceTree = "<group>"; };
 		7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboPolicyNoticeView.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			children = (
 				7B47679A2FF378A00070BAA4 /* Response */,
 				7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */,
-				7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift */,
+				7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */,
 				7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoModel.swift */,
 				7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoModel.swift */,
 				7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */,
@@ -337,7 +337,7 @@
 				7B6411C12FD0221B00EC660B /* PackagesComboHotelInfoModel.swift in Sources */,
 				7B6411BD2FCFFFDE00EC660B /* PackagesComboAmountBottomView.swift in Sources */,
 				7B39BE2C2FC94706003ABF42 /* PackagesComboAirInfoModel.swift in Sources */,
-				7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeConfig.swift in Sources */,
+				7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift in Sources */,
 				7B9D52432FECBD27002AF33B /* DialogSwiftUIView.swift in Sources */,
 				7B5D2B222FE923B200678C97 /* PackagesDynamicBundleResponse.swift in Sources */,
 			);

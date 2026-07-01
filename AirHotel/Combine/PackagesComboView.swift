@@ -12,7 +12,7 @@ struct PackagesComboView: View {
     
     @State private var showSearchView: Bool = false
     @State private var showAmountDetail: Bool = false
-    @State private var presentNotice: PackagesNoticeInfoModel?
+    @State private var presentNoticeInfo: PackagesNoticeInfoModel?
     
     let navBarHeight: CGFloat = 44
     
@@ -55,10 +55,10 @@ extension PackagesComboView {
             searchContainerView
                 .zIndex(2)
             
-            if let presentNotice {
+            if let presentNoticeInfo {
                 PackagesNoticeInfoView(
-                    info: presentNotice.noticeInfo,
-                    onDismiss: { self.presentNotice = nil }
+                    info: presentNoticeInfo.noticeInfo,
+                    onDismiss: { self.presentNoticeInfo = nil }
                 )
                 .zIndex(3)
             }
@@ -72,24 +72,19 @@ extension PackagesComboView {
     
     private func mainContentView(bottomInset: CGFloat) -> some View {
         VStack(spacing: 0) {
-            if let policyNotice = viewModel.policyNotice {
-                PackagesComboPolicyNoticeView(notice: policyNotice.noticeDetailList.first?.content ?? "", onTouchNotice: {
-                    presentNotice = PackagesNoticeInfoModel(noticeInfo: policyNotice)
-                })
+            if let policyNotice = viewModel.policyNotice,
+               let policyNoticeContent = policyNotice.noticeDetailList.first?.content {
+                PackagesComboPolicyNoticeView(notice: policyNoticeContent) {
+                    presentNoticeInfo(policyNotice)
+                }
             }
             
             ScrollView {
                 VStack(spacing: 0) {
-                    if let stopBookingNotice = viewModel.stopBookingNotice {
-                        PackagesComboSystemNoticeView(systemNoticeConfig: stopBookingNotice.config!, onTouchNotice: {
-                            presentNotice = PackagesNoticeInfoModel(noticeInfo: stopBookingNotice.detailInfo!)
-                        })
-                    }
-                    
-                    if let announceNotice = viewModel.announceNotice {
-                        PackagesComboSystemNoticeView(systemNoticeConfig: announceNotice.config!, onTouchNotice: {
-                            presentNotice = PackagesNoticeInfoModel(noticeInfo: announceNotice.detailInfo!)
-                        })
+                    ForEach(viewModel.systemNoticeList) { notice in
+                        PackagesComboSystemNoticeView(systemNoticeConfig: notice.config) {
+                            presentNoticeInfo(notice.detailInfo)
+                        }
                     }
                     
                     packagesContentView
@@ -114,7 +109,7 @@ extension PackagesComboView {
             if let hotelInfo = viewModel.hotelInfoCard {
                 PackagesComboHotelCard(info: hotelInfo, onTouchBookingRuleDesc: {
                     if let hotelBookingRuleDesc = viewModel.hotelBookingRuleDesc {
-                        presentNotice = PackagesNoticeInfoModel(noticeInfo: hotelBookingRuleDesc)
+                        presentNoticeInfo(hotelBookingRuleDesc)
                     }
                 })
             }
@@ -199,6 +194,10 @@ extension PackagesComboView {
             .onTapGesture {
                 showAmountDetail = false
             }
+    }
+    
+    private func presentNoticeInfo(_ noticeInfo: PackagesNoticeDetailInfo) {
+        presentNoticeInfo = PackagesNoticeInfoModel(noticeInfo: noticeInfo)
     }
 }
 
