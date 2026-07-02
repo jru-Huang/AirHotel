@@ -55,7 +55,7 @@ struct PackagesComboNavView: View {
                         Text(navInfo.location)
                             .font(AppTypography.D03)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
-                        Image("ic_search_16")
+                        Image("ic_search_gray_16")
                     }
                     HStack(spacing: 4) {
                         Text(navInfo.date)

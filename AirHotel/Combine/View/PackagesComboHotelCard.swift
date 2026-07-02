@@ -115,11 +115,11 @@ struct PackagesComboHotelCard: View {
                                         
                                         let fullStarCount: Int = Int(hotelGrade)
                                         ForEach(0..<fullStarCount, id: \.self) { _ in
-                                            Image("ic_star_12_all")
+                                            Image("ic_star_all_12")
                                         }
                                         
                                         if hotelGrade > Double(fullStarCount) {
-                                            Image("ic_star_12_half")
+                                            Image("ic_star_half_12")
                                         }
                                     }
                                 }
@@ -150,7 +150,7 @@ struct PackagesComboHotelCard: View {
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 2) {
-                        Image(info.breakfastMark == true ? "ic_breakfast_16_breakfast_gray" : "ic_breakfast_16_nobreakfast_gray")
+                        Image(info.breakfastMark == true ? "ic_breakfast_gray_16" : "ic_nobreakfast_gray_16")
                         Text(info.breakfastType)
                             .font(AppTypography.B05R)
                             .foregroundStyle(AppColor.Text.neutralBodyMid)

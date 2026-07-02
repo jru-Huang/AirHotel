@@ -41,7 +41,7 @@ struct PackagesComboDiscountCard: View {
                 HStack(spacing: 0) {
                     
                     HStack(alignment: .top, spacing: 6) {
-                        Image("ic_ticket_20")
+                        Image("ic_discount_ticket_20")
                         Text("優惠代碼")
                             .font(AppTypography.T03M)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
@@ -90,7 +90,7 @@ struct PackagesComboDiscountCard: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
                 HStack(spacing: 6) {
-                    Image(isLogin == true ? "ic_cola_coin_20_focus" : "ic_cola_coin_20_default")
+                    Image(isLogin == true ? "ic_cola_coin_focus_20" : "ic_cola_coin_default_20")
                     Text("可樂旅遊幣")
                         .font(AppTypography.T03M)
                         .foregroundStyle(isLogin == true ? AppColor.Text.neutralBodyBase : AppColor.Text.stateDisabled)

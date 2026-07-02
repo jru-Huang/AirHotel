@@ -46,9 +46,9 @@ final class PackagesComboViewModel: ObservableObject {
         var imageName: String {
             switch self {
             case .free:
-                return "ic_package_24_on"
+                return "ic_package_on_24"
             case .none, .partial:
-                return "ic_package_24_off"
+                return "ic_package_off_24"
             }
         }
     }
@@ -119,7 +119,7 @@ extension PackagesComboViewModel {
         systemNoticeList = [
             setSystemNotice(
                 contentList: noticeContent?.stopBookingText.map { [$0] },
-                imageName: "ic_time_20",
+                imageName: "ic_countdown_20",
                 bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
                 strokeColor: AppColor.Border.brandPrimarySubtle
             ),

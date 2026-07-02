@@ -43,7 +43,7 @@ struct PackagesComboSystemNoticeView: View {
 
 #Preview {
     PackagesComboSystemNoticeView(systemNoticeConfig:
-                                    PackagesComboSystemNoticeConfig(imageName: "ic_time_20",
+                                    PackagesComboSystemNoticeConfig(imageName: "ic_countdown_time_20",
                                                             content: "有位低價機票將於 23:20 - 24:00 進行全球價格同步，暫時停止訂位，若有訂購需求，請於 23:20 前完成訂位與付款",
                                                             bgColor: AppColor.Surface.brandPrimaryExtraSubtle,
                                                             strokeColor: AppColor.Border.brandPrimarySubtle),
