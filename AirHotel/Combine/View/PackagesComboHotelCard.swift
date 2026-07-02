@@ -161,7 +161,7 @@ struct PackagesComboHotelCard: View {
                             onTouchBookingRuleDesc()
                         } label: {
                             HStack(spacing: 2) {
-                                Image(info.guaranteeMark == false ? "ic_check_16" : "ic_cancel_16")
+                                Image(info.guaranteeMark == false ? "ic_check_gray_16" : "ic_cancel_gray te_16")
                                 Text(info.bookingRule)
                                     .font(AppTypography.B05R)
                                     .foregroundStyle(AppColor.Text.neutralBodyMid)
