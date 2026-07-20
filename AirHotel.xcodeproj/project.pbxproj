@@ -37,6 +37,7 @@
 		7B6411C32FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */; };
 		7B9107622FD6650300083AF1 /* PackagesComboAmountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9107612FD6650300083AF1 /* PackagesComboAmountModel.swift */; };
 		7B9107642FD6938E00083AF1 /* PackagesNoticeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9107632FD6938E00083AF1 /* PackagesNoticeInfoView.swift */; };
+		7B9B77A230048EE500E41E26 /* ColaCoinInputSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B77A130048EE500E41E26 /* ColaCoinInputSwiftUIView.swift */; };
 		7B9D52432FECBD27002AF33B /* DialogSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9D52422FECBD27002AF33B /* DialogSwiftUIView.swift */; };
 		7BB68CE52FCE737E009412D8 /* DiscountDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB68CE42FCE737E009412D8 /* DiscountDemo.swift */; };
 		7BE414C42FD2784600BF0EB6 /* AppSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414C12FD2784600BF0EB6 /* AppSpacing.swift */; };
@@ -80,6 +81,7 @@
 		7B785D1B2FA8421400079056 /* AirHotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9107612FD6650300083AF1 /* PackagesComboAmountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountModel.swift; sourceTree = "<group>"; };
 		7B9107632FD6938E00083AF1 /* PackagesNoticeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoView.swift; sourceTree = "<group>"; };
+		7B9B77A130048EE500E41E26 /* ColaCoinInputSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColaCoinInputSwiftUIView.swift; sourceTree = "<group>"; };
 		7B9D52422FECBD27002AF33B /* DialogSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogSwiftUIView.swift; sourceTree = "<group>"; };
 		7BB68CE42FCE737E009412D8 /* DiscountDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountDemo.swift; sourceTree = "<group>"; };
 		7BE414BD2FD2784600BF0EB6 /* DesignToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignToken.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				7B2D22D92FC7DC0800D0531F /* Constant.swift */,
 				7B2D22DB2FC7DC0800D0531F /* NavHostingController.swift */,
 				7B2D22E62FC7DCB500D0531F /* BookingConfirmView.swift */,
+				7B9B77A130048EE500E41E26 /* ColaCoinInputSwiftUIView.swift */,
 				7BB68CE42FCE737E009412D8 /* DiscountDemo.swift */,
 				7BE414C32FD2784600BF0EB6 /* DesignSystem */,
 			);
@@ -320,6 +323,7 @@
 				7BE414C52FD2784600BF0EB6 /* UIColor+Hex.swift in Sources */,
 				7BE414CA2FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift in Sources */,
 				7BE414C62FD2784600BF0EB6 /* AppColor.swift in Sources */,
+				7B9B77A230048EE500E41E26 /* ColaCoinInputSwiftUIView.swift in Sources */,
 				7BE414C72FD2784600BF0EB6 /* DesignToken.swift in Sources */,
 				7BE414C82FD2784600BF0EB6 /* AppTypography.swift in Sources */,
 				7B39BE3D2FC97A61003ABF42 /* PackagesComboHotelCard.swift in Sources */,
