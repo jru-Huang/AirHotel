@@ -116,11 +116,7 @@
 				7B2D22DC2FC7DC0800D0531F /* SearchView.swift */,
 				7B2D22D92FC7DC0800D0531F /* Constant.swift */,
 				7B2D22DB2FC7DC0800D0531F /* NavHostingController.swift */,
-<<<<<<< HEAD
-				7B2D22E62FC7DCB500D0531F /* BookingConfirmView.swift */,
 				7B9B77A130048EE500E41E26 /* ColaCoinInputSwiftUIView.swift */,
-=======
->>>>>>> feature/UseDisount
 				7BB68CE42FCE737E009412D8 /* DiscountDemo.swift */,
 				7BE414C32FD2784600BF0EB6 /* DesignSystem */,
 			);
