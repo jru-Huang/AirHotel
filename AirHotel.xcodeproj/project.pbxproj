@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */; };
+		7B213757300DD75500F94F3C /* UseDiscountSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B213756300DD75500F94F3C /* UseDiscountSwiftUIView.swift */; };
 		7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */; };
 		7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */; };
 		7B2D22E02FC7DC0800D0531F /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D92FC7DC0800D0531F /* Constant.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoModel.swift; sourceTree = "<group>"; };
+		7B213756300DD75500F94F3C /* UseDiscountSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseDiscountSwiftUIView.swift; sourceTree = "<group>"; };
 		7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirHotelApp.swift; sourceTree = "<group>"; };
 		7B2D22D72FC7DC0800D0531F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */,
 				7B9107632FD6938E00083AF1 /* PackagesNoticeInfoView.swift */,
 				7B4460CD2FEA39E100271458 /* ViewModel */,
+				7B213756300DD75500F94F3C /* UseDiscountSwiftUIView.swift */,
 			);
 			path = Combine;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				7B2D22E02FC7DC0800D0531F /* Constant.swift in Sources */,
 				7B2D22E12FC7DC0800D0531F /* ContentView.swift in Sources */,
 				7B2D22EA2FC81D4B00D0531F /* PackagesComboAirCard.swift in Sources */,
+				7B213757300DD75500F94F3C /* UseDiscountSwiftUIView.swift in Sources */,
 				7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */,
 				7BE414C42FD2784600BF0EB6 /* AppSpacing.swift in Sources */,
 				7BE414C52FD2784600BF0EB6 /* UIColor+Hex.swift in Sources */,
