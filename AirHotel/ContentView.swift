@@ -67,8 +67,9 @@ struct ContentView: View {
             VStack(spacing: 10) {
                 NavigationLink("機加酒") {
 //                    SearchView()
-                    PackagesComboView()
+//                    PackagesComboView()
 //                    PackagesNoticeInfoView(title: "8 8 8")
+                    UseCouponSwiftUIView(couponModel: CouponModel())
                 }
                 
                 NavigationLink("Loading") {
