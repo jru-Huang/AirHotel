@@ -15,14 +15,14 @@ enum CouponState {
 struct CouponModel {
     let note: String = "· 每組優惠代碼皆有適用條件，使用前請詳閱活動網頁說明。\n· 僅適用官網或APP發行的優惠代碼，實體禮券請撥打禮券上的聯絡電話，由專人為您服務。"
     let availableCouponList: [UseCouponModel] = [
-                UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .available, promoCode: "1"),
-                UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .available, promoCode: "2"),
-                UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .available, promoCode: "3")
+        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .available, promoCode: "1"),
+        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .available, promoCode: "2"),
+        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .available, promoCode: "3")
     ]
     let unAvailableCouponList: [UseCouponModel]  = [
-                UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .unAvailable, promoCode: "1x"),
-                UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
-                UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
+        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .unAvailable, promoCode: "1x"),
+        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
+        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
     ]
 }
 
@@ -33,7 +33,7 @@ struct UseCouponModel: Identifiable, Hashable {
     let dateline: String
     let usedTimesTag: String
     let couponState: CouponState
-    let promoCode: String
+    let promoCode: String //唯一值？
     
     var id: String { promoCode }
 }
@@ -101,46 +101,45 @@ struct UseCouponSwiftUIView: View {
     }
     
     private var inputView: some View {
-        
-        HStack(spacing: 8) {
-            Image("ic_edit_16")
-                .padding(.leading, 12)
-            
-            TextField("",
-                      text: $inputPromoCode,
-                      prompt: couponPrompt)
-            .font(AppTypography.B03R)
-            .foregroundStyle(AppColor.Text.neutralBodyBase)
-            .tint(AppColor.Text.brandPrimaryDark)
-            .padding(.vertical, 5)
-            
-            if !inputPromoCode.isEmpty {
-                Button {
-                    inputPromoCode = ""
-                } label: {
-                    Image("ic_delete_16")
+        VStack(spacing: 4) {
+            HStack(spacing: 8) {
+                Image("ic_edit_16")
+                    .padding(.leading, 12)
+                
+                TextField("",
+                          text: $inputPromoCode,
+                          prompt: couponPrompt)
+                .font(AppTypography.B03R)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
+                .tint(AppColor.Text.brandPrimaryDark)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 5)
+                
+                if !inputPromoCode.isEmpty {
+                    Button {
+                        inputPromoCode = ""
+                    } label: {
+                        Image("ic_delete_16")
+                    }
+                    .buttonStyle(.plain)
+                }
+                
+                useButton
+            }
+            .frame(height: 30)
+            .background {
+                ZStack {
+                    Capsule()
+                        .fill(AppColor.Surface.neutralExtraSubtle)
+                    
+                    Capsule()
+                        .stroke(AppColor.Border.neutralSubtle, lineWidth: 1)
                 }
             }
+            .clipShape(Capsule())
+            
+            inputError
         }
-        .padding(.trailing, 76 + 8)
-        .frame(height: 30)
-        .background(AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 24))
-        .overlay {
-            RoundedRectangle(cornerRadius: 24)
-                .stroke(AppColor.Border.neutralSubtle, lineWidth: 1)
-        }
-        .overlay(alignment: .bottomTrailing, content: {
-            Button {
-                print("DEBUG: 使用優惠碼 \(inputPromoCode)")
-            } label: {
-                Text("使用")
-                    .font(AppTypography.L02M)
-                    .foregroundStyle(AppColor.Text.neutralWhite)
-                    .frame(width: 76)
-                    .frame(maxHeight: .infinity)
-            }
-            .background(inputPromoCode.isEmpty ? AppColor.Surface.stateDisabled : AppColor.Surface.brandPrimaryMid, in: RoundedRectangle(cornerRadius: 24))
-        })
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
         .background(AppColor.Surface.neutralWhite)
@@ -154,6 +153,30 @@ struct UseCouponSwiftUIView: View {
             return Text("輸入優惠代碼")
                 .foregroundColor(AppColor.Text.neutralCaption)
         }
+    }
+    
+    private var useButton: some View {
+        Button {
+            print("DEBUG: 使用優惠碼 \(inputPromoCode)")
+            inputPromoCode  = ""
+        } label: {
+            Text("使用")
+                .font(AppTypography.L02M)
+                .foregroundStyle(AppColor.Text.neutralWhite)
+                .frame(width: 76)
+                .frame(maxHeight: .infinity)
+        }
+        .buttonStyle(.plain)
+        .background(inputPromoCode.isEmpty ? AppColor.Surface.stateDisabled : AppColor.Surface.brandPrimaryMid, in: Capsule())
+        .contentShape(Capsule())
+        .allowsHitTesting(!inputPromoCode.isEmpty)
+    }
+    
+    private var inputError: some View {
+        Text("不符合優惠代碼使用條件，請確認出發/使用日期是否為不適用出發/使用日期內（YYYY/MM/DD～YYYY/MM/DD)。")
+            .font(AppTypography.B05R)
+            .foregroundStyle(AppColor.Text.stateError)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var noticeView: some View {
