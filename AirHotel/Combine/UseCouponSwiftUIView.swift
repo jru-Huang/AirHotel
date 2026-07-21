@@ -53,25 +53,26 @@ struct UseCouponSwiftUIView: View {
                     Image("ic_delete_16")
                 }
             }
-            
-            Button {
-                useCoupon?(couponCode)
-            } label: {
-                Text("使用")
-                    .font(AppTypography.L02M)
-                    .foregroundStyle(AppColor.Text.neutralWhite)
-                    .padding(.horizontal, 24)
-                    .frame(maxHeight: .infinity)
-            }
-            .background(couponCode.isEmpty ? AppColor.Surface.stateDisabled : AppColor.Surface.brandPrimaryMid, in: RoundedRectangle(cornerRadius: 24))
         }
-        .padding(.trailing, 0)
+        .padding(.trailing, 76 + 8)
         .frame(height: 30)
         .background(AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 24))
         .overlay {
             RoundedRectangle(cornerRadius: 24)
                 .stroke(AppColor.Border.neutralSubtle, lineWidth: 1)
         }
+        .overlay(alignment: .bottomTrailing, content: {
+            Button {
+                useCoupon?(couponCode)
+            } label: {
+                Text("使用")
+                    .font(AppTypography.L02M)
+                    .foregroundStyle(AppColor.Text.neutralWhite)
+                    .frame(width: 76)
+                    .frame(maxHeight: .infinity)
+            }
+            .background(couponCode.isEmpty ? AppColor.Surface.stateDisabled : AppColor.Surface.brandPrimaryMid, in: RoundedRectangle(cornerRadius: 24))
+        })
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
         .background(AppColor.Surface.neutralWhite)
