@@ -69,7 +69,7 @@ struct ContentView: View {
 //                    SearchView()
 //                    PackagesComboView()
 //                    PackagesNoticeInfoView(title: "8 8 8")
-                    UseCouponSwiftUIView()
+                    UseCouponSwiftUIView(couponModel: CouponModel())
                 }
                 
                 NavigationLink("Loading") {

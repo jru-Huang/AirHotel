@@ -7,31 +7,97 @@
 
 import SwiftUI
 
+enum CouponState {
+    case available
+    case unAvailable
+}
+
+struct CouponModel {
+    let note: String = "· 每組優惠代碼皆有適用條件，使用前請詳閱活動網頁說明。\n· 僅適用官網或APP發行的優惠代碼，實體禮券請撥打禮券上的聯絡電話，由專人為您服務。"
+    let availableCouponList: [UseCouponModel] = [
+                UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .available, promoCode: "1"),
+                UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .available, promoCode: "2"),
+                UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .available, promoCode: "3")
+    ]
+    let unAvailableCouponList: [UseCouponModel]  = [
+                UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .unAvailable, promoCode: "1x"),
+                UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
+                UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
+    ]
+}
+
+struct UseCouponModel: Identifiable, Hashable {
+    let isAppOnly: Bool
+    let discount: String
+    let couponTitle: String
+    let dateline: String
+    let usedTimesTag: String
+    let couponState: CouponState
+    let promoCode: String
+    
+    var id: String { promoCode }
+}
+
 struct UseCouponSwiftUIView: View {
     
-    @State private var couponCode: String = ""
+    enum TagText: String {
+        case onlyOne = "限用一次"
+        case repeated = "可重複使用"
+        case disable = "不符合訂購使用條件"
+        
+        var tagTextColor: Color {
+            switch self {
+            case .onlyOne:
+                return AppColor.Text.brandPrimaryBase
+            case .repeated:
+                return AppColor.Text.neutralBodyMid
+            case .disable:
+                return AppColor.Text.neutralBodyLight
+            }
+        }
+        
+        var tagBorderColor: Color {
+            switch self {
+            case .onlyOne:
+                return AppColor.Border.brandPrimarySubtle
+            case .repeated, .disable:
+                return AppColor.Border.neutralSubtle
+            }
+        }
+        
+        var tagBgColor: Color {
+            switch self {
+            case .onlyOne, .repeated:
+                return .clear
+            case .disable:
+                return AppColor.Surface.stateDisabled
+            }
+        }
+    }
     
-    var useCoupon: ((String)->Void)?
+    @State private var inputPromoCode: String = ""
+    @State private var selectedPromoCode: String?
+    
+    let couponModel: CouponModel
     
     var body: some View {
         VStack(spacing: 0) {
             inputView
-            noticeView
             
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 8) {
-                    availableCouponCountsView
-                    LazyVStack(spacing: 8) {
-                        ForEach(0...3, id: \.self) { _ in
-                            couponCard
-                        }
-                    }
-                }
-                .padding(.vertical, 12)
+            if !couponModel.note.isEmpty {
+                noticeView
             }
-            .padding(.horizontal, 16)
-            .background(AppColor.Surface.neutralExtraSubtle)
+            
+            if couponModel.availableCouponList.isEmpty && couponModel.unAvailableCouponList.isEmpty {
+                emptyCouponView
+            }else {
+                couponInfoView
+            }
+            
+            confirmButton
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea(.keyboard)
     }
     
     private var inputView: some View {
@@ -41,16 +107,16 @@ struct UseCouponSwiftUIView: View {
                 .padding(.leading, 12)
             
             TextField("",
-                      text: $couponCode,
+                      text: $inputPromoCode,
                       prompt: couponPrompt)
             .font(AppTypography.B03R)
             .foregroundStyle(AppColor.Text.neutralBodyBase)
             .tint(AppColor.Text.brandPrimaryDark)
             .padding(.vertical, 5)
             
-            if !couponCode.isEmpty {
+            if !inputPromoCode.isEmpty {
                 Button {
-                    couponCode = ""
+                    inputPromoCode = ""
                 } label: {
                     Image("ic_delete_16")
                 }
@@ -65,7 +131,7 @@ struct UseCouponSwiftUIView: View {
         }
         .overlay(alignment: .bottomTrailing, content: {
             Button {
-                useCoupon?(couponCode)
+                print("DEBUG: 使用優惠碼 \(inputPromoCode)")
             } label: {
                 Text("使用")
                     .font(AppTypography.L02M)
@@ -73,7 +139,7 @@ struct UseCouponSwiftUIView: View {
                     .frame(width: 76)
                     .frame(maxHeight: .infinity)
             }
-            .background(couponCode.isEmpty ? AppColor.Surface.stateDisabled : AppColor.Surface.brandPrimaryMid, in: RoundedRectangle(cornerRadius: 24))
+            .background(inputPromoCode.isEmpty ? AppColor.Surface.stateDisabled : AppColor.Surface.brandPrimaryMid, in: RoundedRectangle(cornerRadius: 24))
         })
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
@@ -91,7 +157,7 @@ struct UseCouponSwiftUIView: View {
     }
     
     private var noticeView: some View {
-        Text("每組優惠代碼皆有適用條件，使用前請詳閱活動網頁說明。\n僅適用官網或APP發行的優惠代碼，實體禮券請撥打禮券上的聯絡電話，由專人為您服務。")
+        Text(couponModel.note)
             .font(AppTypography.B05R)
             .foregroundStyle(AppColor.Text.neutralBodyMid)
             .multilineTextAlignment(.leading)
@@ -102,12 +168,40 @@ struct UseCouponSwiftUIView: View {
         
     }
     
-    private var availableCouponCountsView: some View {
+    private var couponInfoView: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 8) {
+                
+                if !couponModel.availableCouponList.isEmpty {
+                    availableCoupon(count: couponModel.availableCouponList.count)
+                    LazyVStack(spacing: 8) {
+                        ForEach(couponModel.availableCouponList) { model in
+                            couponCard(model: model)
+                        }
+                    }
+                }
+                
+                if !couponModel.unAvailableCouponList.isEmpty {
+                    unavailableCouponTitleView
+                    LazyVStack(spacing: 8) {
+                        ForEach(couponModel.unAvailableCouponList) { model in
+                            couponCard(model: model)
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, 12)
+        }
+        .padding(.horizontal, 16)
+        .background(AppColor.Background.pagePurple)
+    }
+    
+    private func availableCoupon(count: Int) -> some View {
         HStack(spacing: 2) {
             Text("目前有")
                 .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
-            Text("(3)")
+            Text("(\(count))")
                 .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.brandPrimaryBase)
             Text("組可使用的優惠代碼")
@@ -117,55 +211,77 @@ struct UseCouponSwiftUIView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var couponCard: some View {
-        Button {
-            
+    private var unavailableCouponTitleView: some View {
+        Text("無法使用的優惠代碼")
+            .font(AppTypography.B05R)
+            .foregroundStyle(AppColor.Text.neutralBodyLight)
+    }
+    
+    private func couponCard(model: UseCouponModel) -> some View {
+        let isEnabled = model.couponState == .available
+        let isSelected = selectedPromoCode == model.promoCode
+        
+        return  Button {
+            selectedPromoCode = model.promoCode
         } label: {
             HStack(spacing: 7) {
                 VStack(spacing: 12) {
-                    couponDetail
-                    couponRule
+                    couponDetail(model: model)
+                    couponRule(model: model)
                 }
-                Image("radio_btn_02_on")
+                Image(isEnabled ? (isSelected ? "radio_btn_02_on" : "radio_btn_02_off") : "radio_btn_02_disable")
             }
             .padding(16)
         }
         .overlay(alignment: .leading) {
             Rectangle()
-                .fill(AppColor.Border.brandPrimarySubtle)
+                .fill(isEnabled ? AppColor.Border.brandPrimarySubtle : AppColor.Border.stateDisabled)
                 .frame(width: 4, alignment: .leading)
             
         }
-        .background(AppColor.Surface.neutralWhite)
+        .background(isEnabled ? AppColor.Surface.neutralWhite : AppColor.Surface.neutralSubtle)
         .clipShape(RoundedRectangle(cornerRadius: 2))
+        .disabled(!isEnabled)
     }
     
-    private var couponDetail: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("App限定")
-                .font(AppTypography.T05M)
-                .foregroundStyle(AppColor.Text.neutralWhite)
-                .padding(.vertical, 2)
-                .padding(.horizontal, 6)
-                .background(AppColor.Surface.marketOrangeDark, in: RoundedRectangle(cornerRadius: 4))
+    private func couponDetail(model: UseCouponModel) -> some View {
+        let isEnabled = model.couponState == .available
+        
+        return VStack(alignment: .leading, spacing: 4) {
+            if model.isAppOnly {
+                Text("App限定")
+                    .font(AppTypography.T05M)
+                    .foregroundStyle(AppColor.Text.neutralWhite)
+                    .padding(.vertical, 2)
+                    .padding(.horizontal, 6)
+                    .background(isEnabled ? AppColor.Surface.marketOrangeDark : AppColor.Surface.stateDisabled, in: RoundedRectangle(cornerRadius: 4))
+            }
             
-            Text("總折抵金額1,000元")
-                .font(AppTypography.T01M)
-                .foregroundStyle(AppColor.Text.marketOrangeDark)
+            if !model.discount.isEmpty {
+                Text(model.discount)
+                    .font(AppTypography.T01M)
+                    .foregroundStyle(isEnabled ? AppColor.Text.marketOrangeDark : AppColor.Text.neutralBodyMid)
+                    .multilineTextAlignment(.leading)
+            }
             
-            Text("刷彰化銀行無限卡/無限卡/商旅御璽卡．國外短線團體行程折2000元")
-                .font(AppTypography.T03M)
-                .foregroundStyle(AppColor.Text.neutralBodyBase)
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
+            if !model.couponTitle.isEmpty {
+                Text(model.couponTitle)
+                    .font(AppTypography.T03M)
+                    .foregroundStyle(isEnabled ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyLight)
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+            }
             
-            Text("2026/08/01 23:59 前下單使用")
-                .font(AppTypography.N06R)
-                .foregroundStyle(AppColor.Text.neutralBodyMid)
+            if !model.dateline.isEmpty {
+                Text(model.dateline)
+                    .font(AppTypography.N06R)
+                    .foregroundStyle(isEnabled ? AppColor.Text.neutralBodyMid : AppColor.Text.neutralBodyLight)
+            }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var couponRule: some View {
+    private func couponRule(model: UseCouponModel) -> some View {
         HStack(spacing: 8) {
             Button {
                 
@@ -179,271 +295,57 @@ struct UseCouponSwiftUIView: View {
                 }
             }
             
-            Text("限用一次")
-                .font(AppTypography.T06R)
-                .foregroundStyle(AppColor.Text.brandPrimaryBase)
-                .padding(.vertical, 2)
-                .padding(.horizontal, 4)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 2)
-                        .stroke(AppColor.Border.brandPrimarySubtle, lineWidth: 1)
-                }
-            Spacer()
-        }
-    }
-}
-
-
-struct CouponView: View {
-    @State private var couponCode = ""
-    @State private var selectedId: UUID?
-    
-    let coupons: [Coupon] = Coupon.mock
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            navView
-            
-            inputView
-            
-            noticeView
-            
-            availableCouponView
-            
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(coupons) { coupon in
-                        CouponCard(
-                            coupon: coupon,
-                            isSelected: selectedId == coupon.id
-                        ) {
-                            selectedId = coupon.id
-                        }
+            if let tag = TagText(rawValue: model.usedTimesTag) {
+                Text(tag.rawValue)
+                    .font(AppTypography.T06R)
+                    .foregroundStyle(tag.tagTextColor)
+                    .padding(.vertical, 2)
+                    .padding(.horizontal, 4)
+                    .background(tag.tagBgColor)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 2)
+                            .stroke(tag.tagBorderColor, lineWidth: 1)
                     }
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
             }
-            
-            confirmButton
         }
-        .background(Color(.systemGroupedBackground))
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
-}
-
-private extension CouponView {
     
-    var navView: some View {
-        ZStack {
-            Text("使用優惠代碼")
-                .font(.headline)
-            
-            HStack {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundStyle(.purple)
-                }
-                
-                Spacer()
-                
-                Button("使用說明") {
-                    
-                }
-                .font(.footnote)
-                .foregroundStyle(.purple)
-            }
-            .padding(.horizontal, 16)
-        }
-        .frame(height: 44)
-        .background(.white)
-    }
-}
-
-private extension CouponView {
-    
-    var inputView: some View {
-        HStack(spacing: 8) {
-            
-            TextField("輸入優惠代碼", text: $couponCode)
-                .padding(.horizontal, 12)
-                .frame(height: 36)
-                .background(Color(.systemGray6))
-                .clipShape(RoundedRectangle(cornerRadius: 18))
-            
-            Button("使用") {
-                
-            }
-            .frame(width: 72, height: 36)
-            .background(Color(.systemGray5))
-            .foregroundStyle(.white)
-            .clipShape(Capsule())
-        }
-        .padding(16)
-        .background(.white)
-    }
-}
-
-private extension CouponView {
-    
-    var noticeView: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            
-            Text("• 每組優惠代碼皆有適用條件，使用前請詳閱活動網頁說明。")
-            Text("• 僅適用官網或APP發行的優惠代碼，實體禮券請撥打客服上的聯絡電話，由專人為您服務。")
-            
-        }
-        .font(.footnote)
-        .foregroundStyle(.secondary)
-        .padding(.horizontal, 16)
-        .padding(.bottom, 12)
-        .background(.white)
-    }
-}
-
-private extension CouponView {
-    
-    var availableCouponView: some View {
-        HStack {
-            Text("目前有")
-            Text("3")
-                .foregroundStyle(.orange)
-            Text("組可使用的優惠代碼")
-            
-            Spacer()
-        }
-        .font(.footnote)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-    }
-}
-
-struct CouponCard: View {
-    
-    let coupon: Coupon
-    let isSelected: Bool
-    let onTap: () -> Void
-    
-    var body: some View {
-        
-        Button(action: onTap) {
-            
-            HStack(alignment: .top, spacing: 12) {
-                
-                VStack(alignment: .leading, spacing: 6) {
-                    
-                    if coupon.isAppOnly {
-                        
-                        Text("App限定")
-                            .font(.caption2)
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(.orange)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                    
-                    Text(coupon.title)
-                        .font(.headline)
-                        .foregroundStyle(.orange)
-                    
-                    Text(coupon.content)
-                        .font(.subheadline)
-                        .foregroundStyle(.primary)
-                    
-                    Text(coupon.expireDate)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    
-                    HStack {
-                        
-                        Image(systemName: "info.circle")
-                        
-                        Text("使用規則")
-                        
-                        Text(coupon.rule)
-                            .foregroundStyle(.purple)
-                        
-                        Spacer()
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                }
-                
-                Spacer()
-                
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .font(.title3)
-                    .foregroundStyle(isSelected ? .blue : .gray)
-            }
-            .padding(16)
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-        .buttonStyle(.plain)
-    }
-}
-
-private extension CouponView {
-    
-    var confirmButton: some View {
-        
+    private var confirmButton: some View {
         Button {
-            
+            let selectedCoupon = couponModel.availableCouponList.first(where: {$0.promoCode == selectedPromoCode})
+            let promoCode = selectedCoupon?.promoCode ?? ""
+            let couponDiscount = selectedCoupon?.discount ?? ""
+            print("DEBUG: \(promoCode), \(couponDiscount)")
         } label: {
             Text("確定")
-                .foregroundStyle(.white)
+                .font(AppTypography.L02M)
+                .foregroundStyle(AppColor.Text.neutralWhite)
                 .frame(maxWidth: .infinity)
-                .frame(height: 48)
-                .background(Color.blue)
         }
-        .buttonStyle(.plain)
+        .frame(height: 40)
+        .background(AppColor.Surface.brandSecondaryBase)
+    }
+    
+    private var emptyCouponView: some View {
+        VStack(spacing: 6) {
+            Image("ic_ticket_100")
+                .padding(.bottom, 2)
+            Text("沒有可使用的優惠代碼")
+                .font(AppTypography.T02M)
+                .foregroundStyle(AppColor.Text.neutralBodyMid)
+            Text("優惠代碼依活動不定期發放，未顯示表示無相關優惠折扣可使用")
+                .font(AppTypography.B03R)
+                .foregroundStyle(AppColor.Text.neutralBodyLight)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.top, 60)
+        .padding(.horizontal, 80)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(AppColor.Background.pagePurple)
     }
 }
 
-struct Coupon: Identifiable {
-    
-    let id = UUID()
-    
-    let isAppOnly: Bool
-    let title: String
-    let content: String
-    let expireDate: String
-    let rule: String
-}
-
-extension Coupon {
-    
-    static let mock: [Coupon] = [
-        .init(
-            isAppOnly: true,
-            title: "總折抵金額1,000元",
-            content: "刷彰化銀行無限卡 / 商旅御璽卡，國外短線團體行程折2000元",
-            expireDate: "2026/08/01 23:59 前下單使用",
-            rule: "限用一次"
-        ),
-        .init(
-            isAppOnly: false,
-            title: "總折抵金額1,000元",
-            content: "刷彰化銀行無限卡 / 商旅御璽卡，國外短線團體行程折2000元",
-            expireDate: "2026/08/01 23:59 前下單使用",
-            rule: "可重複使用"
-        ),
-        .init(
-            isAppOnly: false,
-            title: "總折抵金額1,000元",
-            content: "刷彰化銀行無限卡 / 商旅御璽卡，國外短線團體行程折2000元",
-            expireDate: "2026/08/01 23:59 前下單使用",
-            rule: "限用一次"
-        )
-    ]
-}
-
 #Preview {
-    CouponView()
-}
-
-#Preview {
-    UseCouponSwiftUIView()
+    UseCouponSwiftUIView(couponModel: CouponModel())
 }
