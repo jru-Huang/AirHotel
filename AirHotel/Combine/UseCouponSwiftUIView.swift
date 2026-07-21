@@ -18,16 +18,18 @@ struct UseCouponSwiftUIView: View {
             inputView
             noticeView
             
-            ScrollView {
-                availableCouponCountsView
-                    .padding(.top, 12)
-                LazyVStack(spacing: 8) {
-                    ForEach(0...3, id: \.self) { _ in
-                        couponCard
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 8) {
+                    availableCouponCountsView
+                    LazyVStack(spacing: 8) {
+                        ForEach(0...3, id: \.self) { _ in
+                            couponCard
+                        }
                     }
                 }
-                .padding(.bottom, 12)
+                .padding(.vertical, 12)
             }
+            .padding(.horizontal, 16)
             .background(AppColor.Surface.neutralExtraSubtle)
         }
     }
@@ -101,22 +103,18 @@ struct UseCouponSwiftUIView: View {
     }
     
     private var availableCouponCountsView: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 2) {
-                Text("目前有")
-                    .font(AppTypography.B05R)
-                    .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text("(3)")
-                    .font(AppTypography.B05R)
-                    .foregroundStyle(AppColor.Text.brandPrimaryBase)
-                Text("組可使用的優惠代碼")
-                    .font(AppTypography.B05R)
-                    .foregroundStyle(AppColor.Text.neutralBodyMid)
-            }
-            .padding(.horizontal, 16)
-            .frame(maxWidth: .infinity, alignment: .leading)
+        HStack(spacing: 2) {
+            Text("目前有")
+                .font(AppTypography.B05R)
+                .foregroundStyle(AppColor.Text.neutralBodyMid)
+            Text("(3)")
+                .font(AppTypography.B05R)
+                .foregroundStyle(AppColor.Text.brandPrimaryBase)
+            Text("組可使用的優惠代碼")
+                .font(AppTypography.B05R)
+                .foregroundStyle(AppColor.Text.neutralBodyMid)
         }
-        .background(AppColor.Surface.neutralExtraSubtle)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
     
     private var couponCard: some View {
@@ -140,7 +138,6 @@ struct UseCouponSwiftUIView: View {
         }
         .background(AppColor.Surface.neutralWhite)
         .clipShape(RoundedRectangle(cornerRadius: 2))
-        .padding(.horizontal, 16)
     }
     
     private var couponDetail: some View {
