@@ -15,14 +15,14 @@ enum CouponState {
 struct CouponModel {
     let note: String = "· 每組優惠代碼皆有適用條件，使用前請詳閱活動網頁說明。\n· 僅適用官網或APP發行的優惠代碼，實體禮券請撥打禮券上的聯絡電話，由專人為您服務。"
     let availableCouponList: [UseCouponModel] = [
-        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponName: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .available, promoCode: "1"),
-        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponName: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .available, promoCode: "2"),
-        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponName: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .available, promoCode: "3")
+        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponName: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usageTagText: "限用一次", couponState: .available, promoCode: "1"),
+        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponName: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usageTagText: "可重複使用", couponState: .available, promoCode: "2"),
+        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponName: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usageTagText: "不符合訂購使用條件", couponState: .available, promoCode: "3")
     ]
     let unAvailableCouponList: [UseCouponModel]  = [
-        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponName: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .unAvailable, promoCode: "1x"),
-        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponName: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
-        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponName: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
+        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponName: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usageTagText: "限用一次", couponState: .unAvailable, promoCode: "1x"),
+        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponName: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usageTagText: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
+        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponName: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usageTagText: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
     ]
 }
 
@@ -31,14 +31,14 @@ struct UseCouponModel: Identifiable, Hashable {
     let discount: String
     let couponName: String
     let dateline: String
-    let usedTimesTag: String?
+    let usageTagText: String?
     let couponState: CouponState
     let promoCode: String //唯一值？
     
     var id: String { promoCode }
     
     var usageTag: CouponUsageTag? {
-        CouponUsageTag(rawValue: usedTimesTag ?? "")
+        CouponUsageTag(rawValue: usageTagText ?? "")
     }
     
     enum CouponUsageTag: String {
