@@ -15,37 +15,38 @@ enum CouponState {
 struct CouponModel {
     let note: String = "· 每組優惠代碼皆有適用條件，使用前請詳閱活動網頁說明。\n· 僅適用官網或APP發行的優惠代碼，實體禮券請撥打禮券上的聯絡電話，由專人為您服務。"
     let availableCouponList: [UseCouponModel] = [
-        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .available, promoCode: "1"),
-        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .available, promoCode: "2"),
-        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .available, promoCode: "3")
+        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponName: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .available, promoCode: "1"),
+        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponName: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .available, promoCode: "2"),
+        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponName: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .available, promoCode: "3")
     ]
     let unAvailableCouponList: [UseCouponModel]  = [
-        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponTitle: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .unAvailable, promoCode: "1x"),
-        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponTitle: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
-        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponTitle: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
+        UseCouponModel(isAppOnly: true, discount: "總折抵金額1,000元", couponName: "刷彰化銀行無限卡/商旅御璽卡．國外短線團體行程折2000元", dateline: "2026/08/01 23:59 前下單使用", usedTimesTag: "限用一次", couponState: .unAvailable, promoCode: "1x"),
+        UseCouponModel(isAppOnly: false, discount: "每人可折抵金額20元", couponName: "玉山國旅卡，長線團體行程折扣", dateline: "2026/08/01", usedTimesTag: "可重複使用", couponState: .unAvailable, promoCode: "2x"),
+        UseCouponModel(isAppOnly: true, discount: "訂購過內外團體旅遊是用行程，大人、小孩佔床/加床之團費折3％", couponName: "國泰世華CUBE卡友優惠，團體旅遊行程折3％", dateline: "2026/07/01-2026/08/31", usedTimesTag: "不符合訂購使用條件", couponState: .unAvailable, promoCode: "3x")
     ]
 }
 
 struct UseCouponModel: Identifiable, Hashable {
     let isAppOnly: Bool
     let discount: String
-    let couponTitle: String
+    let couponName: String
     let dateline: String
-    let usedTimesTag: String
+    let usedTimesTag: String?
     let couponState: CouponState
     let promoCode: String //唯一值？
     
     var id: String { promoCode }
-}
-
-struct UseCouponSwiftUIView: View {
     
-    enum TagText: String {
+    var usageTag: CouponUsageTag? {
+        CouponUsageTag(rawValue: usedTimesTag ?? "")
+    }
+    
+    enum CouponUsageTag: String {
         case onlyOne = "限用一次"
         case repeated = "可重複使用"
         case disable = "不符合訂購使用條件"
         
-        var tagTextColor: Color {
+        var textColor: Color {
             switch self {
             case .onlyOne:
                 return AppColor.Text.brandPrimaryBase
@@ -56,7 +57,7 @@ struct UseCouponSwiftUIView: View {
             }
         }
         
-        var tagBorderColor: Color {
+        var borderColor: Color {
             switch self {
             case .onlyOne:
                 return AppColor.Border.brandPrimarySubtle
@@ -65,7 +66,7 @@ struct UseCouponSwiftUIView: View {
             }
         }
         
-        var tagBgColor: Color {
+        var backgroundColor: Color {
             switch self {
             case .onlyOne, .repeated:
                 return .clear
@@ -74,6 +75,9 @@ struct UseCouponSwiftUIView: View {
             }
         }
     }
+}
+
+struct UseCouponSwiftUIView: View {
     
     @State private var inputPromoCode: String = ""
     @State private var selectedPromoCode: String?
@@ -106,22 +110,10 @@ struct UseCouponSwiftUIView: View {
                 Image("ic_edit_16")
                     .padding(.leading, 12)
                 
-                TextField("",
-                          text: $inputPromoCode,
-                          prompt: couponPrompt)
-                .font(AppTypography.B03R)
-                .foregroundStyle(AppColor.Text.neutralBodyBase)
-                .tint(AppColor.Text.brandPrimaryDark)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 5)
+                inputTextfield
                 
                 if !inputPromoCode.isEmpty {
-                    Button {
-                        inputPromoCode = ""
-                    } label: {
-                        Image("ic_delete_16")
-                    }
-                    .buttonStyle(.plain)
+                    closeButton
                 }
                 
                 useButton
@@ -143,6 +135,17 @@ struct UseCouponSwiftUIView: View {
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
         .background(AppColor.Surface.neutralWhite)
+    }
+    
+    private var inputTextfield: some View {
+        TextField("",
+                  text: $inputPromoCode,
+                  prompt: couponPrompt)
+        .font(AppTypography.B03R)
+        .foregroundStyle(AppColor.Text.neutralBodyBase)
+        .tint(AppColor.Text.brandPrimaryDark)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 5)
     }
     
     private var couponPrompt: Text {
@@ -196,7 +199,7 @@ struct UseCouponSwiftUIView: View {
             VStack(alignment: .leading, spacing: 8) {
                 
                 if !couponModel.availableCouponList.isEmpty {
-                    availableCoupon(count: couponModel.availableCouponList.count)
+                    availableSection(count: couponModel.availableCouponList.count)
                     LazyVStack(spacing: 8) {
                         ForEach(couponModel.availableCouponList) { model in
                             couponCard(model: model)
@@ -205,7 +208,7 @@ struct UseCouponSwiftUIView: View {
                 }
                 
                 if !couponModel.unAvailableCouponList.isEmpty {
-                    unavailableCouponTitleView
+                    unavailableSection
                     LazyVStack(spacing: 8) {
                         ForEach(couponModel.unAvailableCouponList) { model in
                             couponCard(model: model)
@@ -219,7 +222,7 @@ struct UseCouponSwiftUIView: View {
         .background(AppColor.Background.pagePurple)
     }
     
-    private func availableCoupon(count: Int) -> some View {
+    private func availableSection(count: Int) -> some View {
         HStack(spacing: 2) {
             Text("目前有")
                 .font(AppTypography.B05R)
@@ -234,7 +237,7 @@ struct UseCouponSwiftUIView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var unavailableCouponTitleView: some View {
+    private var unavailableSection: some View {
         Text("無法使用的優惠代碼")
             .font(AppTypography.B05R)
             .foregroundStyle(AppColor.Text.neutralBodyLight)
@@ -287,8 +290,8 @@ struct UseCouponSwiftUIView: View {
                     .multilineTextAlignment(.leading)
             }
             
-            if !model.couponTitle.isEmpty {
-                Text(model.couponTitle)
+            if !model.couponName.isEmpty {
+                Text(model.couponName)
                     .font(AppTypography.T03M)
                     .foregroundStyle(isEnabled ? AppColor.Text.neutralBodyBase : AppColor.Text.neutralBodyLight)
                     .multilineTextAlignment(.leading)
@@ -318,20 +321,28 @@ struct UseCouponSwiftUIView: View {
                 }
             }
             
-            if let tag = TagText(rawValue: model.usedTimesTag) {
+            if let tag = model.usageTag {
                 Text(tag.rawValue)
                     .font(AppTypography.T06R)
-                    .foregroundStyle(tag.tagTextColor)
+                    .foregroundStyle(tag.textColor)
                     .padding(.vertical, 2)
                     .padding(.horizontal, 4)
-                    .background(tag.tagBgColor)
+                    .background(tag.backgroundColor)
                     .overlay {
                         RoundedRectangle(cornerRadius: 2)
-                            .stroke(tag.tagBorderColor, lineWidth: 1)
+                            .stroke(tag.borderColor, lineWidth: 1)
                     }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var closeButton: some View {
+        Button {
+            inputPromoCode = ""
+        } label: {
+            Image("ic_delete_16")
+        }
     }
     
     private var confirmButton: some View {
@@ -367,8 +378,4 @@ struct UseCouponSwiftUIView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(AppColor.Background.pagePurple)
     }
-}
-
-#Preview {
-    UseCouponSwiftUIView(couponModel: CouponModel())
 }
