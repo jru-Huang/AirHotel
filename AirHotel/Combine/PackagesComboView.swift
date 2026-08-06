@@ -82,9 +82,11 @@ extension PackagesComboView {
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(viewModel.systemNoticeList) { notice in
-                        PackagesComboSystemNoticeView(systemNoticeConfig: notice.config) {
-                            presentNoticeInfo(notice.detailInfo)
-                        }
+                        PackagesDynamicBundleSystemNoticeView(systemNoticeConfig: notice.config, onTouchNotice: {
+                            if let detailInfo = notice.detailInfo {
+                                presentNoticeInfo(detailInfo)
+                            }
+                        })
                     }
                     
                     packagesContentView

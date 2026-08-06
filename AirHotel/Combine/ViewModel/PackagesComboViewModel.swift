@@ -56,7 +56,7 @@ final class PackagesComboViewModel: ObservableObject {
     @Published var isShowingOvernightAlert: Bool = false
     @Published var navInfo: PackagesComboNavInfo?
     @Published var policyNotice: PackagesNoticeDetailInfo?
-    @Published var systemNoticeList: [PackagesComboSystemNoticeModel] = []
+    @Published var systemNoticeList: [PackagesDynamicBundleSystemNoticeModel] = []
     @Published var airInfoCard: PackagesComboAirInfoModel?
     @Published var hotelInfoCard: PackagesComboHotelInfoModel?
     @Published var hotelBookingRuleDesc: PackagesNoticeDetailInfo?
@@ -129,8 +129,7 @@ extension PackagesComboViewModel {
                 bgColor: AppColor.Surface.brandSecondaryExtraSubtle,
                 strokeColor: AppColor.Border.brandSecondarySubtle
             )
-        ]
-            .compactMap { $0 }
+        ].compactMap { $0 }
     }
     
     private func setPolicyNotice(policyList: [PackagesDynamicBundleResponse.Policy]?) -> PackagesNoticeDetailInfo? {
@@ -148,7 +147,7 @@ extension PackagesComboViewModel {
         return PackagesNoticeDetailInfo(navTitle: "注意事項", noticeDetailList: detailList)
     }
     
-    private func setSystemNotice(contentList: [String]?, imageName: String, bgColor: Color, strokeColor: Color) -> PackagesComboSystemNoticeModel? {
+    private func setSystemNotice(contentList: [String]?, imageName: String, bgColor: Color, strokeColor: Color) -> PackagesDynamicBundleSystemNoticeModel? {
         guard let contentList, contentList.isEmpty == false else { return nil }
         
         let detailList = contentList.compactMap { content -> PackagesNoticeDetail? in
@@ -158,8 +157,8 @@ extension PackagesComboViewModel {
         
         guard let firstContent = detailList.first?.content, firstContent.isEmpty == false else { return nil }
         
-        return PackagesComboSystemNoticeModel(
-            config: PackagesComboSystemNoticeConfig(
+        return PackagesDynamicBundleSystemNoticeModel(
+            config: PackagesDynamicBundleSystemNoticeConfig(
                 imageName: imageName,
                 content: firstContent,
                 bgColor: bgColor,
