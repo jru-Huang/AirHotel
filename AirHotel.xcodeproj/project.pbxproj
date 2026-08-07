@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */; };
+		7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift */; };
 		7B213757300DD75500F94F3C /* UseCouponSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */; };
 		7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */; };
 		7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoModel.swift; sourceTree = "<group>"; };
+		7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoSectionHeader.swift; sourceTree = "<group>"; };
 		7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCouponSwiftUIView.swift; sourceTree = "<group>"; };
 		7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirHotelApp.swift; sourceTree = "<group>"; };
 		7B2D22D72FC7DC0800D0531F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				7B9B132930241B6700464369 /* PackagesPassengerInfoView.swift */,
+				7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */,
+				7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift in Sources */,
 				7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */,
 				7B4767992FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift in Sources */,
 				7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */,

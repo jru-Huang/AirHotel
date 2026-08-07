@@ -31,6 +31,8 @@ struct PackagesPassengerInfoView: View {
             .padding(.top, 8)
             .padding(.bottom, 12)
             .padding(.horizontal, 12)
+            
+            buyerInfoSection
         }
         .onAppear(perform: viewModel.onViewAppear)
         .background(AppColor.Background.pageGray)
@@ -91,14 +93,14 @@ struct PackagesPassengerInfoView: View {
     
     private var noticeTime: some View {
         let components = "14:59".split(separator: ":")
-
+        
         return HStack(spacing: 2) {
             timeItem(String(components[0]))
-
+            
             Text(":")
                 .font(AppTypography.N06M)
                 .foregroundStyle(AppColor.Text.neutralWhite)
-
+            
             timeItem(String(components[1]))
         }
     }
@@ -144,7 +146,7 @@ struct PackagesPassengerInfoView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
-           rightArrow("航班資訊")
+            rightArrow("航班資訊")
         }
         .padding(.horizontal, 12)
     }
@@ -175,26 +177,22 @@ struct PackagesPassengerInfoView: View {
             airSegmentType(text: "去程")
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 4) {
-                    Group {
-                        Text("2026年01月24日")
-                        Text("週六")
-                        Text("12:05")
-                    }
-                    .font(AppTypography.T03M)
-                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+                    Text("2026年01月24日")
+                    Text("週六")
+                    Text("12:05")
                 }
+                .font(AppTypography.T03M)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
                 
                 HStack(spacing: 2) {
-                    Group {
-                        Text("桃園機場")
-                        Text("T1")
-                        Text("-")
-                        Text("東京羽田機場")
-                        Text("T2")
-                    }
-                    .font(AppTypography.B05R)
-                    .foregroundStyle(AppColor.Text.neutralBodyMid)
+                    Text("桃園機場")
+                    Text("T1")
+                    Text("-")
+                    Text("東京羽田機場")
+                    Text("T2")
                 }
+                .font(AppTypography.B05R)
+                .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
         }
     }
@@ -204,26 +202,22 @@ struct PackagesPassengerInfoView: View {
             airSegmentType(text: "回程")
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 4) {
-                    Group {
-                        Text("2026年01月24日")
-                        Text("週六")
-                        Text("12:05")
-                    }
-                    .font(AppTypography.T03M)
-                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+                    Text("2026年01月24日")
+                    Text("週六")
+                    Text("12:05")
                 }
+                .font(AppTypography.T03M)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
                 
                 HStack(spacing: 2) {
-                    Group {
-                        Text("東京羽田機場")
-                        Text("T2")
-                        Text("-")
-                        Text("桃園機場")
-                        Text("T1")
-                    }
-                    .font(AppTypography.B05R)
-                    .foregroundStyle(AppColor.Text.neutralBodyMid)
+                    Text("東京羽田機場")
+                    Text("T2")
+                    Text("-")
+                    Text("桃園機場")
+                    Text("T1")
                 }
+                .font(AppTypography.B05R)
+                .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
         }
     }
@@ -235,9 +229,9 @@ struct PackagesPassengerInfoView: View {
             .padding(.vertical, 2)
             .padding(.horizontal, 6)
             .overlay(
-            RoundedRectangle(cornerRadius: 2)
-            .inset(by: 0.5)
-            .stroke(AppColor.Border.neutralMid, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 2)
+                    .inset(by: 0.5)
+                    .stroke(AppColor.Border.neutralMid, lineWidth: 1)
             )
     }
     
@@ -274,16 +268,14 @@ struct PackagesPassengerInfoView: View {
             HStack(spacing: 4) {
                 Image("ic_bed_14_gray")
                 HStack(spacing: 2) {
-                    Group {
-                        Text("入住")
-                        Text("09/12 (二)")
-                        Text("-")
-                        Text("退房")
-                        Text("09/28 (二)")
-                    }
-                    .font(AppTypography.T05M) //????
-                    .foregroundStyle(AppColor.Text.neutralBodyMid)//???
+                    Text("入住")
+                    Text("09/12 (二)")
+                    Text("-")
+                    Text("退房")
+                    Text("09/28 (二)")
                 }
+                .font(AppTypography.T05M) //????
+                .foregroundStyle(AppColor.Text.neutralBodyMid)//???
             }
             
             Text("標準雙床房，非吸菸房")
@@ -318,6 +310,142 @@ struct PackagesPassengerInfoView: View {
             .background(AppColor.Surface.neutralWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
+    }
+    
+    private var buyerInfoSection: some View {
+        VStack(spacing: 4) {
+            PackagesPassengerInfoSectionHeader(title: "訂購人資料")
+            
+            VStack(spacing: 12) {
+                
+                HStack(alignment: .top, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("王大明")
+                        Text(verbatim: "cola123@gmail.com")
+                            .foregroundStyle(AppColor.Text.neutralBodyBase)
+                        Text("0912345678")
+                    }
+                    .font(AppTypography.B03R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Button {
+                        print("點選編輯")
+                    } label: {
+                        Image("ic_edit_20")
+                    }
+                }
+                
+                ExpandableText(
+                    text: "● 本系統為自動化機加酒組合訂購服務，僅提供「機票+飯店」套裝銷售，恕不適用信用卡特定合作專案、航空公司額外贈送服務，亦不提供單項加購（如：租車、當地行程）之需求。如您有特殊加購或個別專案需求，請至專屬頁面訂購或洽詢專人處裡。後續訂購相關通知、付款成功後開立之電子機票及住宿券，將統一寄送至訂購人電子郵件信箱。請務必確認所填寫之聯絡資料正確無誤，以避免因資訊錯誤導致無法順利收取行程重要憑證。"
+                )
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 20)
+            .background(AppColor.Surface.neutralWhite)
+        }
+    }
+}
+
+struct ExpandableText: View {
+    let text: String
+    var lineLimit: Int = 4
+
+    @State private var isExpanded = false
+    @State private var limitedTextHeight: CGFloat = 0
+    @State private var fullTextHeight: CGFloat = 0
+
+    private var isTruncated: Bool {
+        fullTextHeight > limitedTextHeight + 0.5
+    }
+
+    var body: some View {
+        Text(text)
+            .font(AppTypography.B05R)
+            .foregroundStyle(AppColor.Text.neutralBodyMid)
+            .lineLimit(isExpanded ? nil : lineLimit)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background {
+                // 取得限制後高度
+                GeometryReader { limitedProxy in
+                    Color.clear
+                        .preference(
+                            key: LimitedTextHeightKey.self,
+                            value: limitedProxy.size.height //畫面上限制 4 行的 Text，實際寬度
+                        )
+
+                    // 用相同寬度測量完整文字
+                    Text(text)
+                        .font(AppTypography.B05R)
+                        .lineLimit(nil)
+                        .frame(
+                            width: limitedProxy.size.width, //測量完整文字時，也必須使用完全相同的寬度
+                            alignment: .leading
+                        )
+                        .fixedSize(horizontal: false, vertical: true)
+                        .hidden()
+                        .background {
+                            GeometryReader { fullProxy in
+                                Color.clear
+                                    .preference(
+                                        key: FullTextHeightKey.self,
+                                        value: fullProxy.size.height
+                                    )
+                            }
+                        }
+                }
+            }
+            .padding(.vertical, 8)
+            .padding(.leading, 4)
+            .padding(.trailing, 8)
+            .background(AppColor.Surface.neutralExtraSubtle)
+            .overlay(alignment: .bottomTrailing) {
+                if !isExpanded && isTruncated {
+                    moreButton
+                }
+            }
+            .onPreferenceChange(LimitedTextHeightKey.self) {
+                limitedTextHeight = $0
+            }
+            .onPreferenceChange(FullTextHeightKey.self) {
+                fullTextHeight = $0
+            }
+    }
+
+    private var moreButton: some View {
+        HStack(spacing: 4) {
+            Text("…")
+                .font(AppTypography.B05R)
+                .foregroundStyle(AppColor.Text.neutralBodyMid)
+
+            Button("顯示更多") {
+                withAnimation {
+                    isExpanded = true
+                }
+            }
+            .font(AppTypography.L03R)
+            .foregroundStyle(AppColor.Text.brandSecondaryBase)
+            .buttonStyle(.plain)
+        }
+        .padding(.bottom, 8)
+        .padding(.trailing, 8)
+        .background(AppColor.Surface.neutralExtraSubtle)
+    }
+}
+
+private struct LimitedTextHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
+private struct FullTextHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
 
