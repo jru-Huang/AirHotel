@@ -11,6 +11,8 @@ struct PackagesPassengerInfoView: View {
     
     @StateObject var viewModel: PackagesPassengerInfoViewModel
     
+    @State var isShowPricePerson: Bool = false
+    
     private var hasNotice: Bool {
         return viewModel.lineNotice != nil || viewModel.systemNotice != nil
     }
@@ -38,6 +40,7 @@ struct PackagesPassengerInfoView: View {
                     VStack(spacing: 12) {
                         buyerInfoSection
                         travelerInfoSection
+                        priceDetailSection
                     }
                 }
             }
@@ -256,7 +259,6 @@ struct PackagesPassengerInfoView: View {
             .background(AppColor.Surface.neutralWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
-        
     }
     
     private var hotelName: some View {
@@ -295,7 +297,6 @@ struct PackagesPassengerInfoView: View {
         }
         .padding(.top, 4)
         .padding(.horizontal, 12)
-        
     }
     
     private var baggageFareRule: some View {
@@ -320,6 +321,7 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
+    // MARK: 訂購人資料
     private var buyerInfoSection: some View {
         VStack(spacing: 4) {
             PackagesPassengerInfoSectionHeaderView(title: "訂購人資料")
@@ -352,6 +354,7 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
+    // MARK: 旅客資料
     private var travelerInfoSection: some View {
         VStack(spacing: 4) {
             PackagesPassengerInfoSectionHeaderView(title: "旅客資料")
@@ -379,9 +382,7 @@ struct PackagesPassengerInfoView: View {
             }
             
             if !isLast {
-                Rectangle()
-                    .fill(AppColor.Border.neutralExtraSubtle)
-                    .frame(height: 1)
+                divider(padding: 0)
             }
         }
         .padding(.horizontal, 16)
@@ -442,7 +443,6 @@ struct PackagesPassengerInfoView: View {
                         .font(AppTypography.L02R)
                         .foregroundStyle(AppColor.Text.neutralBodyLight)
                 }
-                
             }
             .padding(.top, 8)
             .padding(.bottom, 6)
@@ -450,12 +450,126 @@ struct PackagesPassengerInfoView: View {
             .background(AppColor.Surface.neutralExtraSubtle)
             
             if !isLast {
-                Rectangle()
-                    .fill(AppColor.Border.neutralExtraSubtle)
-                    .frame(height: 1)
-                    .padding(.horizontal, 16)
+                divider(padding: 16)
             }
         }
+    }
+    
+    // MARK: 售價明細
+    private var priceDetailSection: some View {
+        VStack(spacing: 4) {
+            PackagesPassengerInfoSectionHeaderView(title: "售價明細")
+            
+            VStack(spacing: 12) {
+                VStack(spacing: 8) {
+                    priceItem(name: "消費總金額",
+                              defaultImage: "ic_down_01_14",
+                              toggleImage: "ic_up_01_14",
+                              discount: "$68,000",
+                              nameFont: AppTypography.T03M,
+                              nameColor: AppColor.Text.neutralBodyBase,
+                              discountFont: AppTypography.N05M,
+                              discountColor: AppColor.Text.neutralBodyBase)
+                    
+                    if isShowPricePerson {
+                        pricePersonCard
+                    }
+                    
+                    priceItem(name: "優惠折扣", discount: "-$800")
+                    priceItem(name: "可樂旅遊幣", discount: "-$1000")
+                }
+                
+                divider(padding: 0)
+                
+                priceItem(name: "機+酒含稅總計",
+                          discount: "$66,200",
+                          nameFont: AppTypography.T03R,
+                          nameColor: AppColor.Text.neutralBodyBase,
+                          discountFont: AppTypography.N01M,
+                          discountColor: AppColor.Text.marketOrangeDark)
+            }
+            .padding(12)
+            .background(AppColor.Surface.neutralWhite)
+        }
+    }
+    
+    private var pricePersonCard: some View {
+        VStack(spacing: 8) {
+            ForEach([0,1], id: \.self) { _ in
+                pricePerPerson(appellation: "大人",
+                               pricePrePerson: "$17,000",
+                               numberOfPeople: "x2",
+                               totalPrice: "$34,000")
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 8))
+    }
+    
+    private func pricePerPerson(appellation: String,
+                                pricePrePerson: String,
+                                numberOfPeople: String,
+                                totalPrice: String) -> some View {
+        HStack(spacing: 12) {
+            HStack(spacing: 4) {
+                Text(appellation)
+                    .font(AppTypography.N05R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+                Text(pricePrePerson)
+                    .font(AppTypography.N05R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+                Text(numberOfPeople)
+                    .font(AppTypography.N06R)
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(totalPrice)
+                .font(AppTypography.N05R)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
+        }
+    }
+    
+    private func priceItem(name: String,
+                           defaultImage: String? = nil,
+                           toggleImage: String? = nil,
+                           discount: String,
+                           nameFont: Font = AppTypography.T03R,
+                           nameColor: Color = AppColor.Text.neutralBodyBase,
+                           discountFont: Font = AppTypography.N05R,
+                           discountColor: Color = AppColor.Text.marketOrangeDark) -> some View {
+        HStack {
+            Button {
+                isShowPricePerson.toggle()
+            } label: {
+                HStack(spacing: 4) {
+                    Text(name)
+                        .font(nameFont)
+                        .foregroundStyle(nameColor)
+                    
+                    if let defaultImage, let toggleImage {
+                        Image(isShowPricePerson ? toggleImage : defaultImage)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(!(defaultImage?.isEmpty == false))
+            
+            Text(discount)
+                .font(discountFont)
+                .foregroundStyle(discountColor)
+                .multilineTextAlignment(.trailing)
+        }
+    }
+    
+    
+    
+    private func divider(padding: CGFloat) -> some View {
+        Rectangle()
+            .fill(AppColor.Border.neutralExtraSubtle)
+            .frame(height: 1)
+            .padding(.horizontal, padding)
     }
 }
 
