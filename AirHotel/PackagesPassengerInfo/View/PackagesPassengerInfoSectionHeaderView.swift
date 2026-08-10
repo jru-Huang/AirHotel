@@ -1,5 +1,5 @@
 //
-//  PackagesPassengerInfoSectionHeader.swift
+//  PackagesPassengerInfoSectionHeaderView.swift
 //  AirHotel
 //
 //  Created by 7943 on 2026/8/7.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PackagesPassengerInfoSectionHeader: View {
+struct PackagesPassengerInfoSectionHeaderView: View {
     
     var title: String
     
@@ -24,5 +24,5 @@ struct PackagesPassengerInfoSectionHeader: View {
 }
 
 #Preview {
-    PackagesPassengerInfoSectionHeader(title: "訂購人資料")
+    PackagesPassengerInfoSectionHeaderView(title: "訂購人資料")
 }

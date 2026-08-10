@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */; };
-		7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift */; };
+		7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */; };
 		7B213757300DD75500F94F3C /* UseCouponSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */; };
 		7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */; };
 		7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22D82FC7DC0800D0531F /* PackagesComboView.swift */; };
@@ -20,6 +20,7 @@
 		7B2D22EA2FC81D4B00D0531F /* PackagesComboAirCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22E92FC81D4B00D0531F /* PackagesComboAirCard.swift */; };
 		7B2D22EC2FC820B900D0531F /* PackagesComboCardTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */; };
 		7B3343662FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3343652FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift */; };
+		7B33A1CD3029656100F508AD /* BulletExpandableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B33A1CC3029656100F508AD /* BulletExpandableTextView.swift */; };
 		7B39BE2C2FC94706003ABF42 /* PackagesComboAirInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoModel.swift */; };
 		7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */; };
 		7B39BE312FC96A69003ABF42 /* PackagesComboHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */; };
@@ -54,7 +55,7 @@
 
 /* Begin PBXFileReference section */
 		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoModel.swift; sourceTree = "<group>"; };
-		7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoSectionHeader.swift; sourceTree = "<group>"; };
+		7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoSectionHeaderView.swift; sourceTree = "<group>"; };
 		7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCouponSwiftUIView.swift; sourceTree = "<group>"; };
 		7B2D22D62FC7DC0800D0531F /* AirHotelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirHotelApp.swift; sourceTree = "<group>"; };
 		7B2D22D72FC7DC0800D0531F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		7B2D22E92FC81D4B00D0531F /* PackagesComboAirCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAirCard.swift; sourceTree = "<group>"; };
 		7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboCardTitle.swift; sourceTree = "<group>"; };
 		7B3343652FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboDiscountCard.swift; sourceTree = "<group>"; };
+		7B33A1CC3029656100F508AD /* BulletExpandableTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletExpandableTextView.swift; sourceTree = "<group>"; };
 		7B39BE2B2FC94706003ABF42 /* PackagesComboAirInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAirInfoModel.swift; sourceTree = "<group>"; };
 		7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboSystemNoticeModel.swift; sourceTree = "<group>"; };
 		7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHeader.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				7B9B77A130048EE500E41E26 /* ColaCoinInputSwiftUIView.swift */,
 				7BB68CE42FCE737E009412D8 /* DiscountDemo.swift */,
 				7BE414C32FD2784600BF0EB6 /* DesignSystem */,
+				7B33A1CC3029656100F508AD /* BulletExpandableTextView.swift */,
 			);
 			path = AirHotel;
 			sourceTree = "<group>";
@@ -231,7 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				7B9B132930241B6700464369 /* PackagesPassengerInfoView.swift */,
-				7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift */,
+				7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -340,7 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */,
-				7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeader.swift in Sources */,
+				7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift in Sources */,
 				7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */,
 				7B4767992FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift in Sources */,
 				7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */,
@@ -356,6 +359,7 @@
 				7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */,
 				7BE414C42FD2784600BF0EB6 /* AppSpacing.swift in Sources */,
 				7BE414C52FD2784600BF0EB6 /* UIColor+Hex.swift in Sources */,
+				7B33A1CD3029656100F508AD /* BulletExpandableTextView.swift in Sources */,
 				7BE414CA2FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift in Sources */,
 				7BE414C62FD2784600BF0EB6 /* AppColor.swift in Sources */,
 				7B9B77A230048EE500E41E26 /* ColaCoinInputSwiftUIView.swift in Sources */,
