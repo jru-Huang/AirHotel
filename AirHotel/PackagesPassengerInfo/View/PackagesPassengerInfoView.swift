@@ -47,6 +47,22 @@ struct PackagesPassengerInfoView: View {
         .ignoresSafeArea(edges: .bottom)
         .onAppear(perform: viewModel.onViewAppear)
         .background(AppColor.Background.pageGray)
+        .overlay {
+            if viewModel.isShowingExpireTimeDialog {
+                DialogSwiftUIView(
+                    model: DialogSwiftUIModel(
+                        imgName: "ic_exceed_100",
+                        title: "訂購時間已逾時",
+                        message: "機加酒資訊已更新\n請重新整理以查看最新搜尋結果。",
+                        isSingleButton: true,
+                        rightTitle: "重新整理"
+                    ),
+                    onRightAction: {
+                        viewModel.dismissExpireTimeDialog()
+                    }
+                )
+            }
+        }
     }
     
     private var packagesInfoView: some View {
@@ -114,18 +130,18 @@ struct PackagesPassengerInfoView: View {
     }
     
     private var countdownTimer: some View {
-        let components = "14:59".split(separator: ":", maxSplits: 1).map(String.init)
-        let minutes = components.first ?? "00"
-        let seconds = components.count > 1 ? components[1] : "00"
+        let remainingSeconds = viewModel.remainingCountdownSeconds
+        let minutes = remainingSeconds / 60
+        let seconds = remainingSeconds % 60
 
         return HStack(spacing: 2) {
-            timeItem(minutes)
-            
+            timeItem(String(format: "%02d", minutes))
+
             Text(":")
                 .font(AppTypography.N06M)
                 .foregroundStyle(AppColor.Text.neutralWhite)
-            
-            timeItem(seconds)
+
+            timeItem(String(format: "%02d", seconds))
         }
     }
     
@@ -133,8 +149,7 @@ struct PackagesPassengerInfoView: View {
         Text(value)
             .font(AppTypography.N06M)
             .foregroundStyle(AppColor.Text.neutralWhite)
-            .padding(.vertical, 2)
-            .padding(.horizontal, 6)
+            .frame(width: 27, height: 21)
             .background(
                 AppColor.Surface.opacityWhiteBase,
                 in: RoundedRectangle(cornerRadius: 4)

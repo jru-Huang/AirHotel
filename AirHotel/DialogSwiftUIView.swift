@@ -17,14 +17,14 @@ struct DialogSwiftUIModel {
     
     init(imgName: String,
          title: String? = nil,
-         content: String? = nil,
+         message: String? = nil,
          isSingleButton: Bool = false,
          leftTitle: String = "重新整理",
          rightTitle: String = "繼續瀏覽") {
         
         self.imgName = imgName
         self.title = title
-        self.message = content
+        self.message = message
         self.isSingleButton = isSingleButton
         self.leftTitle = leftTitle
         self.rightTitle = rightTitle
@@ -97,7 +97,10 @@ struct DialogSwiftUIView: View {
                 Text(content)
                     .font(AppTypography.B03R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                    .multilineTextAlignment(.leading)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(3)
+                    .frame(maxWidth: .infinity)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
@@ -161,5 +164,5 @@ struct DialogSwiftUIView: View {
 
 
 #Preview {
-    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "Hotel", title: "標題標題標題", content: "內容內容內容內容內容內容內容"), onLeftAction: {}, onRightAction: {})
+    DialogSwiftUIView(model: DialogSwiftUIModel(imgName: "Hotel", title: "標題標題標題", message: "內容內容內容內容內容內容內容"), onLeftAction: {}, onRightAction: {})
 }

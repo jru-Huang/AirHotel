@@ -12,10 +12,23 @@ class PackagesPassengerInfoViewModel: ObservableObject {
     
     @Published var lineNotice: PackagesDynamicBundleSystemNoticeModel?
     @Published var systemNotice: PackagesDynamicBundleSystemNoticeModel?
+    @Published var remainingCountdownSeconds = 0
+    @Published var isShowingExpireTimeDialog = false
+
+    private var countdownTimer: Timer?
+    
+    deinit {
+        countdownTimer?.invalidate()
+    }
     
     func onViewAppear() {
         setupNotice()
         setupLineNotice()
+        updateCountdown(endDateTime: "2026-08-11T15:53:30")
+    }
+
+    func dismissExpireTimeDialog() {
+        isShowingExpireTimeDialog = false
     }
     
     func presentNoticeInfo(_ noticeInfo: PackagesNoticeDetailInfo) {
@@ -68,5 +81,63 @@ extension PackagesPassengerInfoViewModel {
                 noticeDetailList: [PackagesNoticeDetail(title: "", content: content)]
             )
         )
+    }
+    
+    // MARK: 時效
+    private func updateCountdown(endDateTime: String?) {
+        startCountdown(endDateTime: endDateTime)
+    }
+    
+    private func startCountdown(endDateTime: String?) {
+        invalidateCountdownTimer()
+
+        let endDate = FormatUtil.convertStringToDate(
+            dateFormatFrom: "yyyy-MM-dd'T'HH:mm:ss",
+            dateString: endDateTime ?? ""
+        )
+
+        guard let endDate else {
+            remainingCountdownSeconds = 0
+            isShowingExpireTimeDialog = false
+            return
+        }
+        
+        updateRemainingSeconds(until: endDate)
+        
+        if remainingCountdownSeconds == 0 {
+            isShowingExpireTimeDialog = true
+            return
+        }
+
+        isShowingExpireTimeDialog = false
+
+        let timer = Timer(timeInterval: 1, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.handleCountdownTick(endDate: endDate)
+            }
+        }
+
+        countdownTimer = timer
+        RunLoop.main.add(timer, forMode: .common)
+    }
+
+    private func handleCountdownTick(endDate: Date) {
+        updateRemainingSeconds(until: endDate)
+        
+        guard remainingCountdownSeconds == 0 else {
+            return
+        }
+
+        invalidateCountdownTimer()
+        isShowingExpireTimeDialog = true
+    }
+
+    private func updateRemainingSeconds(until endDate: Date) {
+        remainingCountdownSeconds = max(0, Int(ceil(endDate.timeIntervalSinceNow)))
+    }
+
+    private func invalidateCountdownTimer() {
+        countdownTimer?.invalidate()
+        countdownTimer = nil
     }
 }
