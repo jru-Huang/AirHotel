@@ -99,7 +99,7 @@ struct SearchView: View {
                 isChangeCheckInDate.toggle()
             } label: {
                 HStack(spacing: 6) {
-                    Image(isChangeCheckInDate ? "checkbox" : "uncheckbox")
+                    Image(isChangeCheckInDate ? "checkbox_active" : "uncheckbox")
                     Text("調整入住日期")
                         .setTCFont(.regular, size: 14)
                         .foregroundStyle(AppColor.Text.neutralBodyMid)

@@ -12,6 +12,7 @@ struct PackagesPassengerInfoView: View {
     @StateObject var viewModel: PackagesPassengerInfoViewModel
     
     @State var isShowPricePerson: Bool = false
+    @State var hasReadOrderTerms: Bool = false
     
     private var hasNotice: Bool {
         return viewModel.lineNotice != nil || viewModel.systemNotice != nil
@@ -41,10 +42,14 @@ struct PackagesPassengerInfoView: View {
                         buyerInfoSection
                         travelerInfoSection
                         priceDetailSection
+                        orderTermSection
                     }
+                    
+                    submit
                 }
             }
         }
+        .ignoresSafeArea(edges: .bottom)
         .onAppear(perform: viewModel.onViewAppear)
         .background(AppColor.Background.pageGray)
     }
@@ -563,7 +568,51 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
+    private var orderTermSection: some View {
+        HStack(spacing: 8) {
+            Image(hasReadOrderTerms ? "checkbox_active" : "checkbox_default") //jru: icon修改
+            HStack(spacing: 0) {
+                Text("我已閱讀")
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
+                Text("訂購須知")
+                    .foregroundStyle(AppColor.Text.brandPrimaryDark)
+                    .overlay(alignment: .bottom) {
+                        Rectangle()
+                            .fill(AppColor.Text.brandPrimaryDark)
+                            .frame(height: 0.5)
+                    }
+                    .onTapGesture {
+                        print("點選訂購須知")
+                        hasReadOrderTerms.toggle()
+                    }
+                Text("，並接受所有規定事項。")
+                    .foregroundStyle(AppColor.Text.neutralBodyMid)
+            }
+            .font(AppTypography.B04R)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(AppColor.Surface.neutralWhite)
+    }
     
+    private var submit: some View {
+        VStack(spacing: 0) {
+            Button {
+                print("送出訂單")
+            } label: {
+                Text("送出訂單")
+                    .font(AppTypography.L02M)
+                    .foregroundStyle(AppColor.Text.neutralWhite)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            .frame(height: 40)
+            .background(AppColor.Surface.brandPrimaryBase)
+            
+            AppColor.Surface.brandPrimaryBase
+                .frame(height: safeAreaBottomInset)
+        }
+    }
     
     private func divider(padding: CGFloat) -> some View {
         Rectangle()

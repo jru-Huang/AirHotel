@@ -37,6 +37,20 @@ extension View {
     func setCornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
+    
+    var safeAreaBottomInset: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first(where: {
+            $0.activationState == .foregroundActive
+        }) as? UIWindowScene else {
+            return .zero
+        }
+        
+        guard let window = scene.windows.first(where: { $0.isKeyWindow }) else {
+            return .zero
+        }
+        
+        return window.safeAreaInsets.bottom
+    }
 }
 
 extension Int {
