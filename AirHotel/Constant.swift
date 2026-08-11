@@ -117,6 +117,40 @@ class FormatUtil: NSObject {
         
         return dateStringAfterTransform
     }
+    
+    static func convertStringToDate(dateFormatFrom: String, dateString: String, amSymbolFrom: String? = nil, pmSymbolFrom: String? = nil) -> Date? {
+        if ( dateString == "" ) { return nil }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.setToBasic(dateFormat: dateFormatFrom, amSymbol: amSymbolFrom, pmSymbol: pmSymbolFrom)
+        
+        let date = dateFormatter.date(from: dateString)
+        return date == nil ? convertStringToDate(dateString: dateString) : date
+    }
+    
+    static private func convertStringToDate(dateString: String?) -> Date? {
+        #if DEBUG
+        print("****** 字串轉時間，時間格式不正確，再確認一下！ ******")
+        print("****** 字串轉時間，時間格式不正確，再確認一下！ ******")
+        print("****** 字串轉時間，時間格式不正確，再確認一下！ ******")
+        #endif
+        guard let dateString = dateString else {  return nil }
+        var dateStringToDate: Date?
+        
+        let dateFormatterConvertFrom = DateFormatter()
+        dateFormatterConvertFrom.setToBasic()
+        
+        dateFormatList.forEach { (dateFormat) in
+            if (dateStringToDate == nil) {
+                dateFormatterConvertFrom.dateFormat = dateFormat
+                if let dateBeforeConvert = dateFormatterConvertFrom.date(from: dateString) {
+                    dateStringToDate = dateBeforeConvert
+                }
+            }
+        }
+        
+        return dateStringToDate
+    }
 }
 
 extension DateFormatter {

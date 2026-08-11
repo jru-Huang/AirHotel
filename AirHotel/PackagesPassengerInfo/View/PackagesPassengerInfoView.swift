@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct PackagesPassengerInfoView: View {
-    
-    @StateObject var viewModel: PackagesPassengerInfoViewModel
-    
-    @State var isShowPricePerson: Bool = false
-    @State var hasReadOrderTerms: Bool = false
+    @StateObject private var viewModel: PackagesPassengerInfoViewModel
+    @State private var isShowPricePerson = false
+    @State private var hasReadOrderTerms = false
+
+    init(viewModel: PackagesPassengerInfoViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     private var hasNotice: Bool {
-        return viewModel.lineNotice != nil || viewModel.systemNotice != nil
+        viewModel.lineNotice != nil || viewModel.systemNotice != nil
     }
     
     var body: some View {
         VStack(spacing: 0) {
-            noticeTimeLimitView
+            timeLimitView
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -29,14 +31,7 @@ struct PackagesPassengerInfoView: View {
                         noticeView
                     }
                     
-                    VStack(spacing: 8) {
-                        airCard
-                        hotelCard
-                        baggageFareRule
-                    }
-                    .padding(.top, 8)
-                    .padding(.bottom, 12)
-                    .padding(.horizontal, 12)
+                    packagesInfoView
                     
                     VStack(spacing: 12) {
                         buyerInfoSection
@@ -54,6 +49,18 @@ struct PackagesPassengerInfoView: View {
         .background(AppColor.Background.pageGray)
     }
     
+    private var packagesInfoView: some View {
+        VStack(spacing: 8) {
+            airCard
+            hotelCard
+            baggageFareRuleCard
+        }
+        .padding(.top, 8)
+        .padding(.bottom, 12)
+        .padding(.horizontal, 12)
+    }
+    
+    // MARK: 公告
     private var noticeView: some View {
         VStack(spacing: 0) {
             if let lineNotice = viewModel.lineNotice {
@@ -73,10 +80,10 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 時效
-    private var noticeTimeLimitView: some View {
+    private var timeLimitView: some View {
         HStack(spacing: 6) {
-            noticeTitle
-            noticeTime
+            timeLimitTitle
+            countdownTimer
         }
         .padding(.vertical, 6)
         .padding(.horizontal, 12)
@@ -96,7 +103,7 @@ struct PackagesPassengerInfoView: View {
         )
     }
     
-    private var noticeTitle: some View {
+    private var timeLimitTitle: some View {
         HStack(spacing: 4) {
             Image("ic_countdown_20_white") //jru:專案icon改名
             Text("請在 15 分鐘內填寫並送出訂單")
@@ -106,17 +113,19 @@ struct PackagesPassengerInfoView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var noticeTime: some View {
-        let components = "14:59".split(separator: ":")
-        
+    private var countdownTimer: some View {
+        let components = "14:59".split(separator: ":", maxSplits: 1).map(String.init)
+        let minutes = components.first ?? "00"
+        let seconds = components.count > 1 ? components[1] : "00"
+
         return HStack(spacing: 2) {
-            timeItem(String(components[0]))
+            timeItem(minutes)
             
             Text(":")
                 .font(AppTypography.N06M)
                 .foregroundStyle(AppColor.Text.neutralWhite)
             
-            timeItem(String(components[1]))
+            timeItem(seconds)
         }
     }
     
@@ -178,63 +187,81 @@ struct PackagesPassengerInfoView: View {
         .padding(.horizontal, 12)
     }
     
-    private func rightArrow(_ text: String)-> some View {
-        HStack(spacing: 0) {
-            Text(text)
-                .font(AppTypography.L03M)
-                .foregroundStyle(AppColor.Text.brandPrimaryMid)
-            Image("ic_right_14_purple") //jru:專案icon改名
-        }
-    }
-    
     private var depSegmentView: some View {
-        HStack(alignment: .center,spacing: 8) {
-            airSegmentType(text: "去程")
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 4) {
-                    Text("2026年01月24日")
-                    Text("週六")
-                    Text("12:05")
-                }
-                .font(AppTypography.T03M)
-                .foregroundStyle(AppColor.Text.neutralBodyBase)
-                
-                HStack(spacing: 2) {
-                    Text("桃園機場")
-                    Text("T1")
-                    Text("-")
-                    Text("東京羽田機場")
-                    Text("T2")
-                }
-                .font(AppTypography.B05R)
-                .foregroundStyle(AppColor.Text.neutralBodyMid)
-            }
-        }
+        airSegmentView(
+            type: "去程",
+            departureDateTime: "2026-08-11T10:45:00",
+            departureAirport: "桃園機場",
+            departureTerminal: "T1",
+            arrivalAirport: "東京羽田機場",
+            arrivalTerminal: "T2"
+        )
     }
     
     private var returnSegmentView: some View {
-        HStack(alignment: .center,spacing: 8) {
-            airSegmentType(text: "回程")
+        airSegmentView(
+            type: "回程",
+            departureDateTime: "2026-08-16T20:15:00",
+            departureAirport: "東京羽田機場",
+            departureTerminal: "T2",
+            arrivalAirport: "桃園機場",
+            arrivalTerminal: "T1"
+        )
+    }
+
+    private func airSegmentView(
+        type: String,
+        departureDateTime: String,
+        departureAirport: String,
+        departureTerminal: String,
+        arrivalAirport: String,
+        arrivalTerminal: String
+    ) -> some View {
+        let formattedDateTime = formatAirSegmentDateTime(departureDateTime)
+
+        return HStack(alignment: .center, spacing: 8) {
+            airSegmentType(text: type)
+
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 4) {
-                    Text("2026年01月24日")
-                    Text("週六")
-                    Text("12:05")
+                    Text(formattedDateTime.date)
+                    Text(formattedDateTime.weekday)
+                    Text(formattedDateTime.time)
                 }
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
                 
                 HStack(spacing: 2) {
-                    Text("東京羽田機場")
-                    Text("T2")
+                    Text(departureAirport)
+                    Text(departureTerminal)
                     Text("-")
-                    Text("桃園機場")
-                    Text("T1")
+                    Text(arrivalAirport)
+                    Text(arrivalTerminal)
                 }
                 .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
         }
+    }
+
+    private func formatAirSegmentDateTime(
+        _ dateTime: String
+    ) -> (date: String, weekday: String, time: String) {
+        let formatted = FormatUtil.convertStringToString(
+            dateStringFrom: dateTime,
+            dateFormatTo: "yyyy年MM月dd日 週EEEEE HH:mm"
+        )
+        let components = formatted.split(separator: " ", omittingEmptySubsequences: false)
+
+        guard components.count == 3 else {
+            return (dateTime, "", "")
+        }
+
+        return (
+            date: String(components[0]),
+            weekday: String(components[1]),
+            time: String(components[2])
+        )
     }
     
     private func airSegmentType(text: String) -> some View {
@@ -248,6 +275,15 @@ struct PackagesPassengerInfoView: View {
                     .inset(by: 0.5)
                     .stroke(AppColor.Border.neutralMid, lineWidth: 1)
             )
+    }
+    
+    private func rightArrow(_ text: String)-> some View {
+        HStack(spacing: 0) {
+            Text(text)
+                .font(AppTypography.L03M)
+                .foregroundStyle(AppColor.Text.brandPrimaryMid)
+            Image("ic_right_14_purple") //jru:專案icon改名
+        }
     }
     
     // MARK: 飯店
@@ -304,7 +340,7 @@ struct PackagesPassengerInfoView: View {
         .padding(.horizontal, 12)
     }
     
-    private var baggageFareRule: some View {
+    private var baggageFareRuleCard: some View {
         Button {
             print("點選行李及更改取消規定")
         } label: {
@@ -545,21 +581,21 @@ struct PackagesPassengerInfoView: View {
                            discountFont: Font = AppTypography.N05R,
                            discountColor: Color = AppColor.Text.marketOrangeDark) -> some View {
         HStack {
-            Button {
-                isShowPricePerson.toggle()
-            } label: {
-                HStack(spacing: 4) {
-                    Text(name)
-                        .font(nameFont)
-                        .foregroundStyle(nameColor)
-                    
-                    if let defaultImage, let toggleImage {
+            if let defaultImage, let toggleImage {
+                Button {
+                    isShowPricePerson.toggle()
+                } label: {
+                    HStack(spacing: 4) {
+                        priceItemName(name, font: nameFont, color: nameColor)
                         Image(isShowPricePerson ? toggleImage : defaultImage)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .buttonStyle(.plain)
+            } else {
+                priceItemName(name, font: nameFont, color: nameColor)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .disabled(!(defaultImage?.isEmpty == false))
             
             Text(discount)
                 .font(discountFont)
@@ -567,7 +603,14 @@ struct PackagesPassengerInfoView: View {
                 .multilineTextAlignment(.trailing)
         }
     }
+
+    private func priceItemName(_ name: String, font: Font, color: Color) -> some View {
+        Text(name)
+            .font(font)
+            .foregroundStyle(color)
+    }
     
+    // MARK: 訂購須知
     private var orderTermSection: some View {
         HStack(spacing: 8) {
             Image(hasReadOrderTerms ? "checkbox_active" : "checkbox_default") //jru: icon修改
