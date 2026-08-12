@@ -11,6 +11,7 @@ struct PackagesPassengerInfoView: View {
     @StateObject private var viewModel: PackagesPassengerInfoViewModel
     @State private var isShowPricePerson = false
     @State private var hasReadOrderTerms = false
+    @State private var isShowingOrderTerms = false
 
     init(viewModel: PackagesPassengerInfoViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -37,7 +38,7 @@ struct PackagesPassengerInfoView: View {
                         buyerInfoSection
                         travelerInfoSection
                         priceDetailSection
-                        orderTermSection
+                        orderTermsSection
                     }
                     
                     submit
@@ -626,7 +627,7 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 訂購須知
-    private var orderTermSection: some View {
+    private var orderTermsSection: some View {
         HStack(spacing: 8) {
             Image(hasReadOrderTerms ? "checkbox_active" : "checkbox_default") //jru: icon修改
             HStack(spacing: 0) {
@@ -641,7 +642,7 @@ struct PackagesPassengerInfoView: View {
                     }
                     .onTapGesture {
                         print("點選訂購須知")
-                        hasReadOrderTerms.toggle()
+                        isShowingOrderTerms = true
                     }
                 Text("，並接受所有規定事項。")
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
@@ -652,6 +653,15 @@ struct PackagesPassengerInfoView: View {
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(AppColor.Surface.neutralWhite)
+        .background {
+            NavigationLink(
+                destination: OrderTermsView(hasReadOrderTerms: $hasReadOrderTerms),
+                isActive: $isShowingOrderTerms
+            ) {
+                EmptyView()
+            }
+            .hidden()
+        }
     }
     
     private var submit: some View {
