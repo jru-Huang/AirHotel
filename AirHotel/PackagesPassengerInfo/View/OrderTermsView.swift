@@ -17,17 +17,18 @@ struct OrderTermsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            
+            navTitleView
             GeometryReader { scrollGeometry in
                 ScrollViewReader { proxy in
                     ScrollView {
-                        Text("一、會員服務內容\n1. 本網站上公佈的價格，包含套裝行程、飯店、與平假日的價格。不同出發日價格依天數、日期、人數、房型而不同，在網頁上看到的價格，為行程參考價，在確認付款網頁中的價格，才為實際售價，請在付款前仔細查看。對於旅客自行與飯店或交通公司達成的協議，與未包含於行程中的消費，本網站恕不負責。\n2. 本套裝商品售價：機票部分價格皆已包含機場稅費及燃油附加費；訂房部分則已含服務費及當地常規的消費稅，但不包含部分城市政府或酒店可能於不特定期間徵收非常規的特別稅等費用，例如城市稅(City tax)、渡假村及設施使用費(Resort fee)、中國政府調節基金、日本溫泉稅‧‧‧等。此外，床頭小費、行李小費、客房服務費、旅客自行與航空公司達成的協議或其他私人消費支出，應由旅客自行負責。\n3. 機位及訂房價格時有變動，訂購流程中，如有發生異動，頁面會跳出告示視窗，您可選擇接受新價格或重新搜尋，最終價格依訂購頁面最新資訊為準。二、會員服務內容\n• 本商品僅適用線上付款，恕不受理其他付款方式及分開付款。\n• 已選擇商品並填寫訂購資料後，送出訂單資料之前，請您詳細檢查『航班資訊』、『票價資訊和行李規定』以及『飯店資訊』，確認符合需求再作訂購。\n• 確認訂購後，您須即時於線上刷卡付款，易遊網將以您所提供的信用卡帳戶進行授權（銀行會有信用卡授權記錄），授權成功即進行機位及飯店預訂作業；倘若機位及飯店預訂失敗，易遊網將經由銀行辦理解除授權(約3~7個工作天，實際天數視各發卡行而定)。\n• 機位和飯店預訂成功後，將於您的信用卡帳戶直接收取已授權的金額，並發送付款成功確認函到您的E-Mail信箱。\n•  訂購成功確認後，易遊網將開立機票行程單及住宿券，並寄送到您的E-Mail信箱。\n•  完成訂購後，若因非旅客個人因素之不可抗力事件（如颱風、火山爆發等）或突發狀況（如機械故障、回航延誤）而導致班機取消或嚴重延誤，請旅客於第一時間告知易遊網，並盡速提供相關證明文件，以利易遊網為您爭取訂單取消免罰（但仍需以航空公司及飯店回覆為準）。若為非台灣上班時間，請即撥打住宿券上之緊急聯絡電話請求協助。遇狀況時，請務必即時採取以上行動，以免因NoShow而無法爭取退費。\n 附註： 開票完成後，您可返回會員中心享用易遊網的線上選位功能。但仍有部分航空公司並未提供免費預先選位服務，遇無法選位或選位失敗時，建議您於出發日前24至48小時內到航空公司官網預辦線上報到劃位。")
+                        Text("一、會員服務內容\n1. 本網站上公佈的價格，包含套裝行程、飯店、與平假日的價格。不同出發日價格依天數、日期、人數、房型而不同，在網頁上看到的價格，為行程參考價，在確認付款網頁中的價格，才為實際售價，請在付款前仔細查看。對於旅客自行與飯店或交通公司達成的協議，與未包含於行程中的消費，本網站恕不負責。\n2. 本套裝商品售價：機票部分價格皆已包含機場稅費及燃油附加費；訂房部分則已含服務費及當地常規的消費稅，但不包含部分城市政府或酒店可能於不特定期間徵收非常規的特別稅等費用，例如城市稅(City tax)、渡假村及設施使用費(Resort fee)、中國政府調節基金、日本溫泉稅‧‧‧等。此外，床頭小費、行李小費、客房服務費、旅客自行與航空公司達成的協議或其他私人消費支出，應由旅客自行負責。\n3. 機位及訂房價格時有變動，訂購流程中，如有發生異動，頁面會跳出告示視窗，您可選擇接受新價格或重新搜尋，最終價格依訂購頁面最新資訊為準。\n二、會員服務內容\n• 本商品僅適用線上付款，恕不受理其他付款方式及分開付款。\n• 已選擇商品並填寫訂購資料後，送出訂單資料之前，請您詳細檢查『航班資訊』、『票價資訊和行李規定』以及『飯店資訊』，確認符合需求再作訂購。\n• 確認訂購後，您須即時於線上刷卡付款，易遊網將以您所提供的信用卡帳戶進行授權（銀行會有信用卡授權記錄），授權成功即進行機位及飯店預訂作業；倘若機位及飯店預訂失敗，易遊網將經由銀行辦理解除授權(約3~7個工作天，實際天數視各發卡行而定)。\n• 機位和飯店預訂成功後，將於您的信用卡帳戶直接收取已授權的金額，並發送付款成功確認函到您的E-Mail信箱。\n•  訂購成功確認後，易遊網將開立機票行程單及住宿券，並寄送到您的E-Mail信箱。\n•  完成訂購後，若因非旅客個人因素之不可抗力事件（如颱風、火山爆發等）或突發狀況（如機械故障、回航延誤）而導致班機取消或嚴重延誤，請旅客於第一時間告知易遊網，並盡速提供相關證明文件，以利易遊網為您爭取訂單取消免罰（但仍需以航空公司及飯店回覆為準）。若為非台灣上班時間，請即撥打住宿券上之緊急聯絡電話請求協助。遇狀況時，請務必即時採取以上行動，以免因NoShow而無法爭取退費。\n 附註： 開票完成後，您可返回會員中心享用易遊網的線上選位功能。但仍有部分航空公司並未提供免費預先選位服務，遇無法選位或選位失敗時，建議您於出發日前24至48小時內到航空公司官網預辦線上報到劃位。")
                             .font(AppTypography.B04R)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
-                        
+                            .padding(.bottom, 40)
+                            .padding(.top, 16)
                         
                         Color.clear
-                            .frame(height: 40)
+                            .frame(height: 1)
                             .background {
                                 GeometryReader { bottomGeometry in
                                     Color.clear.preference(
@@ -59,9 +60,48 @@ struct OrderTermsView: View {
             
             actionButtons
         }
-        .padding(.top, 16)
-        .padding(.bottom, 40)
         .background(AppColor.Background.pageWhite)
+//        .toolbar {
+//            ToolbarItem(placement: .topBarLeading) {
+//                Button {
+//                    dismiss()
+//                } label: {
+//                    Image("ic_close_20")
+//                }
+//            }
+//            
+//            ToolbarItem(placement: .principal) {
+//                Text("訂購須知")
+//                    .font(AppTypography.T02M)
+//                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+//            }
+//        }
+    }
+    
+    private var navTitleView: some View {
+        ZStack {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image("ic_close_20")
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            
+            Text("訂購須知")
+                .font(AppTypography.D03)
+                .foregroundStyle(AppColor.Text.neutralBodyBase)
+        }
+        .background(AppColor.Surface.neutralWhite)
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(AppColor.Border.neutralExtraSubtle)
+                .frame(height: 1)
+        }
     }
     
     private func scrollInstructionHint(action: @escaping () -> Void) -> some View {
@@ -109,14 +149,13 @@ struct OrderTermsView: View {
                     .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity, minHeight: 40)
-            .background(hasScrolledToBottom ? AppColor.Text.brandPrimaryDark : AppColor.Surface.stateDisabled)
+            .background(hasScrolledToBottom ? AppColor.Text.brandPrimaryBase : AppColor.Surface.stateDisabled,
+                        in: RoundedRectangle(cornerRadius: 4))
             .disabled(!hasScrolledToBottom)
-            
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 6)
         .background(AppColor.Surface.neutralWhite)
-        
     }
 }
 

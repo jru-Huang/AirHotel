@@ -640,10 +640,6 @@ struct PackagesPassengerInfoView: View {
                             .fill(AppColor.Text.brandPrimaryDark)
                             .frame(height: 0.5)
                     }
-                    .onTapGesture {
-                        print("點選訂購須知")
-                        isShowingOrderTerms = true
-                    }
                 Text("，並接受所有規定事項。")
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
@@ -653,15 +649,24 @@ struct PackagesPassengerInfoView: View {
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(AppColor.Surface.neutralWhite)
-        .background {
-            NavigationLink(
-                destination: OrderTermsView(hasReadOrderTerms: $hasReadOrderTerms),
-                isActive: $isShowingOrderTerms
-            ) {
-                EmptyView()
-            }
-            .hidden()
+        .onTapGesture {
+            print("點選訂購須知")
+            isShowingOrderTerms = true
         }
+        .fullScreenCover(isPresented: $isShowingOrderTerms) {
+            NavigationView {
+                OrderTermsView(hasReadOrderTerms: $hasReadOrderTerms)
+            }
+        }
+//        .background {
+//            NavigationLink(
+//                destination: OrderTermsView(hasReadOrderTerms: $hasReadOrderTerms),
+//                isActive: $isShowingOrderTerms
+//            ) {
+//                EmptyView()
+//            }
+//            .hidden()
+//        }
     }
     
     private var submit: some View {
