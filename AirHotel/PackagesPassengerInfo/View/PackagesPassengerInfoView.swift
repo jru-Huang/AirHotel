@@ -12,7 +12,7 @@ struct PackagesPassengerInfoView: View {
     @State private var isShowPricePerson = false
     @State private var hasReadOrderTerms = false
     @State private var isShowingOrderTerms = false
-
+    
     init(viewModel: PackagesPassengerInfoViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -35,9 +35,18 @@ struct PackagesPassengerInfoView: View {
                     packagesInfoView
                     
                     VStack(spacing: 12) {
-                        buyerInfoSection
-                        travelerInfoSection
-                        priceDetailSection
+                        if let buyerInfo = viewModel.info?.buyerInfo {
+                            buyerInfoSection(info: buyerInfo)
+                        }
+                        
+                        if let travelerInfo = viewModel.info?.travelerInfo {
+                            travelerInfoSection(info: travelerInfo)
+                        }
+                        
+                        if let priceInfo = viewModel.info?.priceDetail {
+                            priceDetailSection(info: priceInfo)
+                        }
+                        
                         orderTermsSection
                     }
                     
@@ -68,8 +77,14 @@ struct PackagesPassengerInfoView: View {
     
     private var packagesInfoView: some View {
         VStack(spacing: 8) {
-            airCard
-            hotelCard
+            if let airInfo = viewModel.info?.airInfo {
+                airCard(info: airInfo)
+            }
+            
+            if let hotelInfo = viewModel.info?.hotelInfo {
+                hotelCard(info: hotelInfo)
+            }
+            
             baggageFareRuleCard
         }
         .padding(.top, 8)
@@ -134,14 +149,14 @@ struct PackagesPassengerInfoView: View {
         let remainingSeconds = viewModel.remainingCountdownSeconds
         let minutes = remainingSeconds / 60
         let seconds = remainingSeconds % 60
-
+        
         return HStack(spacing: 2) {
             timeItem(String(format: "%02d", minutes))
-
+            
             Text(":")
                 .font(AppTypography.N06M)
                 .foregroundStyle(AppColor.Text.neutralWhite)
-
+            
             timeItem(String(format: "%02d", seconds))
         }
     }
@@ -158,13 +173,13 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 航班
-    private var airCard: some View {
+    private func airCard(info: PackagesPassengerInfoModel.AirInfoModel)-> some View {
         Button {
             print("點選航班資訊")
         } label: {
             VStack(alignment: .leading, spacing: 4) {
-                airDestination
-                airDetail
+                airDestination(info: info)
+                airDetail(info: info)
             }
             .padding(.top, 8)
             .padding(.bottom, 12)
@@ -173,14 +188,14 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
-    private var airDestination: some View {
+    private func airDestination(info: PackagesPassengerInfoModel.AirInfoModel)-> some View {
         HStack(spacing: 8) {
             HStack(spacing: 2) {
-                Text("台北")
+                Text(info.depLocation)
                     .font(AppTypography.T03M)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
                 Image("ic_line_16")
-                Text("東京")
+                Text(info.returnLocation)
                     .font(AppTypography.T03M)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
             }
@@ -191,10 +206,16 @@ struct PackagesPassengerInfoView: View {
         .padding(.horizontal, 12)
     }
     
-    private var airDetail: some View {
+    private func airDetail(info: PackagesPassengerInfoModel.AirInfoModel)-> some View {
         VStack(spacing: 4) {
-            depSegmentView
-            returnSegmentView
+            ForEach(info.airSegmentList) { info in
+                airSegmentView(type: info.airType,
+                               departureDateTime: info.date,
+                               departureAirport: info.depAirport,
+                               departureTerminal: info.depTerminal,
+                               arrivalAirport: info.arrAirport,
+                               arrivalTerminal: info.arrTerminal)
+            }
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 4)
@@ -203,28 +224,6 @@ struct PackagesPassengerInfoView: View {
         .padding(.horizontal, 12)
     }
     
-    private var depSegmentView: some View {
-        airSegmentView(
-            type: "去程",
-            departureDateTime: "2026-08-11T10:45:00",
-            departureAirport: "桃園機場",
-            departureTerminal: "T1",
-            arrivalAirport: "東京羽田機場",
-            arrivalTerminal: "T2"
-        )
-    }
-    
-    private var returnSegmentView: some View {
-        airSegmentView(
-            type: "回程",
-            departureDateTime: "2026-08-16T20:15:00",
-            departureAirport: "東京羽田機場",
-            departureTerminal: "T2",
-            arrivalAirport: "桃園機場",
-            arrivalTerminal: "T1"
-        )
-    }
-
     private func airSegmentView(
         type: String,
         departureDateTime: String,
@@ -234,10 +233,10 @@ struct PackagesPassengerInfoView: View {
         arrivalTerminal: String
     ) -> some View {
         let formattedDateTime = formatAirSegmentDateTime(departureDateTime)
-
+        
         return HStack(alignment: .center, spacing: 8) {
             airSegmentType(text: type)
-
+            
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 4) {
                     Text(formattedDateTime.date)
@@ -259,7 +258,7 @@ struct PackagesPassengerInfoView: View {
             }
         }
     }
-
+    
     private func formatAirSegmentDateTime(
         _ dateTime: String
     ) -> (date: String, weekday: String, time: String) {
@@ -268,11 +267,11 @@ struct PackagesPassengerInfoView: View {
             dateFormatTo: "yyyy年MM月dd日 週EEEEE HH:mm"
         )
         let components = formatted.split(separator: " ", omittingEmptySubsequences: false)
-
+        
         guard components.count == 3 else {
             return (dateTime, "", "")
         }
-
+        
         return (
             date: String(components[0]),
             weekday: String(components[1]),
@@ -303,13 +302,13 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 飯店
-    private var hotelCard: some View {
+    private func hotelCard(info: PackagesPassengerInfoModel.HotelInfoModel)-> some View {
         Button {
             print("點選入住資訊")
         } label: {
             VStack(alignment: .leading, spacing: 4) {
-                hotelName
-                hotelDetail
+                hotelName(info.hotelName)
+                hotelDetail(info: info)
             }
             .padding(.top, 8)
             .padding(.bottom, 12)
@@ -318,33 +317,34 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
-    private var hotelName: some View {
+    private func hotelName(_ hotelName: String)-> some View {
         HStack(spacing: 8) {
-            Text("JR九州最大五星超高級日本大都會酒JR九州最大五星超高級日本大都會酒")
+            Text(hotelName)
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
+                .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             rightArrow("入住資訊")
         }
         .padding(.horizontal, 12)
     }
     
-    private var hotelDetail: some View {
+    private func hotelDetail(info: PackagesPassengerInfoModel.HotelInfoModel)-> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 4) {
                 Image("ic_bed_14_gray")
                 HStack(spacing: 2) {
                     Text("入住")
-                    Text("09/12 (二)")
+                    Text(info.checkInDate)
                     Text("-")
                     Text("退房")
-                    Text("09/28 (二)")
+                    Text(info.checkOutDate)
                 }
                 .font(AppTypography.T05M)
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
             }
             
-            Text("標準雙床房，非吸菸房(View will be selected by the hotel )標準雙床房，非吸菸房")
+            Text(info.roomDesc)
                 .font(AppTypography.B04M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
                 .multilineTextAlignment(.leading)
@@ -379,7 +379,7 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 訂購人資料
-    private var buyerInfoSection: some View {
+    private func buyerInfoSection(info: PackagesPassengerInfoModel.BuyerInfoModel)-> some View {
         VStack(spacing: 4) {
             PackagesPassengerInfoSectionHeaderView(title: "訂購人資料")
             
@@ -387,10 +387,10 @@ struct PackagesPassengerInfoView: View {
                 
                 HStack(alignment: .top, spacing: 12) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("王大明")
-                        Text(verbatim: "cola123@gmail.com")
+                        Text(info.buyerName)
+                        Text(verbatim: info.buyerEmail)
                             .foregroundStyle(AppColor.Text.neutralBodyBase)
-                        Text("0912345678")
+                        Text(info.buyerPhone)
                     }
                     .font(AppTypography.B03R)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
@@ -403,7 +403,7 @@ struct PackagesPassengerInfoView: View {
                     }
                 }
                 
-                BulletExpandableTextView(item: BulletExpandableTextItem(textList: ["本系統為自動化機加酒組合訂購服務，僅提供「機票+飯店」套裝銷售，恕不適用信用卡特定合作專案、航空公司額外贈送服務，亦不提供單項加購（如：租車、當地行程）之需求。如您有特殊加購或個別專案需求，請至專屬頁面訂購或洽詢專人處理。", "後續訂購相關通知、付款成功後開立之電子機票及住宿券，將統一寄送至訂購人電子郵件信箱。請務必確認所填寫之聯絡資料正確無誤，以避免因資訊錯誤導致無法順利收取行程重要憑證。"], lineLimit: 3))
+                BulletExpandableTextView(item: BulletExpandableTextItem(textList: info.noticeList, lineLimit: 3))
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 20)
@@ -412,26 +412,26 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 旅客資料
-    private var travelerInfoSection: some View {
+    private func travelerInfoSection(info: PackagesPassengerInfoModel.TravelerInfoModel)-> some View {
         VStack(spacing: 4) {
             PackagesPassengerInfoSectionHeaderView(title: "旅客資料")
             
             VStack(spacing: 0) {
-                ForEach([0,1,2], id: \.self) { index in
-                    travelerRoomPax(index: index, isLast: index == 2, hasCompleted: index == 0)
+                ForEach(Array(info.travelerList.enumerated()), id: \.element.id) { index, traveler in
+                    travelerRoomPax(traveler: traveler, isLast: index == (info.travelerList.count - 1), hasCompleted: !(traveler.pax.paxDetailList.isEmpty))
                 }
             }
         }
     }
     
-    private func travelerRoomPax(index: Int, isLast: Bool, hasCompleted: Bool) -> some View {
+    private func travelerRoomPax(traveler: PackagesPassengerInfoModel.Traveler, isLast: Bool, hasCompleted: Bool) -> some View {
         VStack(spacing: 0) {
-            roomPaxHeader(index: index, hasCompleted: hasCompleted)
+            roomPaxHeader(traveler, hasCompleted: hasCompleted)
             
             if hasCompleted {
                 VStack(spacing: 0) {
-                    ForEach([0,1], id: \.self) { itemIndex in
-                        roomPaxDetail(index: itemIndex, isLast: itemIndex == 1)
+                    ForEach(Array(traveler.pax.paxDetailList.enumerated()), id: \.element.id) { itemIndex, paxDetail in
+                        roomPaxDetail(paxDetail, isLast: itemIndex == (traveler.pax.paxDetailList.count - 1))
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -446,15 +446,15 @@ struct PackagesPassengerInfoView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func roomPaxHeader(index: Int, hasCompleted: Bool) -> some View {
+    private func roomPaxHeader(_ traveler: PackagesPassengerInfoModel.Traveler, hasCompleted: Bool) -> some View {
         Button {
             print("點選卡片標題（針對所有）")
         } label: {
             HStack(spacing: 12) {
                 HStack(spacing: 2) {
-                    Text("房間\(index + 1)")
+                    Text(traveler.room)
                     Text("/")
-                    Text("2大人")
+                    Text(traveler.pax.numberOfPeople)
                 }
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
@@ -474,24 +474,32 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
-    private func roomPaxDetail(index: Int, isLast: Bool) -> some View {
+    private func roomPaxDetail(_ paxDetail: PackagesPassengerInfoModel.PaxDetail, isLast: Bool) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 VStack(spacing: 2) {
                     HStack(spacing: 4) {
-                        Text("吳威廉\(index)")
+                        Text(paxDetail.paxChineseName)
                             .font(AppTypography.B06R)
                             .foregroundStyle(AppColor.Text.neutralBodyMid)
-                        Text("入住代表人")
-                            .font(AppTypography.B06M)
-                            .foregroundStyle(AppColor.Text.brandPrimaryMid)
+                        
+                        if paxDetail.isRoomLeader {
+                            Text("入住代表人")
+                                .font(AppTypography.B06M)
+                                .foregroundStyle(AppColor.Text.brandPrimaryMid)
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text("WU,WALLEN")
-                        .font(AppTypography.B03R)
-                        .foregroundStyle(AppColor.Text.neutralBodyBase)
+                    HStack(spacing: 2) {
+                        Text(paxDetail.paxSurName)
+                        Text(",")
+                        Text(paxDetail.paxGivenName)
+                    }
+                    .font(AppTypography.B03R)
+                    .foregroundStyle(AppColor.Text.neutralBodyBase)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Button {
                     print("點選編輯（針對個人）")
@@ -499,6 +507,7 @@ struct PackagesPassengerInfoView: View {
                     Text("編輯")
                         .font(AppTypography.L02R)
                         .foregroundStyle(AppColor.Text.neutralBodyLight)
+                        .padding(5)
                 }
             }
             .padding(.top, 8)
@@ -513,7 +522,7 @@ struct PackagesPassengerInfoView: View {
     }
     
     // MARK: 售價明細
-    private var priceDetailSection: some View {
+    private func priceDetailSection(info: PackagesPassengerInfoModel.PriceInfoModel)-> some View {
         VStack(spacing: 4) {
             PackagesPassengerInfoSectionHeaderView(title: "售價明細")
             
@@ -522,24 +531,24 @@ struct PackagesPassengerInfoView: View {
                     priceItem(name: "消費總金額",
                               defaultImage: "ic_down_01_14",
                               toggleImage: "ic_up_01_14",
-                              discount: "$68,000",
+                              discount: info.amount.amountPrice,
                               nameFont: AppTypography.T03M,
                               nameColor: AppColor.Text.neutralBodyBase,
                               discountFont: AppTypography.N05M,
                               discountColor: AppColor.Text.neutralBodyBase)
                     
                     if isShowPricePerson {
-                        pricePersonCard
+                        pricePersonCard(info.amount)
                     }
                     
-                    priceItem(name: "優惠折扣", discount: "-$800")
-                    priceItem(name: "可樂旅遊幣", discount: "-$1000")
+                    priceItem(name: info.coupon.title, discount: info.coupon.price)
+                    priceItem(name: info.colaCoin.title, discount: info.colaCoin.price)
                 }
                 
                 divider(padding: 0)
                 
                 priceItem(name: "機+酒含稅總計",
-                          discount: "$66,200",
+                          discount: info.totalTaxPrice,
                           nameFont: AppTypography.T03R,
                           nameColor: AppColor.Text.neutralBodyBase,
                           discountFont: AppTypography.N01M,
@@ -550,13 +559,13 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
-    private var pricePersonCard: some View {
+    private func pricePersonCard(_ amount: PackagesPassengerInfoModel.Amount)-> some View {
         VStack(spacing: 8) {
-            ForEach([0,1], id: \.self) { _ in
-                pricePerPerson(appellation: "大人",
-                               pricePrePerson: "$17,000",
-                               numberOfPeople: "x2",
-                               totalPrice: "$34,000")
+            ForEach(amount.amountDetailList, id: \.id) { detail in
+                pricePerPerson(appellation: detail.appellation,
+                               pricePrePerson: detail.pricePrePerson,
+                               numberOfPeople: detail.numberOfPeople,
+                               totalPrice: detail.totalPrice)
             }
         }
         .padding(.horizontal, 12)
@@ -619,7 +628,7 @@ struct PackagesPassengerInfoView: View {
                 .multilineTextAlignment(.trailing)
         }
     }
-
+    
     private func priceItemName(_ name: String, font: Font, color: Color) -> some View {
         Text(name)
             .font(font)
@@ -655,7 +664,7 @@ struct PackagesPassengerInfoView: View {
         }
         .fullScreenCover(isPresented: $isShowingOrderTerms) {
             NavigationView {
-                OrderTermsView(hasReadOrderTerms: $hasReadOrderTerms)
+                PackagesPassengerInfoOrderTermsView(hasReadOrderTerms: $hasReadOrderTerms, infoList: viewModel.info?.orderTermsList ?? [])
             }
         }
 //        .background {
