@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */; };
 		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */; };
 		7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */; };
 		7B213757300DD75500F94F3C /* UseCouponSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */; };
@@ -55,7 +56,19 @@
 		7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF022E92FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AA0000030000000000000003 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B785D132FA8421400079056 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B785D1A2FA8421400079056;
+			remoteInfo = AirHotel;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoViewModelTests.swift; sourceTree = "<group>"; };
+		AA0000040000000000000004 /* AirHotelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirHotelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoModel.swift; sourceTree = "<group>"; };
 		7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoSectionHeaderView.swift; sourceTree = "<group>"; };
 		7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCouponSwiftUIView.swift; sourceTree = "<group>"; };
@@ -106,6 +119,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA0000050000000000000005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B785D182FA8421400079056 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -213,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				7B2D22DD2FC7DC0800D0531F /* AirHotel */,
+				AA0000060000000000000006 /* AirHotelTests */,
 				7B785D1C2FA8421400079056 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -221,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				7B785D1B2FA8421400079056 /* AirHotel.app */,
+				AA0000040000000000000004 /* AirHotelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -281,9 +303,37 @@
 			path = DesignSystem;
 			sourceTree = "<group>";
 		};
+		AA0000060000000000000006 /* AirHotelTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */,
+			);
+			path = AirHotelTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AA0000070000000000000007 /* AirHotelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0000080000000000000008 /* Build configuration list for PBXNativeTarget "AirHotelTests" */;
+			buildPhases = (
+				AA0000090000000000000009 /* Sources */,
+				AA0000050000000000000005 /* Frameworks */,
+				AA00000A000000000000000A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA00000B000000000000000B /* PBXTargetDependency */,
+			);
+			name = AirHotelTests;
+			packageProductDependencies = (
+			);
+			productName = AirHotelTests;
+			productReference = AA0000040000000000000004 /* AirHotelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7B785D1A2FA8421400079056 /* AirHotel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7B785D262FA8421500079056 /* Build configuration list for PBXNativeTarget "AirHotel" */;
@@ -313,6 +363,10 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					AA0000070000000000000007 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 7B785D1A2FA8421400079056;
+					};
 					7B785D1A2FA8421400079056 = {
 						CreatedOnToolsVersion = 26.3;
 					};
@@ -335,11 +389,19 @@
 			projectRoot = "";
 			targets = (
 				7B785D1A2FA8421400079056 /* AirHotel */,
+				AA0000070000000000000007 /* AirHotelTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA00000A000000000000000A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B785D192FA8421400079056 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,6 +414,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA0000090000000000000009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7B785D172FA8421400079056 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -405,7 +475,45 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AA00000B000000000000000B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B785D1A2FA8421400079056 /* AirHotel */;
+			targetProxy = AA0000030000000000000003 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AA00000C000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.AirHotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirHotel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirHotel";
+			};
+			name = Debug;
+		};
+		AA00000D000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.AirHotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirHotel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirHotel";
+			};
+			name = Release;
+		};
 		7B785D242FA8421500079056 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -592,6 +700,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA0000080000000000000008 /* Build configuration list for PBXNativeTarget "AirHotelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA00000C000000000000000C /* Debug */,
+				AA00000D000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7B785D162FA8421400079056 /* Build configuration list for PBXProject "AirHotel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

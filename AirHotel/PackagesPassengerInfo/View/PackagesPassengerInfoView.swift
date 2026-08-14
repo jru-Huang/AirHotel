@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct PackagesPassengerInfoView: View {
+    
+   private enum SectionID {
+        static let travelerInfo = "travelerInfoSection"
+    }
+    
     @StateObject private var viewModel: PackagesPassengerInfoViewModel
     @State private var isShowPricePerson = false
     @State private var hasReadOrderTerms = false
     @State private var isShowingOrderTerms = false
+    @State private var isShowingTravelerToast = false
     
     init(viewModel: PackagesPassengerInfoViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -25,8 +31,9 @@ struct PackagesPassengerInfoView: View {
         VStack(spacing: 0) {
             timeLimitView
             
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 0) {
                     
                     if hasNotice {
                         noticeView
@@ -41,6 +48,7 @@ struct PackagesPassengerInfoView: View {
                         
                         if let travelerInfo = viewModel.info?.travelerInfo {
                             travelerInfoSection(info: travelerInfo)
+                                .id(SectionID.travelerInfo)
                         }
                         
                         if let priceInfo = viewModel.info?.priceDetail {
@@ -50,7 +58,10 @@ struct PackagesPassengerInfoView: View {
                         orderTermsSection
                     }
                     
-                    submit
+                        submit {
+                            handleSubmit(proxy: proxy)
+                        }
+                    }
                 }
             }
         }
@@ -71,6 +82,18 @@ struct PackagesPassengerInfoView: View {
                         viewModel.dismissExpireTimeDialog()
                     }
                 )
+            }
+        }
+        .overlay(alignment: .bottom) {
+            if isShowingTravelerToast {
+                Text("請填寫旅客資料")
+                    .font(AppTypography.B03R)
+                    .foregroundStyle(AppColor.Text.neutralWhite)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(AppColor.Surface.opacityGrayDark, in: Capsule())
+                    .padding(.bottom, safeAreaBottomInset + 24)
+                    .transition(.opacity)
             }
         }
     }
@@ -464,7 +487,11 @@ struct PackagesPassengerInfoView: View {
                     if !hasCompleted {
                         Text("請填寫旅客資料")
                             .font(AppTypography.B03R)
-                            .foregroundStyle(AppColor.Text.neutralSubtle)
+                            .foregroundStyle(
+                                viewModel.hasTravelerInfoError
+                                    ? AppColor.Text.stateError
+                                    : AppColor.Text.neutralSubtle
+                            )
                     }
                     Image("ic_right_20")
                 }
@@ -678,11 +705,9 @@ struct PackagesPassengerInfoView: View {
 //        }
     }
     
-    private var submit: some View {
+    private func submit(action: @escaping () -> Void) -> some View {
         VStack(spacing: 0) {
-            Button {
-                print("送出訂單")
-            } label: {
+            Button(action: action) {
                 Text("送出訂單")
                     .font(AppTypography.L02M)
                     .foregroundStyle(AppColor.Text.neutralWhite)
@@ -693,6 +718,27 @@ struct PackagesPassengerInfoView: View {
             
             AppColor.Surface.brandPrimaryBase
                 .frame(height: safeAreaBottomInset)
+        }
+    }
+
+    private func handleSubmit(proxy: ScrollViewProxy) {
+        switch viewModel.submitResult(hasAgreedOrderTerms: hasReadOrderTerms) {
+        case .success:
+            print("送出訂單")
+        case .incompleteTravelerInfo:
+            withAnimation {
+                proxy.scrollTo(SectionID.travelerInfo, anchor: .top)
+                isShowingTravelerToast = true
+            }
+            
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                withAnimation {
+                    isShowingTravelerToast = false
+                }
+            }
+        case .orderTermsNotAccepted:
+            isShowingOrderTerms = true
         }
     }
     

@@ -8,14 +8,20 @@
 import SwiftUI
 import Combine // Combine, ObservableObject
 
+enum PackagesPassengerInfoSubmitResult: Equatable {
+    case success
+    case incompleteTravelerInfo
+    case orderTermsNotAccepted
+}
+
 class PackagesPassengerInfoViewModel: ObservableObject {
     
     @Published var lineNotice: PackagesDynamicBundleSystemNoticeModel?
     @Published var systemNotice: PackagesDynamicBundleSystemNoticeModel?
+    @Published var info: PackagesPassengerInfoModel?
     @Published var remainingCountdownSeconds = 0
     @Published var isShowingExpireTimeDialog = false
-    
-    @Published var info: PackagesPassengerInfoModel?
+    @Published var hasTravelerInfoError = false
     
     private var countdownTimer: Timer?
     
@@ -32,6 +38,24 @@ class PackagesPassengerInfoViewModel: ObservableObject {
     
     func dismissExpireTimeDialog() {
         isShowingExpireTimeDialog = false
+    }
+    
+    func submitResult(hasAgreedOrderTerms: Bool) -> PackagesPassengerInfoSubmitResult {
+        
+        let isTravelerInfoCompleted = info?.travelerInfo.travelerList.allSatisfy { !$0.pax.paxDetailList.isEmpty
+        } ?? false
+        
+        hasTravelerInfoError = !isTravelerInfoCompleted
+        
+        guard isTravelerInfoCompleted else {
+            return .incompleteTravelerInfo
+        }
+        
+        guard hasAgreedOrderTerms else {
+            return .orderTermsNotAccepted
+        }
+        
+        return .success
     }
     
     func presentNoticeInfo(_ noticeInfo: PackagesNoticeDetailInfo) {
