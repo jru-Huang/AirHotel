@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */; };
 		7B0590AD2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */; };
 		7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */; };
 		7B213757300DD75500F94F3C /* UseCouponSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */; };
@@ -26,7 +25,7 @@
 		7B39BE2F2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */; };
 		7B39BE312FC96A69003ABF42 /* PackagesComboHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */; };
 		7B39BE332FC96B3C003ABF42 /* PackagesComboNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */; };
-		7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */; };
+		7B39BE352FC96B96003ABF42 /* PackagesDynamicBundlePolicyNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE342FC96B96003ABF42 /* PackagesDynamicBundlePolicyNoticeView.swift */; };
 		7B39BE372FC96BC8003ABF42 /* PackagesDynamicBundleSystemNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE362FC96BC8003ABF42 /* PackagesDynamicBundleSystemNoticeView.swift */; };
 		7B39BE392FC96CC3003ABF42 /* PackagesComboViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */; };
 		7B39BE3B2FC971CF003ABF42 /* PackagesComboNavInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */; };
@@ -53,7 +52,10 @@
 		7BE414C72FD2784600BF0EB6 /* DesignToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414BD2FD2784600BF0EB6 /* DesignToken.swift */; };
 		7BE414C82FD2784600BF0EB6 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414C22FD2784600BF0EB6 /* AppTypography.swift */; };
 		7BE414CA2FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414C92FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift */; };
+		7BE9CD18302F093800BF0CCE /* CloseNavBarSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9CD17302F093800BF0CCE /* CloseNavBarSwiftUIView.swift */; };
+		7BE9CD1A302F0AB800BF0CCE /* PackagesPassengerInfoHotelCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9CD19302F0AB700BF0CCE /* PackagesPassengerInfoHotelCardView.swift */; };
 		7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF022E92FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift */; };
+		AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +69,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoViewModelTests.swift; sourceTree = "<group>"; };
-		AA0000040000000000000004 /* AirHotelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirHotelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0590AC2FD6C5E60016FCC3 /* PackagesNoticeInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoModel.swift; sourceTree = "<group>"; };
 		7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoSectionHeaderView.swift; sourceTree = "<group>"; };
 		7B213756300DD75500F94F3C /* UseCouponSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCouponSwiftUIView.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		7B39BE2E2FC9665D003ABF42 /* PackagesComboSystemNoticeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboSystemNoticeModel.swift; sourceTree = "<group>"; };
 		7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHeader.swift; sourceTree = "<group>"; };
 		7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavView.swift; sourceTree = "<group>"; };
-		7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboPolicyNoticeView.swift; sourceTree = "<group>"; };
+		7B39BE342FC96B96003ABF42 /* PackagesDynamicBundlePolicyNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesDynamicBundlePolicyNoticeView.swift; sourceTree = "<group>"; };
 		7B39BE362FC96BC8003ABF42 /* PackagesDynamicBundleSystemNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesDynamicBundleSystemNoticeView.swift; sourceTree = "<group>"; };
 		7B39BE382FC96CC3003ABF42 /* PackagesComboViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboViewModel.swift; sourceTree = "<group>"; };
 		7B39BE3A2FC971CF003ABF42 /* PackagesComboNavInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboNavInfo.swift; sourceTree = "<group>"; };
@@ -115,18 +115,22 @@
 		7BE414C12FD2784600BF0EB6 /* AppSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSpacing.swift; sourceTree = "<group>"; };
 		7BE414C22FD2784600BF0EB6 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
 		7BE414C92FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboChangeSearchNavView.swift; sourceTree = "<group>"; };
+		7BE9CD17302F093800BF0CCE /* CloseNavBarSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseNavBarSwiftUIView.swift; sourceTree = "<group>"; };
+		7BE9CD19302F0AB700BF0CCE /* PackagesPassengerInfoHotelCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoHotelCardView.swift; sourceTree = "<group>"; };
 		7BF022E92FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdImageViewSwiftUIView.swift; sourceTree = "<group>"; };
+		AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoViewModelTests.swift; sourceTree = "<group>"; };
+		AA0000040000000000000004 /* AirHotelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AirHotelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AA0000050000000000000005 /* Frameworks */ = {
+		7B785D182FA8421400079056 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7B785D182FA8421400079056 /* Frameworks */ = {
+		AA0000050000000000000005 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -175,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				7B39BE322FC96B3C003ABF42 /* PackagesComboNavView.swift */,
-				7B39BE342FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift */,
+				7B39BE342FC96B96003ABF42 /* PackagesDynamicBundlePolicyNoticeView.swift */,
 				7B39BE362FC96BC8003ABF42 /* PackagesDynamicBundleSystemNoticeView.swift */,
 				7B39BE302FC96A69003ABF42 /* PackagesComboHeader.swift */,
 				7B2D22EB2FC820B900D0531F /* PackagesComboCardTitle.swift */,
@@ -260,9 +264,11 @@
 		7B9B132B30242E3B00464369 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7BE9CD16302F08A300BF0CCE /* Common */,
 				7B9B132930241B6700464369 /* PackagesPassengerInfoView.swift */,
 				7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */,
 				7B3ECD70302B0F4E00550AA6 /* PackagesPassengerInfoOrderTermsView.swift */,
+				7BE9CD19302F0AB700BF0CCE /* PackagesPassengerInfoHotelCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -303,6 +309,14 @@
 			path = DesignSystem;
 			sourceTree = "<group>";
 		};
+		7BE9CD16302F08A300BF0CCE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				7BE9CD17302F093800BF0CCE /* CloseNavBarSwiftUIView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		AA0000060000000000000006 /* AirHotelTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +328,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7B785D1A2FA8421400079056 /* AirHotel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B785D262FA8421500079056 /* Build configuration list for PBXNativeTarget "AirHotel" */;
+			buildPhases = (
+				7B785D172FA8421400079056 /* Sources */,
+				7B785D182FA8421400079056 /* Frameworks */,
+				7B785D192FA8421400079056 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirHotel;
+			packageProductDependencies = (
+			);
+			productName = AirHotel;
+			productReference = 7B785D1B2FA8421400079056 /* AirHotel.app */;
+			productType = "com.apple.product-type.application";
+		};
 		AA0000070000000000000007 /* AirHotelTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA0000080000000000000008 /* Build configuration list for PBXNativeTarget "AirHotelTests" */;
@@ -334,25 +367,6 @@
 			productReference = AA0000040000000000000004 /* AirHotelTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7B785D1A2FA8421400079056 /* AirHotel */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7B785D262FA8421500079056 /* Build configuration list for PBXNativeTarget "AirHotel" */;
-			buildPhases = (
-				7B785D172FA8421400079056 /* Sources */,
-				7B785D182FA8421400079056 /* Frameworks */,
-				7B785D192FA8421400079056 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AirHotel;
-			packageProductDependencies = (
-			);
-			productName = AirHotel;
-			productReference = 7B785D1B2FA8421400079056 /* AirHotel.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -363,12 +377,12 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					7B785D1A2FA8421400079056 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					AA0000070000000000000007 = {
 						CreatedOnToolsVersion = 26.3;
 						TestTargetID = 7B785D1A2FA8421400079056;
-					};
-					7B785D1A2FA8421400079056 = {
-						CreatedOnToolsVersion = 26.3;
 					};
 				};
 			};
@@ -395,13 +409,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AA00000A000000000000000A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7B785D192FA8421400079056 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -411,17 +418,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		AA0000090000000000000009 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
+		AA00000A000000000000000A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
 		7B785D172FA8421400079056 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -429,6 +435,7 @@
 				7B2D22DE2FC7DC0800D0531F /* AirHotelApp.swift in Sources */,
 				7B09808E3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift in Sources */,
 				7B2D22DF2FC7DC0800D0531F /* PackagesComboView.swift in Sources */,
+				7BE9CD1A302F0AB800BF0CCE /* PackagesPassengerInfoHotelCardView.swift in Sources */,
 				7B4767992FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift in Sources */,
 				7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */,
 				7B6411BF2FD001AF00EC660B /* PackagesComboAmountDetailView.swift in Sources */,
@@ -441,7 +448,7 @@
 				7B2D22E12FC7DC0800D0531F /* ContentView.swift in Sources */,
 				7B2D22EA2FC81D4B00D0531F /* PackagesComboAirCard.swift in Sources */,
 				7B213757300DD75500F94F3C /* UseCouponSwiftUIView.swift in Sources */,
-				7B39BE352FC96B96003ABF42 /* PackagesComboPolicyNoticeView.swift in Sources */,
+				7B39BE352FC96B96003ABF42 /* PackagesDynamicBundlePolicyNoticeView.swift in Sources */,
 				7BE414C42FD2784600BF0EB6 /* AppSpacing.swift in Sources */,
 				7BE414C52FD2784600BF0EB6 /* UIColor+Hex.swift in Sources */,
 				7B33A1CD3029656100F508AD /* BulletExpandableTextView.swift in Sources */,
@@ -452,6 +459,7 @@
 				7BE414C72FD2784600BF0EB6 /* DesignToken.swift in Sources */,
 				7BE414C82FD2784600BF0EB6 /* AppTypography.swift in Sources */,
 				7B39BE3D2FC97A61003ABF42 /* PackagesComboHotelCard.swift in Sources */,
+				7BE9CD18302F093800BF0CCE /* CloseNavBarSwiftUIView.swift in Sources */,
 				7B39BE3B2FC971CF003ABF42 /* PackagesComboNavInfo.swift in Sources */,
 				7B2D22EC2FC820B900D0531F /* PackagesComboCardTitle.swift in Sources */,
 				7B3343662FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift in Sources */,
@@ -473,6 +481,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA0000090000000000000009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -484,36 +500,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		AA00000C000000000000000C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.AirHotelTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirHotel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirHotel";
-			};
-			name = Debug;
-		};
-		AA00000D000000000000000D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.AirHotelTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirHotel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirHotel";
-			};
-			name = Release;
-		};
 		7B785D242FA8421500079056 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -697,18 +683,39 @@
 			};
 			name = Release;
 		};
+		AA00000C000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.AirHotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirHotel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirHotel";
+			};
+			name = Debug;
+		};
+		AA00000D000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.AirHotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirHotel.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AirHotel";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AA0000080000000000000008 /* Build configuration list for PBXNativeTarget "AirHotelTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA00000C000000000000000C /* Debug */,
-				AA00000D000000000000000D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		7B785D162FA8421400079056 /* Build configuration list for PBXProject "AirHotel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -723,6 +730,15 @@
 			buildConfigurations = (
 				7B785D272FA8421500079056 /* Debug */,
 				7B785D282FA8421500079056 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0000080000000000000008 /* Build configuration list for PBXNativeTarget "AirHotelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA00000C000000000000000C /* Debug */,
+				AA00000D000000000000000D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

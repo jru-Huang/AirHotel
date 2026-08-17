@@ -17,6 +17,7 @@ struct PackagesPassengerInfoView: View {
     @State private var isShowPricePerson = false
     @State private var hasReadOrderTerms = false
     @State private var isShowingOrderTerms = false
+    @State private var isShowingHotelCard = false
     @State private var isShowingTravelerToast = false
     
     init(viewModel: PackagesPassengerInfoViewModel) {
@@ -58,8 +59,8 @@ struct PackagesPassengerInfoView: View {
                         orderTermsSection
                     }
                     
-                        submit {
-                            handleSubmit(proxy: proxy)
+                        submitView {
+                            onTouchSubmit(proxy: proxy)
                         }
                     }
                 }
@@ -327,7 +328,7 @@ struct PackagesPassengerInfoView: View {
     // MARK: 飯店
     private func hotelCard(info: PackagesPassengerInfoModel.HotelInfoModel)-> some View {
         Button {
-            print("點選入住資訊")
+            isShowingHotelCard = true
         } label: {
             VStack(alignment: .leading, spacing: 4) {
                 hotelName(info.hotelName)
@@ -337,6 +338,9 @@ struct PackagesPassengerInfoView: View {
             .padding(.bottom, 12)
             .background(AppColor.Surface.neutralWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .fullScreenCover(isPresented: $isShowingHotelCard) {
+            PackagesPassengerInfoHotelCardView()
         }
     }
     
@@ -705,7 +709,7 @@ struct PackagesPassengerInfoView: View {
 //        }
     }
     
-    private func submit(action: @escaping () -> Void) -> some View {
+    private func submitView(action: @escaping () -> Void) -> some View {
         VStack(spacing: 0) {
             Button(action: action) {
                 Text("送出訂單")
@@ -721,7 +725,7 @@ struct PackagesPassengerInfoView: View {
         }
     }
 
-    private func handleSubmit(proxy: ScrollViewProxy) {
+    private func onTouchSubmit(proxy: ScrollViewProxy) {
         switch viewModel.submitResult(hasAgreedOrderTerms: hasReadOrderTerms) {
         case .success:
             print("送出訂單")

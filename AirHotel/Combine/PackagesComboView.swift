@@ -74,7 +74,7 @@ extension PackagesComboView {
         VStack(spacing: 0) {
             if let policyNotice = viewModel.policyNotice,
                let policyNoticeContent = policyNotice.noticeDetailList.first?.content {
-                PackagesComboPolicyNoticeView(notice: policyNoticeContent) {
+                PackagesDynamicBundlePolicyNoticeView(notice: policyNoticeContent) {
                     presentNoticeInfo(policyNotice)
                 }
             }
