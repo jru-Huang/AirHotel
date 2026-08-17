@@ -10,6 +10,8 @@ import SwiftUI
 struct PackagesPassengerInfoHotelCardView: View {
     @Environment(\.dismiss) private var dismiss
     
+    var detail: PackagesPassengerInfoModel.HotelDetail
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -32,7 +34,7 @@ struct PackagesPassengerInfoHotelCardView: View {
     }
     
     private var hotelNameSection: some View {
-        Text("飯店名稱")
+        Text(detail.hotelChineseName)
     }
     
     private var roomDescSection: some View {
@@ -42,14 +44,18 @@ struct PackagesPassengerInfoHotelCardView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 4))
             
             VStack(alignment: .leading, spacing: 6) {
-                Text("標準雙床房，非吸菸房(View will be selected by the hotel )標準雙床房，非吸菸房(View will be selected by the hotel )標準雙床房，非吸菸房(View will be selected by the hotel )標準雙床房，非吸菸房(View will be selected by the hotel )")
+                Text(detail.roomDescription)
                     .font(AppTypography.B04M)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 2) {
-                    Image("ic_breakfast_16_gray") // jur: icon名修改
-                    Text("僅包含大人早餐")
+                    if detail.breakfastMark {
+                        Image("ic_breakfast_16_gray") // jur: icon名修改
+                    }else {
+                        Image("ic_np_breakfast_16_gray")
+                    }
+                    Text(detail.breakfastType)
                         .font(AppTypography.B05R)
                         .foregroundStyle(AppColor.Text.neutralBodyMid)
                 }
@@ -67,12 +73,12 @@ struct PackagesPassengerInfoHotelCardView: View {
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
             HStack(spacing: 2) {
                 Image("ic_check_16_green")
-                Text("05月25日之前可免費取消")
+                Text(detail.bookingRule)
                     .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.stateSuccess)
             }
             
-            let ruleList = ["此為機加酒套裝組合，。","在2026年4月13日 "]
+            let ruleList = [detail.serviceFeeDesc, detail.cancelDesc]
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(ruleList, id: \.self) { rule in
                     HStack(alignment: .top, spacing: 6) {
@@ -105,7 +111,7 @@ struct PackagesPassengerInfoHotelCardView: View {
                 Text("入住時間")
                     .font(AppTypography.T03R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text("16:00~23:00")
+                Text(detail.checkInTime)
                     .font(AppTypography.N05R)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
             }
@@ -117,7 +123,7 @@ struct PackagesPassengerInfoHotelCardView: View {
                 Text("退房時間")
                     .font(AppTypography.T03R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text("11:00 前")
+                Text(detail.checkOutTime)
                     .font(AppTypography.N05R)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
             }
@@ -134,7 +140,7 @@ struct PackagesPassengerInfoHotelCardView: View {
             Text("入住資訊")
                 .font(AppTypography.T04M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
-            Text("【入住說明】 入住手續開始時間：15:00 入住手續截止時間：00:00 退房時間：11:00\n若有額外房客入住，住宿業者會依照其規定收取費用\n辦理入住手續時可能需要出示政府核發且附有照片的證件，並以現金作為押金或提供信用卡/金融卡以支付雜費\n 住宿無法保證能符合房客所有特殊住房要求，房客須於辦理入住手續時與住宿確認；特殊入住要求可能需要加收費用\n此住宿接受信用卡、行動支付及現金等付款方式\n行動支付選項包括：PayPay\n請注意，不同國家和不同住宿的文化規範和旅客規定會有所不同，顯示的規定由住宿業者提供")
+            Text(detail.checkInfo)
                 .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
         }
@@ -162,5 +168,22 @@ struct PackagesPassengerInfoHotelCardView: View {
 }
 
 #Preview {
-    PackagesPassengerInfoHotelCardView()
+    PackagesPassengerInfoHotelCardView(detail: PackagesPassengerInfoModel.HotelDetail(
+        hotelChineseName: "JR東日本大都會酒店 池袋 ",
+        hotelEnglishName: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTEL METROPOLITAN TOKYO IKEBUKURO",
+        hotelGrade: 4.2,
+        gradeDesc: "4星級飯店",
+        hotelRating: 4,
+        hotelGreenMark: true,
+        displayTag: ["慶祝台灣隊金牌", "旅展促銷"],
+        roomDescription: "標準雙床房，非吸菸房(View will be selected by the hotel )",
+        breakfastMark: true,
+        breakfastType: "僅包含大人早餐",
+        bookingRule: "05月25日之前可免費取消",
+        guaranteeMark: false,
+        serviceFeeDesc: "● 此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。",
+        cancelDesc: "● 在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)",
+        checkInTime: "16:00~23:00",
+        checkOutTime: "11:00 前",
+        checkInfo: "【入住說明】 入住手續開始時間：15:00 入住手續截止時間：00:00 退房時間：11:00\n若有額外房客入住，住宿業者會依照其規定收取費用\n辦理入住手續時可能需要出示政府核發且附有照片的證件，並以現金作為押金或提供信用卡/金融卡以支付雜費\n 住宿無法保證能符合房客所有特殊住房要求，房客須於辦理入住手續時與住宿確認；特殊入住要求可能需要加收費用\n此住宿接受信用卡、行動支付及現金等付款方式\n行動支付選項包括：PayPay\n請注意，不同國家和不同住宿的文化規範和旅客規定會有所不同，顯示的規定由住宿業者提供"))
 }

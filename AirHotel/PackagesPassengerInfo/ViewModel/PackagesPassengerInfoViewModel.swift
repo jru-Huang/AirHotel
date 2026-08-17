@@ -195,7 +195,27 @@ extension PackagesPassengerInfoViewModel {
                     hotelName: "JR九州最大五星超高級日本大都會酒JR九州最大五星超高級日本大都會酒",
                     checkInDate: "09/12 (二)",
                     checkOutDate: "09/28 (二)",
-                    roomDesc: "標準雙床房，非吸菸房(View will be selected by the hotel )"),
+                    roomDesc: "標準雙床房，非吸菸房(View will be selected by the hotel )",
+                    hotelDetail:
+                        PackagesPassengerInfoModel.HotelDetail(
+                            hotelChineseName: "JR東日本大都會酒店 池袋 ",
+                            hotelEnglishName: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTEL METROPOLITAN TOKYO IKEBUKURO",
+                            hotelGrade: 4.2,
+                            gradeDesc: "4星級飯店",
+                            hotelRating: 4,
+                            hotelGreenMark: true,
+                            displayTag: ["慶祝台灣隊金牌", "旅展促銷"],
+                            roomDescription: "標準雙床房，非吸菸房(View will be selected by the hotel )",
+                            breakfastMark: true,
+                            breakfastType: "僅包含大人早餐",
+                            bookingRule: "05月25日之前可免費取消",
+                            guaranteeMark: false,
+                            serviceFeeDesc: "● 此為機加酒套裝組合，需連同機票一起調整，並另收可樂旅遊服務費TWD 500/次。",
+                            cancelDesc: "● 在2026年4月13日 18:00前可免費取消。(如有變動將另行通知)",
+                            checkInTime: "16:00~23:00",
+                            checkOutTime: "11:00 前",
+                            checkInfo: "【入住說明】 入住手續開始時間：15:00 入住手續截止時間：00:00 退房時間：11:00\n若有額外房客入住，住宿業者會依照其規定收取費用\n辦理入住手續時可能需要出示政府核發且附有照片的證件，並以現金作為押金或提供信用卡/金融卡以支付雜費\n 住宿無法保證能符合房客所有特殊住房要求，房客須於辦理入住手續時與住宿確認；特殊入住要求可能需要加收費用\n此住宿接受信用卡、行動支付及現金等付款方式\n行動支付選項包括：PayPay\n請注意，不同國家和不同住宿的文化規範和旅客規定會有所不同，顯示的規定由住宿業者提供")
+                ),
             buyerInfo:
                 PackagesPassengerInfoModel.BuyerInfoModel(
                     buyerName: "王大明",

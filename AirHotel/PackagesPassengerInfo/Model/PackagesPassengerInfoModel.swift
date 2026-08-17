@@ -37,6 +37,32 @@ struct PackagesPassengerInfoModel: Identifiable {
         let checkInDate: String
         let checkOutDate: String
         let roomDesc: String
+        let hotelDetail: HotelDetail
+    }
+    
+    struct HotelDetail {
+        // 飯店名稱
+        let hotelChineseName: String
+        let hotelEnglishName: String
+        let hotelGrade: Double // 星級
+        let gradeDesc: String // 星等描述 (APP顯示)，如果沒有資料則回傳空字串
+        let hotelRating: Double // 評分
+        let hotelGreenMark: Bool
+        let displayTag: [String]
+        // 房型
+        let roomDescription: String // 房型
+        let breakfastMark: Bool // 是否含早餐
+        let breakfastType: String // 早餐
+        // 取消/更改說明
+        let bookingRule: String
+        let guaranteeMark: Bool
+        let serviceFeeDesc: String
+        let cancelDesc: String
+        // 入住退房時間
+        let checkInTime: String
+        let checkOutTime: String
+        // 入住資訊
+        let checkInfo: String
     }
     
     struct BuyerInfoModel {

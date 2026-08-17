@@ -340,7 +340,7 @@ struct PackagesPassengerInfoView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
         .fullScreenCover(isPresented: $isShowingHotelCard) {
-            PackagesPassengerInfoHotelCardView()
+            PackagesPassengerInfoHotelCardView(detail: info.hotelDetail)
         }
     }
     
