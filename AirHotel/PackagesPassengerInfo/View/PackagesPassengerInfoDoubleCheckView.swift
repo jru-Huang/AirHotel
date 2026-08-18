@@ -22,7 +22,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
     
     @Environment(\.dismiss) private var dismiss
     
-    @State private var hasError: Bool = true
+    @State private var hasError: Bool = false
     @State private var hasAcceptedInfo: Bool = false
     @State private var presentAlert: Bool = false
     
@@ -55,6 +55,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 
                 contentView
                     .frame(maxHeight: proxy.size.height * 0.8)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .overlay {
