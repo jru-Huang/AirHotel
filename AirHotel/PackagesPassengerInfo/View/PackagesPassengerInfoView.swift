@@ -35,43 +35,19 @@ struct PackagesPassengerInfoView: View {
             timeLimitView
             
             ScrollViewReader { proxy in
-                ScrollView {
-                    VStack(spacing: 0) {
-                    
-                    if hasNotice {
-                        noticeView
-                    }
-                    
-                    packagesInfoView
-                    
-                    VStack(spacing: 12) {
-                        if let buyerInfo = viewModel.info?.buyerInfo {
-                            buyerInfoSection(info: buyerInfo)
+                VStack(spacing: 0) {
+                    contentView
+                        .onChange(of: shouldScrollToTravelerInfo) { shouldScroll in
+                            guard shouldScroll else { return }
+                            withAnimation {
+                                proxy.scrollTo(SectionID.travelerInfo, anchor: .top)
+                            }
+                            shouldScrollToTravelerInfo = false
                         }
-                        
-                        if let travelerInfo = viewModel.info?.travelerInfo {
-                            travelerInfoSection(info: travelerInfo)
-                                .id(SectionID.travelerInfo)
-                        }
-                        
-                        if let priceInfo = viewModel.info?.priceDetail {
-                            priceDetailSection(info: priceInfo)
-                        }
-                        
-                        orderTermsSection
-                    }
                     
-                        submitView {
-                            onTouchSubmit(proxy: proxy)
-                        }
+                    submitView {
+                        onTouchSubmit(proxy: proxy)
                     }
-                }
-                .onChange(of: shouldScrollToTravelerInfo) { shouldScroll in
-                    guard shouldScroll else { return }
-                    withAnimation {
-                        proxy.scrollTo(SectionID.travelerInfo, anchor: .top)
-                    }
-                    shouldScrollToTravelerInfo = false
                 }
             }
         }
@@ -132,7 +108,36 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
-    private var packagesInfoView: some View {
+    private var contentView: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                if hasNotice {
+                    noticeView
+                }
+                
+                packagesCards
+                
+                VStack(spacing: 12) {
+                    if let buyerInfo = viewModel.info?.buyerInfo {
+                        buyerInfoSection(info: buyerInfo)
+                    }
+                    
+                    if let travelerInfo = viewModel.info?.travelerInfo {
+                        travelerInfoSection(info: travelerInfo)
+                            .id(SectionID.travelerInfo)
+                    }
+                    
+                    if let priceInfo = viewModel.info?.priceDetail {
+                        priceDetailSection(info: priceInfo)
+                    }
+                    
+                    orderTermsSection
+                }
+            }
+        }
+    }
+    
+    private var packagesCards: some View {
         VStack(spacing: 8) {
             if let airInfo = viewModel.info?.airInfo {
                 airCard(info: airInfo)
