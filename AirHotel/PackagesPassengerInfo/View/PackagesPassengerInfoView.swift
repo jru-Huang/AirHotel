@@ -107,6 +107,17 @@ struct PackagesPassengerInfoView: View {
             }
         }
         .overlay {
+            if isShowingHotelCard,
+               let hotelDetail = viewModel.info?.hotelInfo.hotelDetail {
+                PackagesPassengerInfoHotelCardView(
+                    detail: hotelDetail,
+                    onClose: {
+                        isShowingHotelCard = false
+                    }
+                )
+            }
+        }
+        .overlay {
             if isShowingDoubleCheck {
                 PackagesPassengerInfoDoubleCheckView(
                     onClose: {
@@ -360,9 +371,6 @@ struct PackagesPassengerInfoView: View {
             .padding(.bottom, 12)
             .background(AppColor.Surface.neutralWhite)
             .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-        .fullScreenCover(isPresented: $isShowingHotelCard) {
-            PackagesPassengerInfoHotelCardView(detail: info.hotelDetail)
         }
     }
     
