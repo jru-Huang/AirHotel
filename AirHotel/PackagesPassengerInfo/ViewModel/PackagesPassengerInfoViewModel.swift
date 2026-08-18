@@ -198,7 +198,7 @@ extension PackagesPassengerInfoViewModel {
                     roomDesc: "標準雙床房，非吸菸房(View will be selected by the hotel )",
                     hotelDetail:
                         PackagesPassengerInfoModel.HotelDetail(
-                            hotelChineseName: "JR東日本大都會酒店 池袋 ",
+                            hotelChineseName: "JR東日本大都會酒店 池袋JR東日本大都會酒店 池袋 ",
                             hotelEnglishName: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTEL METROPOLITAN TOKYO IKEBUKURO",
                             hotelGrade: 4.2,
                             gradeDesc: "4星級飯店",
@@ -236,8 +236,8 @@ extension PackagesPassengerInfoViewModel {
                             paxGivenName: "Beauty",
                             isRoomLeader: false)
                     ])),
-                    PackagesPassengerInfoModel.Traveler(room: "房間2", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: [])),
-                    PackagesPassengerInfoModel.Traveler(room: "房間3", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: []))
+//                    PackagesPassengerInfoModel.Traveler(room: "房間2", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: [])),
+//                    PackagesPassengerInfoModel.Traveler(room: "房間3", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: []))
                 ]),
             priceDetail: PackagesPassengerInfoModel.PriceInfoModel(amount: PackagesPassengerInfoModel.Amount(
                 amountPrice: "$68,800", amountDetailList: [

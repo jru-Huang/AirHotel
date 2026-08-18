@@ -18,7 +18,9 @@ struct PackagesPassengerInfoView: View {
     @State private var hasReadOrderTerms = false
     @State private var isShowingOrderTerms = false
     @State private var isShowingHotelCard = false
+    @State private var isShowingDoubleCheck = false
     @State private var isShowingTravelerToast = false
+    @State private var shouldScrollToTravelerInfo = false
     
     init(viewModel: PackagesPassengerInfoViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -64,6 +66,13 @@ struct PackagesPassengerInfoView: View {
                         }
                     }
                 }
+                .onChange(of: shouldScrollToTravelerInfo) { shouldScroll in
+                    guard shouldScroll else { return }
+                    withAnimation {
+                        proxy.scrollTo(SectionID.travelerInfo, anchor: .top)
+                    }
+                    shouldScrollToTravelerInfo = false
+                }
             }
         }
         .ignoresSafeArea(edges: .bottom)
@@ -94,7 +103,21 @@ struct PackagesPassengerInfoView: View {
                     .padding(.vertical, 8)
                     .background(AppColor.Surface.opacityGrayDark, in: Capsule())
                     .padding(.bottom, safeAreaBottomInset + 24)
-                    .transition(.opacity)
+                .transition(.opacity)
+            }
+        }
+        .overlay {
+            if isShowingDoubleCheck {
+                PackagesPassengerInfoDoubleCheckView(
+                    onClose: {
+                        isShowingDoubleCheck = false
+                    },
+                    onEditTravelerInfo: {
+                        isShowingDoubleCheck = false
+                        shouldScrollToTravelerInfo = true
+                    }
+                )
+                .transition(.opacity)
             }
         }
     }
@@ -350,6 +373,7 @@ struct PackagesPassengerInfoView: View {
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
                 .multilineTextAlignment(.leading)
+                .lineLimit(1)
                 .frame(maxWidth: .infinity, alignment: .leading)
             rightArrow("入住資訊")
         }
@@ -728,7 +752,7 @@ struct PackagesPassengerInfoView: View {
     private func onTouchSubmit(proxy: ScrollViewProxy) {
         switch viewModel.submitResult(hasAgreedOrderTerms: hasReadOrderTerms) {
         case .success:
-            print("送出訂單")
+            isShowingDoubleCheck = true
         case .incompleteTravelerInfo:
             withAnimation {
                 proxy.scrollTo(SectionID.travelerInfo, anchor: .top)
