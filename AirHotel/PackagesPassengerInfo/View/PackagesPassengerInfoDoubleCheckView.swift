@@ -20,8 +20,8 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         let isRepresentative: Bool
     }
     
-    @Environment(\.dismiss) private var dismiss
-    
+    @State private var isBgVisible: Bool = false
+    @State private var isContentVisible: Bool = false
     @State private var hasError: Bool = false
     @State private var hasAcceptedInfo: Bool = false
     @State private var presentAlert: Bool = false
@@ -43,19 +43,31 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         PassengerInfoModel(paxNo: "旅客2", gender: "女性", chineseName: "吳可樂", surname: "WU", givenName: "COLA", birthday: "2000/12/01", isRepresentative: false)
     ]
     
-    var onClose: (() -> Void)?
+    var onClose: (() -> Void)
     var onEditTravelerInfo: (() -> Void)
+
+    private let hideDuration: Double = 0.2
     
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .bottom) {
                 AppColor.Surface.opacityGrayMid
                     .ignoresSafeArea()
-                    .onTapGesture(perform: close)
+                    .onTapGesture(perform: {
+                        dismiss(completion: onClose)
+                    })
+                    .opacity(isBgVisible ? 1 : 0)
                 
                 contentView
                     .frame(maxHeight: proxy.size.height * 0.8)
                     .fixedSize(horizontal: false, vertical: true)
+                    .opacity(isContentVisible ? 1 : 0)
+            }
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.3)) {
+                    isBgVisible = true
+                    isContentVisible = true
+                }
             }
         }
         .overlay {
@@ -107,7 +119,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         ZStack {
             HStack {
                 Button {
-                    close()
+                    dismiss(completion: onClose)
                 } label: {
                     Image("ic_close_20")
                 }
@@ -123,15 +135,21 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         }
         .background(AppColor.Surface.neutralWhite, in: RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
     }
-
-    private func close() {
-        if let onClose {
-            onClose()
-        } else {
-            dismiss()
+    
+    private func dismiss(completion: @escaping (() -> Void)) {
+        withAnimation(nil) {
+            isContentVisible = false
+        }
+        
+        withAnimation(.easeIn(duration: hideDuration)) {
+            isBgVisible = false
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + hideDuration) {
+            completion()
         }
     }
-    
+
     private var descriptionView: some View {
         Text("旅客英文姓、名皆須和護照上相同，並確認稱謂、手機號碼與電子郵件是否正確")
             .font(AppTypography.T03M)
@@ -320,7 +338,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 if hasError {
                     presentAlert = true
                 }else {
-                    onEditTravelerInfo()
+                    dismiss(completion: onEditTravelerInfo)
                 }
             } label: {
                 Text(leftButtonTitle)
@@ -337,7 +355,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
             
             Button {
                 if hasError {
-                    onEditTravelerInfo()
+                    dismiss(completion: onEditTravelerInfo)
                 }else {
                     // p2->p3
                 }
@@ -360,5 +378,5 @@ struct PackagesPassengerInfoDoubleCheckView: View {
 }
 
 #Preview {
-    PackagesPassengerInfoDoubleCheckView( onEditTravelerInfo: {})
+    PackagesPassengerInfoDoubleCheckView( onClose: {}, onEditTravelerInfo: {})
 }

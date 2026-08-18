@@ -117,7 +117,6 @@ struct PackagesPassengerInfoView: View {
                         shouldScrollToTravelerInfo = true
                     }
                 )
-                .transition(.opacity)
             }
         }
     }
