@@ -8,13 +8,43 @@
 import SwiftUI
 
 struct PackagesPassengerInfoDoubleCheckView: View {
+    
+    struct PassengerInfoModel: Identifiable {
+        let id = UUID()
+        let paxNo: String
+        let gender: String
+        let chineseName: String
+        let surname: String
+        let givenName: String
+        let birthday: String
+        let isRepresentative: Bool
+    }
+    
     @Environment(\.dismiss) private var dismiss
-    @State var hasError: Bool = false
-    @State var hasAcceptedInfo: Bool = false
-    @State var presentAlert: Bool = false
+    
+    @State private var hasError: Bool = true
+    @State private var hasAcceptedInfo: Bool = false
+    @State private var presentAlert: Bool = false
+    
+    private var navTitle: String {
+        hasError ? "旅客英文姓名重複" : "再次確認填寫資料"
+    }
+    
+    private var leftButtonTitle: String {
+        hasError ? "重選人數" : "返回修改"
+    }
+    
+    private var rightButtonTitle: String {
+        hasError ? "修改資料" : "確定"
+    }
+    
+    var passengerList = [
+        PassengerInfoModel(paxNo: "旅客1", gender: "男性", chineseName: "吳威廉", surname: "WU", givenName: "WALLEN", birthday: "1990/09/10", isRepresentative: true),
+        PassengerInfoModel(paxNo: "旅客2", gender: "女性", chineseName: "吳可樂", surname: "WU", givenName: "COLA", birthday: "2000/12/01", isRepresentative: false)
+    ]
     
     var onClose: (() -> Void)?
-    var onEditTravelerInfo: (() -> Void)?
+    var onEditTravelerInfo: (() -> Void)
     
     var body: some View {
         GeometryReader { proxy in
@@ -51,8 +81,8 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                     descriptionView
                     noticeView
                     VStack(spacing: 6) {
-                        ForEach([0,1,2,3], id: \.self) { _ in
-                            passengerInfoView
+                        ForEach(passengerList) { passenger in
+                            passengerInfoView(paxInfo: passenger)
                         }
                     }
                     .padding(.bottom, 16)
@@ -86,7 +116,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
             
-            Text(hasError ? "旅客英文姓名重複" : "再次確認填寫資料")
+            Text(navTitle)
                 .font(AppTypography.D03)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
@@ -131,18 +161,22 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private var passengerInfoView: some View {
+    private func passengerInfoView(paxInfo: PassengerInfoModel)-> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("入住代表人")
-                .font(AppTypography.T05M)
-                .foregroundStyle(AppColor.Border.brandPrimaryBase)
-                .padding(.horizontal, 4)
-                .background(AppColor.Surface.brandPrimarySubtle, in: RoundedRectangle(cornerRadius: 2))
+           if paxInfo.isRepresentative {
+                Text("入住代表人")
+                    .font(AppTypography.T05M)
+                    .foregroundStyle(AppColor.Border.brandPrimaryBase)
+                    .padding(.horizontal, 4)
+                    .background(AppColor.Surface.brandPrimarySubtle, in: RoundedRectangle(cornerRadius: 2))
+            }
             
             VStack(spacing: 8) {
-                passengerNameView
-                dashDivider
-                passengerBirthdayView
+                passengerNameView(pax: paxInfo)
+                if !hasError {
+                    dashDivider
+                    passengerBirthdayView(pax: paxInfo)
+                }
             }
             .padding(.vertical, 12)
             .padding(.horizontal, 16)
@@ -150,20 +184,20 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .background(hasError ? AppColor.Surface.stateError : AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 4))
     }
     
-    private var passengerNameView: some View {
+    private func passengerNameView(pax: PassengerInfoModel)-> some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 0) {
-                    Text("旅客1")
+                    Text(pax.paxNo)
                         .font(AppTypography.B05R)
                     Text("/")
                         .font(AppTypography.B05R)
-                    Text("男性")
+                    Text(pax.gender)
                         .font(AppTypography.T05B)
                 }
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
-                Text("吳威廉")
+                Text(pax.chineseName)
                     .font(AppTypography.T03M)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
             }
@@ -173,7 +207,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 Text("英文姓")
                     .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text("WU")
+                Text(pax.surname)
                     .font(AppTypography.T03M)
                     .foregroundStyle(hasError ? AppColor.Text.stateError : AppColor.Text.neutralBodyBase)
             }
@@ -183,7 +217,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 Text("英文名")
                     .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text("WALLEN")
+                Text(pax.givenName)
                     .font(AppTypography.T03M)
                     .foregroundStyle(hasError ? AppColor.Text.stateError : AppColor.Text.neutralBodyBase)
             }
@@ -192,13 +226,13 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var passengerBirthdayView: some View {
+    private func passengerBirthdayView(pax: PassengerInfoModel)-> some View {
         HStack(spacing: 6) {
             Text("西元生日")
                 .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
             
-            Text("1990/09/10")
+            Text(pax.birthday)
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
@@ -285,10 +319,10 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 if hasError {
                     presentAlert = true
                 }else {
-                    onEditTravelerInfo?()
+                    onEditTravelerInfo()
                 }
             } label: {
-                Text(hasError ? "重選人數" : "返回修改")
+                Text(leftButtonTitle)
                     .font(AppTypography.L02M)
                     .foregroundStyle(AppColor.Text.brandPrimaryBase)
                     .frame(maxWidth: .infinity)
@@ -302,12 +336,12 @@ struct PackagesPassengerInfoDoubleCheckView: View {
             
             Button {
                 if hasError {
-                    onEditTravelerInfo?()
+                    onEditTravelerInfo()
                 }else {
                     // p2->p3
                 }
             } label: {
-                Text(hasError ? "修改資料" : "確定")
+                Text(rightButtonTitle)
                     .font(AppTypography.L02M)
                     .foregroundStyle(AppColor.Text.neutralWhite)
                     .frame(maxWidth: .infinity)
@@ -325,5 +359,5 @@ struct PackagesPassengerInfoDoubleCheckView: View {
 }
 
 #Preview {
-    PackagesPassengerInfoDoubleCheckView()
+    PackagesPassengerInfoDoubleCheckView( onEditTravelerInfo: {})
 }
