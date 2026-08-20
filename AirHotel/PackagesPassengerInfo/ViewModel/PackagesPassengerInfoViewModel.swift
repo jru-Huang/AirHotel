@@ -42,7 +42,7 @@ class PackagesPassengerInfoViewModel: ObservableObject {
     
     func submitResult(hasAgreedOrderTerms: Bool) -> PackagesPassengerInfoSubmitResult {
         
-        let isTravelerInfoCompleted = info?.travelerInfo.travelerList.allSatisfy { !$0.pax.paxDetailList.isEmpty
+        let isTravelerInfoCompleted = info?.travelerInfo.travelerRoomList.allSatisfy { !$0.travelerList.isEmpty
         } ?? false
         
         hasTravelerInfoError = !isTravelerInfoCompleted
@@ -223,19 +223,23 @@ extension PackagesPassengerInfoViewModel {
                     buyerPhone: "0912345678",
                     noticeList: ["本系統為自動化機加酒組合訂購服務，僅提供「機票+飯店」套裝銷售，恕不適用信用卡特定合作專案、航空公司額外贈送服務，亦不提供單項加購（如：租車、當地行程）之需求。如您有特殊加購或個別專案需求，請至專屬頁面訂購或洽詢專人處理。", "後續訂購相關通知、付款成功後開立之電子機票及住宿券，將統一寄送至訂購人電子郵件信箱。請務必確認所填寫之聯絡資料正確無誤，以避免因資訊錯誤導致無法順利收取行程重要憑證。"]),
             travelerInfo: PackagesPassengerInfoModel.TravelerInfoModel(
-                travelerList: [
-                    PackagesPassengerInfoModel.Traveler(room: "房間1", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: [
-                        PackagesPassengerInfoModel.PaxDetail(
-                            paxChineseName: "吳威廉",
-                            paxSurName: "WU",
-                            paxGivenName: "WALLEN",
-                            isRoomLeader: true),
-                        PackagesPassengerInfoModel.PaxDetail(
-                            paxChineseName: "林小美",
-                            paxSurName: "Lin",
-                            paxGivenName: "Beauty",
-                            isRoomLeader: false)
-                    ])),
+                travelerRoomList: [
+                    PackagesPassengerInfoModel.TravelerRoom(roomNo: "房間1", numberOfPeople: "2位大人", travelerList: [
+                        TravelerModel(paxNo: nil,
+                                      gender: nil,
+                                      chineseName: "吳威廉",
+                                      surname: "WU",
+                                      givenName: "WALLEN",
+                                      birthday: nil,
+                                      isRepresentative: true),
+                        TravelerModel(paxNo: nil,
+                                      gender: nil,
+                                      chineseName: "林小美",
+                                      surname: "Lin",
+                                      givenName: "Beauty",
+                                      birthday: nil,
+                                      isRepresentative: false)
+                    ]),
 //                    PackagesPassengerInfoModel.Traveler(room: "房間2", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: [])),
 //                    PackagesPassengerInfoModel.Traveler(room: "房間3", pax: PackagesPassengerInfoModel.Pax(numberOfPeople: "2位大人", paxDetailList: []))
                 ]),

@@ -480,21 +480,23 @@ struct PackagesPassengerInfoView: View {
             PackagesPassengerInfoSectionHeaderView(title: "旅客資料")
             
             VStack(spacing: 0) {
-                ForEach(Array(info.travelerList.enumerated()), id: \.element.id) { index, traveler in
-                    travelerRoomPax(traveler: traveler, isLast: index == (info.travelerList.count - 1), hasCompleted: !(traveler.pax.paxDetailList.isEmpty))
+                ForEach(Array(info.travelerRoomList.enumerated()), id: \.element.id) { index, travelerRoom in
+                    setTravelerRoom(travelerRoom,
+                                    isLast: index == (info.travelerRoomList.count - 1),
+                                    hasCompleted: !(travelerRoom.travelerList.isEmpty))
                 }
             }
         }
     }
     
-    private func travelerRoomPax(traveler: PackagesPassengerInfoModel.Traveler, isLast: Bool, hasCompleted: Bool) -> some View {
+    private func setTravelerRoom( _ travelerRoom: PackagesPassengerInfoModel.TravelerRoom, isLast: Bool, hasCompleted: Bool) -> some View {
         VStack(spacing: 0) {
-            roomPaxHeader(traveler, hasCompleted: hasCompleted)
+            roomDetail(travelerRoom, hasCompleted: hasCompleted)
             
             if hasCompleted {
                 VStack(spacing: 0) {
-                    ForEach(Array(traveler.pax.paxDetailList.enumerated()), id: \.element.id) { itemIndex, paxDetail in
-                        roomPaxDetail(paxDetail, isLast: itemIndex == (traveler.pax.paxDetailList.count - 1))
+                    ForEach(Array(travelerRoom.travelerList.enumerated()), id: \.element.id) { itemIndex, traveler in
+                        travelerDetail(traveler, isLast: itemIndex == (travelerRoom.travelerList.count - 1))
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -509,15 +511,15 @@ struct PackagesPassengerInfoView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func roomPaxHeader(_ traveler: PackagesPassengerInfoModel.Traveler, hasCompleted: Bool) -> some View {
+    private func roomDetail(_ travelerRoom: PackagesPassengerInfoModel.TravelerRoom, hasCompleted: Bool) -> some View {
         Button {
             print("點選卡片標題（針對所有）")
         } label: {
             HStack(spacing: 12) {
                 HStack(spacing: 2) {
-                    Text(traveler.room)
+                    Text(travelerRoom.roomNo)
                     Text("/")
-                    Text(traveler.pax.numberOfPeople)
+                    Text(travelerRoom.numberOfPeople)
                 }
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
@@ -541,16 +543,16 @@ struct PackagesPassengerInfoView: View {
         }
     }
     
-    private func roomPaxDetail(_ paxDetail: PackagesPassengerInfoModel.PaxDetail, isLast: Bool) -> some View {
+    private func travelerDetail(_ traveler: TravelerModel, isLast: Bool) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 VStack(spacing: 2) {
                     HStack(spacing: 4) {
-                        Text(paxDetail.paxChineseName)
+                        Text(traveler.chineseName)
                             .font(AppTypography.B06R)
                             .foregroundStyle(AppColor.Text.neutralBodyMid)
                         
-                        if paxDetail.isRoomLeader {
+                        if traveler.isRepresentative {
                             Text("入住代表人")
                                 .font(AppTypography.B06M)
                                 .foregroundStyle(AppColor.Text.brandPrimaryMid)
@@ -559,9 +561,9 @@ struct PackagesPassengerInfoView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack(spacing: 2) {
-                        Text(paxDetail.paxSurName)
+                        Text(traveler.surname)
                         Text(",")
-                        Text(paxDetail.paxGivenName)
+                        Text(traveler.givenName)
                     }
                     .font(AppTypography.B03R)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)

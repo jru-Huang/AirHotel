@@ -73,26 +73,14 @@ struct PackagesPassengerInfoModel: Identifiable {
     }
     
     struct TravelerInfoModel {
-        let travelerList: [Traveler]
+        let travelerRoomList: [TravelerRoom]
     }
     
-    struct Traveler: Identifiable {
+    struct TravelerRoom: Identifiable {
         let id = UUID()
-        let room: String
-        let pax: Pax
-    }
-    
-    struct Pax {
+        let roomNo: String
         let numberOfPeople: String
-        let paxDetailList: [PaxDetail]
-    }
-    
-    struct PaxDetail: Identifiable {
-        let id = UUID()
-        let paxChineseName: String
-        let paxSurName: String
-        let paxGivenName: String
-        let isRoomLeader: Bool
+        let travelerList:  [TravelerModel]
     }
     
     struct PriceInfoModel {
