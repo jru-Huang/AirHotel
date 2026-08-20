@@ -7,18 +7,18 @@
 
 import SwiftUI
 
+struct TravelerModel: Identifiable {
+    let id = UUID()
+    let paxNo: String?
+    let gender: String?
+    let chineseName: String
+    let surname: String
+    let givenName: String
+    let birthday: String?
+    let isRepresentative: Bool
+}
+
 struct PackagesPassengerInfoDoubleCheckView: View {
-    
-    struct PassengerInfoModel: Identifiable {
-        let id = UUID()
-        let paxNo: String
-        let gender: String
-        let chineseName: String
-        let surname: String
-        let givenName: String
-        let birthday: String
-        let isRepresentative: Bool
-    }
     
     @State private var isBgVisible: Bool = false
     @State private var isContentVisible: Bool = false
@@ -38,36 +38,33 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         hasError ? "修改資料" : "確定"
     }
     
-    var passengerList = [
-        PassengerInfoModel(paxNo: "旅客1", gender: "男性", chineseName: "吳威廉", surname: "WU", givenName: "WALLEN", birthday: "1990/09/10", isRepresentative: true),
-        PassengerInfoModel(paxNo: "旅客2", gender: "女性", chineseName: "吳可樂", surname: "WU", givenName: "COLA", birthday: "2000/12/01", isRepresentative: false)
+    var travelerList = [
+        TravelerModel(paxNo: "旅客1", gender: "男性", chineseName: "吳威廉", surname: "WU", givenName: "WALLEN", birthday: "1990/09/10", isRepresentative: true),
+        TravelerModel(paxNo: "旅客2", gender: "女性", chineseName: "吳可樂", surname: "WU", givenName: "COLA", birthday: "2000/12/01", isRepresentative: false)
     ]
     
     var onClose: (() -> Void)
     var onEditTravelerInfo: (() -> Void)
-
+    
     private let hideDuration: Double = 0.2
     
+    private var maxHeight: CGFloat {
+        let designScreenSheetHeight: CGFloat = 618
+        let designScreenHeight: CGFloat = 815
+        let ratio = designScreenSheetHeight / designScreenHeight
+        let currentHeight = ratio * UIScreen.main.bounds.height
+        return currentHeight
+    }
+    
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .bottom) {
-                AppColor.Surface.opacityGrayMid
-                    .ignoresSafeArea()
-                    .onTapGesture(perform: {
-                        dismiss(completion: onClose)
-                    })
-                    .opacity(isBgVisible ? 1 : 0)
-                
-                contentView
-                    .frame(maxHeight: proxy.size.height * 0.8)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .opacity(isContentVisible ? 1 : 0)
-            }
-            .onAppear {
-                withAnimation(.easeOut(duration: 0.3)) {
-                    isBgVisible = true
-                    isContentVisible = true
-                }
+        ZStack(alignment: .bottom) {
+            backgroundView
+            contentView
+        }
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.3)) {
+                isBgVisible = true
+                isContentVisible = true
             }
         }
         .overlay {
@@ -85,55 +82,55 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         }
     }
     
+    private var backgroundView: some View {
+        AppColor.Surface.opacityGrayMid
+            .ignoresSafeArea()
+            .onTapGesture(perform: {
+                dismiss(completion: onClose)
+            })
+            .opacity(isBgVisible ? 1 : 0)
+    }
+    
     private var contentView: some View {
         VStack(spacing: 0) {
             navTitleView
+            descriptionView
             
             ScrollView {
                 VStack(spacing: 0) {
-                    descriptionView
-                    noticeView
-                    VStack(spacing: 6) {
-                        ForEach(passengerList) { passenger in
-                            passengerInfoView(paxInfo: passenger)
-                        }
-                    }
-                    .padding(.bottom, 16)
-                    .padding(.horizontal, 16)
-                    .background(AppColor.Surface.neutralWhite)
-                    
+                    noticeTopView
+                    travelerInfoView
                     buyerInfoView
                     noticeBottomView
                 }
             }
-            .background(AppColor.Surface.neutralWhite)
             
             if !hasError {
                 acceptView
             }
+            
             actionButtons
         }
+        .frame(maxWidth: .infinity, maxHeight: maxHeight, alignment: .bottom)
+        .fixedSize(horizontal: false, vertical: true)
+        .background {
+            RoundedCorner(radius: 8, corners: [.topLeft, .topRight])
+                .fill(AppColor.Surface.neutralWhite)
+        }
+        .opacity(isContentVisible ? 1 : 0)
     }
     
     private var navTitleView: some View {
-        ZStack {
-            HStack {
-                Button {
-                    dismiss(completion: onClose)
-                } label: {
-                    Image("ic_close_20")
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            
-            Text(navTitle)
-                .font(AppTypography.D03)
-                .foregroundStyle(AppColor.Text.neutralBodyBase)
+        var sheetHeaderStyle: SheetHeaderStyle {
+            var style = SheetHeaderStyle()
+            style.navMidType = .textTitle(text: "再次確認填寫資料")
+            style.backgroundColor = .clear
+            return style
         }
-        .background(AppColor.Surface.neutralWhite, in: RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
+        
+        return SheetHeaderView(style: sheetHeaderStyle, onTouchLeftItem: {
+            onClose()
+        })
     }
     
     private func dismiss(completion: @escaping (() -> Void)) {
@@ -149,7 +146,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
             completion()
         }
     }
-
+    
     private var descriptionView: some View {
         Text("旅客英文姓、名皆須和護照上相同，並確認稱謂、手機號碼與電子郵件是否正確")
             .font(AppTypography.T03M)
@@ -160,7 +157,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
             .background(AppColor.Surface.neutralWhite)
     }
     
-    private var noticeView: some View {
+    private var noticeTopView: some View {
         HStack(spacing: 4) {
             Image("ic_notice_16")
             Text("如確實有兩位以上旅客姓名一模一樣，應航空公司要求需請您返回首頁 → 重新選擇人數 → 分開下單")
@@ -180,9 +177,20 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .background(AppColor.Surface.neutralWhite)
     }
     
-    private func passengerInfoView(paxInfo: PassengerInfoModel)-> some View {
+    private var travelerInfoView: some View {
+        VStack(spacing: 6) {
+            ForEach(travelerList) { traveler in
+                travelerView(info: traveler)
+            }
+        }
+        .padding(.bottom, 16)
+        .padding(.horizontal, 16)
+        .background(AppColor.Surface.neutralWhite)
+    }
+    
+    private func travelerView(info: TravelerModel)-> some View {
         VStack(alignment: .leading, spacing: 0) {
-           if paxInfo.isRepresentative {
+            if info.isRepresentative {
                 Text("入住代表人")
                     .font(AppTypography.T05M)
                     .foregroundStyle(AppColor.Border.brandPrimaryBase)
@@ -191,10 +199,10 @@ struct PackagesPassengerInfoDoubleCheckView: View {
             }
             
             VStack(spacing: 8) {
-                passengerNameView(pax: paxInfo)
+                travelerNameView(info: info)
                 if !hasError {
                     dashDivider
-                    passengerBirthdayView(pax: paxInfo)
+                    travelerBirthdayView(info: info)
                 }
             }
             .padding(.vertical, 12)
@@ -203,20 +211,20 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .background(hasError ? AppColor.Surface.stateError : AppColor.Surface.neutralExtraSubtle, in: RoundedRectangle(cornerRadius: 4))
     }
     
-    private func passengerNameView(pax: PassengerInfoModel)-> some View {
+    private func travelerNameView(info: TravelerModel)-> some View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 0) {
-                    Text(pax.paxNo)
+                    Text(info.paxNo ?? "")
                         .font(AppTypography.B05R)
                     Text("/")
                         .font(AppTypography.B05R)
-                    Text(pax.gender)
+                    Text(info.gender ?? "")
                         .font(AppTypography.T05B)
                 }
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
                 
-                Text(pax.chineseName)
+                Text(info.chineseName)
                     .font(AppTypography.T03M)
                     .foregroundStyle(AppColor.Text.neutralBodyBase)
             }
@@ -226,7 +234,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 Text("英文姓")
                     .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text(pax.surname)
+                Text(info.surname)
                     .font(AppTypography.T03M)
                     .foregroundStyle(hasError ? AppColor.Text.stateError : AppColor.Text.neutralBodyBase)
             }
@@ -236,7 +244,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
                 Text("英文名")
                     .font(AppTypography.B05R)
                     .foregroundStyle(AppColor.Text.neutralBodyMid)
-                Text(pax.givenName)
+                Text(info.givenName)
                     .font(AppTypography.T03M)
                     .foregroundStyle(hasError ? AppColor.Text.stateError : AppColor.Text.neutralBodyBase)
             }
@@ -245,13 +253,13 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private func passengerBirthdayView(pax: PassengerInfoModel)-> some View {
+    private func travelerBirthdayView(info: TravelerModel)-> some View {
         HStack(spacing: 6) {
             Text("西元生日")
                 .font(AppTypography.B05R)
                 .foregroundStyle(AppColor.Text.neutralBodyMid)
             
-            Text(pax.birthday)
+            Text(info.birthday ?? "")
                 .font(AppTypography.T03M)
                 .foregroundStyle(AppColor.Text.neutralBodyBase)
         }
@@ -327,6 +335,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
         .padding(.vertical, 8)
         .padding(.horizontal, 16)
         .background(AppColor.Surface.neutralWhite)
+        .shadow(color: .black.opacity(0.1), radius: 0.5, x: 0, y: -1)
         .onTapGesture {
             hasAcceptedInfo.toggle()
         }
