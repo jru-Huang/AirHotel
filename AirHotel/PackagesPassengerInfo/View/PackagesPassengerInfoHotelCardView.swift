@@ -8,82 +8,67 @@
 import SwiftUI
 
 struct PackagesPassengerInfoHotelCardView: View {
+   
+    @Binding var sheetHeight: CGFloat
+    @Binding var scrollContentMinY: CGFloat
+    @Binding var isAdjustingSheetHeight: Bool
+
+    let detail: PackagesPassengerInfoModel.HotelDetail
+    let sheetStyle: ScrollBottomSheetStyle
+    let onClose: () -> Void
     
-    @State private var isBgVisible: Bool = false
-    @State private var isContentVisible: Bool = false
-    
-    var detail: PackagesPassengerInfoModel.HotelDetail
-    
-    var onClose: () -> Void
+    private let closeButtonHeight: CGFloat = 40
     
     var body: some View {
-        GeometryReader { proxy in
-            ZStack(alignment: .bottom) {
-                backgroundView
-                contentView
-                    .frame(maxHeight: proxy.size.height * 0.8)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .opacity(isContentVisible ? 1 : 0)
-            }
-            .onAppear {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    isBgVisible = true
-                    isContentVisible = true
-                }
-            }
-        }
-        .ignoresSafeArea(edges: .bottom)
-    }
-    
-    private var backgroundView: some View {
-        AppColor.Surface.opacityGrayMid
-            .ignoresSafeArea()
-            .onTapGesture(perform: {
-                dismiss(completion: onClose)
-            })
-            .opacity(isBgVisible ? 1 : 0)
-    }
-    
-    private var contentView: some View {
         VStack(spacing: 0) {
             navTitleView
-            ScrollView {
-                VStack(spacing: 9) {
-                    hotelNameSection
-                    roomDescSection
-                    bookingRuleSection
-                    checkInOutSection
-                    checkInInfoSection
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .background(AppColor.Background.pageGray)
             
-            closeView {
-                dismiss(completion: onClose)
+            if #available(iOS 16.4, *) {
+                scrollContentView
+                    .scrollBounceBehavior(.basedOnSize)
+                    .scrollDisabled(isAdjustingSheetHeight && scrollContentMinY >= -sheetStyle.topTolerance)
+            } else {
+                scrollContentView
             }
+            
+            closeView(action: onClose)
         }
     }
     
     private var navTitleView: some View {
-        ZStack {
-            HStack {
-                Button {
-                    dismiss(completion: onClose)
-                } label: {
-                    Image("ic_close_20")
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            
-            Text("入住資訊")
-                .font(AppTypography.D03)
-                .foregroundStyle(AppColor.Text.neutralBodyBase)
+        var sheetHeaderStyle: SheetHeaderStyle {
+            var style = SheetHeaderStyle()
+            style.navMidType = .textTitle(text: "入住資訊")
+            return style
         }
-        .background(AppColor.Surface.neutralWhite, in: RoundedCorner(radius: 8, corners: [.topLeft, .topRight]))
+        
+        return SheetHeaderView(style: sheetHeaderStyle, onTouchLeftItem: {
+            onClose()
+        })
+    }
+    
+    private var scrollContentView: some View {
+        ScrollView {
+            VStack(spacing: 9) {
+                hotelNameSection
+                roomDescSection
+                bookingRuleSection
+                checkInOutSection
+                checkInInfoSection
+            }
+            .frame(maxWidth: .infinity)
+            .onHeightChange { height in
+                guard height > 0 else { return }
+                //先取得scrollView內部contentHeight，再計算sheet總高度
+                let calculatedHeight: CGFloat = height + closeButtonHeight + safeAreaBottomInset
+                sheetHeight = calculatedHeight
+            }
+            .onMinYChange(in: .named("scroll")) { value in
+                scrollContentMinY = value
+            }
+        }
+        .background(AppColor.Background.pageGray)
+        .coordinateSpace(name: "scroll")
     }
     
     private var hotelNameSection: some View {
@@ -219,24 +204,14 @@ struct PackagesPassengerInfoHotelCardView: View {
                 .frame(height: safeAreaBottomInset)
         }
     }
-    
-    private func dismiss(completion: @escaping (() -> Void)) {
-        withAnimation(nil) {
-            isContentVisible = false
-        }
-
-        withAnimation(.easeInOut(duration: 0.2)) {
-            isBgVisible = false
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            completion()
-        }
-    }
 }
 
 #Preview {
-    PackagesPassengerInfoHotelCardView(detail: PackagesPassengerInfoModel.HotelDetail(
+    PackagesPassengerInfoHotelCardView(
+        sheetHeight: .constant(100),
+        scrollContentMinY: .constant(0),
+        isAdjustingSheetHeight: .constant(false),
+        detail: PackagesPassengerInfoModel.HotelDetail(
         hotelChineseName: "JR東日本大都會酒店 池袋 ",
         hotelEnglishName: "HOTEL METROPOLITAN TOKYO IKEBUKUROHOTEL METROPOLITAN TOKYO IKEBUKURO",
         hotelGrade: 4.2,
@@ -254,5 +229,7 @@ struct PackagesPassengerInfoHotelCardView: View {
         checkInTime: "16:00~23:00",
         checkOutTime: "11:00 前",
         checkInfo: "【入住說明】 入住手續開始時間：15:00 入住手續截止時間：00:00 退房時間：11:00\n若有額外房客入住，住宿業者會依照其規定收取費用\n辦理入住手續時可能需要出示政府核發且附有照片的證件，並以現金作為押金或提供信用卡/金融卡以支付雜費\n 住宿無法保證能符合房客所有特殊住房要求，房客須於辦理入住手續時與住宿確認；特殊入住要求可能需要加收費用\n此住宿接受信用卡、行動支付及現金等付款方式\n行動支付選項包括：PayPay\n請注意，不同國家和不同住宿的文化規範和旅客規定會有所不同，顯示的規定由住宿業者提供"),
+                                       
+      sheetStyle: ScrollBottomSheetStyle(),
         onClose: {})
 }

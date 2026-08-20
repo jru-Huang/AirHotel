@@ -32,7 +32,7 @@ class PackagesPassengerInfoViewModel: ObservableObject {
     func onViewAppear() {
         setupNotice()
         setupLineNotice()
-        updateCountdown(endDateTime: "2026-08-11T15:53:30")
+        updateCountdown(endDateTime: "2026-08-19T16:54:20")
         setInfo()
     }
     

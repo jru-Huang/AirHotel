@@ -40,6 +40,7 @@
 		7B6411BF2FD001AF00EC660B /* PackagesComboAmountDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411BE2FD001AF00EC660B /* PackagesComboAmountDetailView.swift */; };
 		7B6411C12FD0221B00EC660B /* PackagesComboHotelInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoModel.swift */; };
 		7B6411C32FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */; };
+		7B6E9722303452BE00FDAC9B /* ScrollBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6E9721303452BE00FDAC9B /* ScrollBottomSheet.swift */; };
 		7B9107622FD6650300083AF1 /* PackagesComboAmountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9107612FD6650300083AF1 /* PackagesComboAmountModel.swift */; };
 		7B9107642FD6938E00083AF1 /* PackagesNoticeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9107632FD6938E00083AF1 /* PackagesNoticeInfoView.swift */; };
 		7B9B132A30241B6700464369 /* PackagesPassengerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B9B132930241B6700464369 /* PackagesPassengerInfoView.swift */; };
@@ -104,6 +105,7 @@
 		7B6411BE2FD001AF00EC660B /* PackagesComboAmountDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountDetailView.swift; sourceTree = "<group>"; };
 		7B6411C02FD0221B00EC660B /* PackagesComboHotelInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboHotelInfoModel.swift; sourceTree = "<group>"; };
 		7B6411C22FD0270A00EC660B /* PackagesComboDiscountInfoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboDiscountInfoCard.swift; sourceTree = "<group>"; };
+		7B6E9721303452BE00FDAC9B /* ScrollBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollBottomSheet.swift; sourceTree = "<group>"; };
 		7B785D1B2FA8421400079056 /* AirHotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B9107612FD6650300083AF1 /* PackagesComboAmountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboAmountModel.swift; sourceTree = "<group>"; };
 		7B9107632FD6938E00083AF1 /* PackagesNoticeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesNoticeInfoView.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				7BE414C32FD2784600BF0EB6 /* DesignSystem */,
 				7B33A1CC3029656100F508AD /* BulletExpandableTextView.swift */,
 				7B3DCD2F3032F8C20049822E /* ColaAlertSwiftUIView.swift */,
+				7B6E9721303452BE00FDAC9B /* ScrollBottomSheet.swift */,
 			);
 			path = AirHotel;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				7BE9CD1A302F0AB800BF0CCE /* PackagesPassengerInfoHotelCardView.swift in Sources */,
 				7B4767992FF376500070BAA4 /* PackagesHotelIsGuaranteeResponse.swift in Sources */,
 				7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */,
+				7B6E9722303452BE00FDAC9B /* ScrollBottomSheet.swift in Sources */,
 				7B6411BF2FD001AF00EC660B /* PackagesComboAmountDetailView.swift in Sources */,
 				7BBB8525302D6BC600062DAD /* PackagesPassengerInfoModel.swift in Sources */,
 				7B9107642FD6938E00083AF1 /* PackagesNoticeInfoView.swift in Sources */,

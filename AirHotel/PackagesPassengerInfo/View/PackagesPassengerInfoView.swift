@@ -17,10 +17,14 @@ struct PackagesPassengerInfoView: View {
     @State private var isShowPricePerson = false
     @State private var hasReadOrderTerms = false
     @State private var isShowingOrderTerms = false
-    @State private var isShowingHotelCard = false
     @State private var isShowingDoubleCheck = false
     @State private var isShowingTravelerToast = false
     @State private var shouldScrollToTravelerInfo = false
+    
+    @State private var isShowingHotelCard = false
+    @State private var sheetHeight: CGFloat = .zero
+    @State private var scrollContentMinY: CGFloat = 0
+    @State private var isAdjustingSheetHeight = false
     
     init(viewModel: PackagesPassengerInfoViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -28,6 +32,17 @@ struct PackagesPassengerInfoView: View {
     
     private var hasNotice: Bool {
         viewModel.lineNotice != nil || viewModel.systemNotice != nil
+    }
+    
+    private var sheetStyle: ScrollBottomSheetStyle {
+        var style = ScrollBottomSheetStyle()
+        let designScreenSheetHeight: CGFloat = 652
+        let designScreenHeight: CGFloat = 815
+        let ratio = designScreenSheetHeight / designScreenHeight
+        let currentHeight = ratio * UIScreen.main.bounds.height
+        style.maxHeight = currentHeight
+        style.cornerRadius = 8
+        return style
     }
     
     var body: some View {
@@ -70,23 +85,29 @@ struct PackagesPassengerInfoView: View {
                 )
             }
         }
-        .overlay(alignment: .bottom) {
-            if isShowingTravelerToast {
-                Text("請填寫旅客資料")
-                    .font(AppTypography.B03R)
-                    .foregroundStyle(AppColor.Text.neutralWhite)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(AppColor.Surface.opacityGrayDark, in: Capsule())
-                    .padding(.bottom, safeAreaBottomInset + 24)
-                .transition(.opacity)
+//        .onHeightChange { height in
+//            guard height > 0 else { return }
+//            //先取得scrollView內部contentHeight，再計算sheet總高度
+//            let calculatedHeight: CGFloat = height + 40 + safeAreaBottomInset
+//            sheetHeight = calculatedHeight
+//        }
+        .scrollBottomSheet(
+            isPresented: $isShowingHotelCard,
+            sheetHeight: $sheetHeight,
+            scrollContentMinY: $scrollContentMinY,
+            isAdjustingSheetHeight: $isAdjustingSheetHeight,
+            style: sheetStyle,
+            onDismiss: {
+                
             }
-        }
-        .overlay {
-            if isShowingHotelCard,
-               let hotelDetail = viewModel.info?.hotelInfo.hotelDetail {
+        ) {
+            if let hotelDetail = viewModel.info?.hotelInfo.hotelDetail {
                 PackagesPassengerInfoHotelCardView(
+                    sheetHeight: $sheetHeight,
+                    scrollContentMinY: $scrollContentMinY,
+                    isAdjustingSheetHeight: $isAdjustingSheetHeight,
                     detail: hotelDetail,
+                    sheetStyle: sheetStyle,
                     onClose: {
                         isShowingHotelCard = false
                     }
@@ -104,6 +125,18 @@ struct PackagesPassengerInfoView: View {
                         shouldScrollToTravelerInfo = true
                     }
                 )
+            }
+        }
+        .overlay(alignment: .bottom) {
+            if isShowingTravelerToast {
+                Text("請填寫旅客資料")
+                    .font(AppTypography.B03R)
+                    .foregroundStyle(AppColor.Text.neutralWhite)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(AppColor.Surface.opacityGrayDark, in: Capsule())
+                    .padding(.bottom, safeAreaBottomInset + 24)
+                    .transition(.opacity)
             }
         }
     }
