@@ -36,11 +36,7 @@ struct PackagesPassengerInfoView: View {
     
     private var sheetStyle: ScrollBottomSheetStyle {
         var style = ScrollBottomSheetStyle()
-        let designScreenSheetHeight: CGFloat = 652
-        let designScreenHeight: CGFloat = 815
-        let ratio = designScreenSheetHeight / designScreenHeight
-        let currentHeight = ratio * UIScreen.main.bounds.height
-        style.maxHeight = currentHeight
+//        style.maxHeight = screenHeight * 0.8
         style.cornerRadius = 8
         return style
     }
@@ -69,22 +65,7 @@ struct PackagesPassengerInfoView: View {
         .ignoresSafeArea(edges: .bottom)
         .onAppear(perform: viewModel.onViewAppear)
         .background(AppColor.Background.pageGray)
-        .overlay {
-            if viewModel.isShowingExpireTimeDialog {
-                DialogSwiftUIView(
-                    model: DialogSwiftUIModel(
-                        imgName: "ic_exceed_100",
-                        title: "訂購時間已逾時",
-                        message: "機加酒資訊已更新\n請重新整理以查看最新搜尋結果。",
-                        isSingleButton: true,
-                        rightTitle: "重新整理"
-                    ),
-                    onRightAction: {
-                        viewModel.dismissExpireTimeDialog()
-                    }
-                )
-            }
-        }
+        
 //        .onHeightChange { height in
 //            guard height > 0 else { return }
 //            //先取得scrollView內部contentHeight，再計算sheet總高度
@@ -137,6 +118,23 @@ struct PackagesPassengerInfoView: View {
                     .background(AppColor.Surface.opacityGrayDark, in: Capsule())
                     .padding(.bottom, safeAreaBottomInset + 24)
                     .transition(.opacity)
+            }
+        }
+        .overlay {
+            if viewModel.isShowingExpireTimeDialog {
+                DialogSwiftUIView(
+                    model: DialogSwiftUIModel(
+                        imgName: "ic_exceed_100",
+                        title: "訂購時間已逾時",
+                        message: "機加酒資訊已更新\n請重新整理以查看最新搜尋結果。",
+                        isSingleButton: true,
+                        rightTitle: "重新整理"
+                    ),
+                    onRightAction: {
+                        viewModel.dismissExpireTimeDialog()
+                    }
+                )
+                .zIndex(1)
             }
         }
     }

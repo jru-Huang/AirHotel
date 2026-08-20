@@ -49,11 +49,7 @@ struct PackagesPassengerInfoDoubleCheckView: View {
     private let hideDuration: Double = 0.2
     
     private var maxHeight: CGFloat {
-        let designScreenSheetHeight: CGFloat = 618
-        let designScreenHeight: CGFloat = 815
-        let ratio = designScreenSheetHeight / designScreenHeight
-        let currentHeight = ratio * UIScreen.main.bounds.height
-        return currentHeight
+        return screenHeight * 0.8
     }
     
     var body: some View {

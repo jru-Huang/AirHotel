@@ -55,7 +55,6 @@
 		7BE414C72FD2784600BF0EB6 /* DesignToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414BD2FD2784600BF0EB6 /* DesignToken.swift */; };
 		7BE414C82FD2784600BF0EB6 /* AppTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414C22FD2784600BF0EB6 /* AppTypography.swift */; };
 		7BE414CA2FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE414C92FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift */; };
-		7BE9CD18302F093800BF0CCE /* CloseNavBarSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9CD17302F093800BF0CCE /* CloseNavBarSwiftUIView.swift */; };
 		7BE9CD1A302F0AB800BF0CCE /* PackagesPassengerInfoHotelCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE9CD19302F0AB700BF0CCE /* PackagesPassengerInfoHotelCardView.swift */; };
 		7BF022EA2FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF022E92FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift */; };
 		AA0000010000000000000001 /* PackagesPassengerInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */; };
@@ -121,7 +120,6 @@
 		7BE414C12FD2784600BF0EB6 /* AppSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSpacing.swift; sourceTree = "<group>"; };
 		7BE414C22FD2784600BF0EB6 /* AppTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypography.swift; sourceTree = "<group>"; };
 		7BE414C92FD2D39D00BF0EB6 /* PackagesComboChangeSearchNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesComboChangeSearchNavView.swift; sourceTree = "<group>"; };
-		7BE9CD17302F093800BF0CCE /* CloseNavBarSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseNavBarSwiftUIView.swift; sourceTree = "<group>"; };
 		7BE9CD19302F0AB700BF0CCE /* PackagesPassengerInfoHotelCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoHotelCardView.swift; sourceTree = "<group>"; };
 		7BF022E92FEE7E5C00E04F76 /* HomeAdImageViewSwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAdImageViewSwiftUIView.swift; sourceTree = "<group>"; };
 		AA0000020000000000000002 /* PackagesPassengerInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagesPassengerInfoViewModelTests.swift; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 		7B9B132B30242E3B00464369 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7BE9CD16302F08A300BF0CCE /* Common */,
 				7B9B132930241B6700464369 /* PackagesPassengerInfoView.swift */,
 				7B09808D3025B54A0049422E /* PackagesPassengerInfoSectionHeaderView.swift */,
 				7B3ECD70302B0F4E00550AA6 /* PackagesPassengerInfoOrderTermsView.swift */,
@@ -316,14 +313,6 @@
 				7BE414C22FD2784600BF0EB6 /* AppTypography.swift */,
 			);
 			path = DesignSystem;
-			sourceTree = "<group>";
-		};
-		7BE9CD16302F08A300BF0CCE /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				7BE9CD17302F093800BF0CCE /* CloseNavBarSwiftUIView.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		AA0000060000000000000006 /* AirHotelTests */ = {
@@ -470,7 +459,6 @@
 				7BE414C72FD2784600BF0EB6 /* DesignToken.swift in Sources */,
 				7BE414C82FD2784600BF0EB6 /* AppTypography.swift in Sources */,
 				7B39BE3D2FC97A61003ABF42 /* PackagesComboHotelCard.swift in Sources */,
-				7BE9CD18302F093800BF0CCE /* CloseNavBarSwiftUIView.swift in Sources */,
 				7B39BE3B2FC971CF003ABF42 /* PackagesComboNavInfo.swift in Sources */,
 				7B2D22EC2FC820B900D0531F /* PackagesComboCardTitle.swift in Sources */,
 				7B3343662FCD5E4E00B82A6A /* PackagesComboDiscountCard.swift in Sources */,

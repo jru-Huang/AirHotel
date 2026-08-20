@@ -46,7 +46,7 @@ public struct ScrollBottomSheetStyle {
     public var dismissDuration: TimeInterval = 0.3
     
     /// Sheet 最大高度（預設為螢幕高度 2/3）
-    public var maxHeight: CGFloat = (UIScreen.main.bounds.height / 3) * 2
+    public var maxHeight: CGFloat = screenHeight * 0.8
     /// 關閉閾值： 拉動超過此距離才視為有關閉意圖
     public var dismissThreshold: CGFloat = 150
     /// 快速甩動閾值： 手勢停留及離開後的預測滑動距離，超過此值表示快速甩動
