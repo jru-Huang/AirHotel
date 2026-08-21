@@ -31,7 +31,7 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
     // 任一房間尚未加入旅客時，應優先回傳旅客資料未完成，不檢查訂購須知。
     func testSubmitResultWhenAnyRoomHasNoPassengerReturnsIncompleteTravelerInfoFirst() {
         // Given：房間 1 已填寫，房間 2 沒有旅客，且尚未同意訂購須知。
-        viewModel.info = makeInfo(paxDetailLists: [[makePaxDetail()], []])
+        viewModel.info = makeInfo(travelerLists: [[makeTraveler()], []])
 
         // When
         let result = viewModel.submitResult(hasAgreedOrderTerms: false)
@@ -41,10 +41,23 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
         XCTAssertTrue(viewModel.hasTravelerInfoError)
     }
 
+    // 沒有任何房間資料時，不可因空陣列的 allSatisfy 回傳 true 而誤判為完成。
+    func testSubmitResultWhenTravelerRoomListIsEmptyReturnsIncompleteTravelerInfo() {
+        // Given
+        viewModel.info = makeInfo(travelerLists: [])
+
+        // When
+        let result = viewModel.submitResult(hasAgreedOrderTerms: true)
+
+        // Then
+        XCTAssertEqual(result, .incompleteTravelerInfo)
+        XCTAssertTrue(viewModel.hasTravelerInfoError)
+    }
+
     // 旅客資料完整但尚未同意訂購須知時，應要求開啟訂購須知。
     func testSubmitResultWhenTravelersAreCompleteButTermsAreNotAcceptedReturnsOrderTermsNotAccepted() {
         // Given
-        viewModel.info = makeInfo(paxDetailLists: [[makePaxDetail()], [makePaxDetail()]])
+        viewModel.info = makeInfo(travelerLists: [[makeTraveler()], [makeTraveler()]])
 
         // When
         let result = viewModel.submitResult(hasAgreedOrderTerms: false)
@@ -57,7 +70,7 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
     // 旅客資料完整且已同意訂購須知時，應允許送出訂單。
     func testSubmitResultWhenTravelersAreCompleteAndTermsAreAcceptedReturnsSuccess() {
         // Given
-        viewModel.info = makeInfo(paxDetailLists: [[makePaxDetail()], [makePaxDetail()]])
+        viewModel.info = makeInfo(travelerLists: [[makeTraveler()], [makeTraveler()]])
 
         // When
         let result = viewModel.submitResult(hasAgreedOrderTerms: true)
@@ -69,15 +82,13 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
 
     // 建立測試所需的最小訂單資料，僅讓每個案例調整旅客清單。
     private func makeInfo(
-        paxDetailLists: [[PackagesPassengerInfoModel.PaxDetail]]
+        travelerLists: [[TravelerModel]]
     ) -> PackagesPassengerInfoModel {
-        let travelers = paxDetailLists.enumerated().map { index, paxDetailList in
-            PackagesPassengerInfoModel.Traveler(
-                room: "房間\(index + 1)",
-                pax: PackagesPassengerInfoModel.Pax(
-                    numberOfPeople: "1位大人",
-                    paxDetailList: paxDetailList
-                )
+        let travelerRooms = travelerLists.enumerated().map { index, travelerList in
+            PackagesPassengerInfoModel.TravelerRoom(
+                roomNo: "房間\(index + 1)",
+                numberOfPeople: "1位大人",
+                travelerList: travelerList
             )
         }
 
@@ -91,7 +102,8 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
                 hotelName: "測試飯店",
                 checkInDate: "2026-08-14",
                 checkOutDate: "2026-08-15",
-                roomDesc: "測試房型"
+                roomDesc: "測試房型",
+                hotelDetail: PackagesPassengerInfoModel.HotelDetail.init(hotelChineseName: "測試飯店", hotelEnglishName: "hotelTest", hotelGrade: 4.0, gradeDesc: "四星級飯店", hotelRating: 3.5, hotelGreenMark: true, displayTag: ["Tag"], roomDescription: "標準房", breakfastMark: true, breakfastType: "含早餐", bookingRule: "可免費取消", guaranteeMark: true, serviceFeeDesc: "手續費ＴＷＤ500", cancelDesc: "啊啊啊取消可行", checkInTime: "16:00~23:00", checkOutTime: "11點前", checkInfo: "入住規定請詳讀")
             ),
             buyerInfo: .init(
                 buyerName: "測試訂購人",
@@ -99,7 +111,7 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
                 buyerPhone: "0912345678",
                 noticeList: []
             ),
-            travelerInfo: .init(travelerList: travelers),
+            travelerInfo: .init(travelerRoomList: travelerRooms),
             priceDetail: .init(
                 amount: .init(amountPrice: "$0", amountDetailList: []),
                 coupon: .init(title: "優惠折扣", price: "$0"),
@@ -111,12 +123,14 @@ final class PackagesPassengerInfoViewModelTests: XCTestCase {
     }
 
     // 建立測試使用的預設旅客資料。
-    private func makePaxDetail() -> PackagesPassengerInfoModel.PaxDetail {
-        PackagesPassengerInfoModel.PaxDetail(
-            paxChineseName: "王大明",
-            paxSurName: "WANG",
-            paxGivenName: "DA MING",
-            isRoomLeader: true
+    private func makeTraveler() -> TravelerModel {
+        TravelerModel(paxNo: nil,
+                      gender: nil,
+                      chineseName: "王大明",
+                      surname: "WANG",
+                      givenName: "DA MING",
+                      birthday: nil,
+                      isRepresentative: true
         )
     }
     

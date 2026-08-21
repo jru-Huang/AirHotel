@@ -42,8 +42,10 @@ class PackagesPassengerInfoViewModel: ObservableObject {
     
     func submitResult(hasAgreedOrderTerms: Bool) -> PackagesPassengerInfoSubmitResult {
         
-        let isTravelerInfoCompleted = info?.travelerInfo.travelerRoomList.allSatisfy { !$0.travelerList.isEmpty
-        } ?? false
+        let travelerRoomList = info?.travelerInfo.travelerRoomList ?? []
+        let isTravelerInfoCompleted =
+            !travelerRoomList.isEmpty &&
+            travelerRoomList.allSatisfy { !$0.travelerList.isEmpty }
         
         hasTravelerInfoError = !isTravelerInfoCompleted
         
